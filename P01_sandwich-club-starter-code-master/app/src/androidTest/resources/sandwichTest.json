@@ -1,0 +1,10 @@
+{
+  "name":{
+    "mainName":"Club sandwich",
+    "alsoKnownAs":["Clubhouse sandwich"]
+  },
+  "placeOfOrigin":"United States",
+  "description":"test description",
+  "image":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Club_sandwich.png/800px-Club_sandwich.png",
+  "ingredients":["Toasted bread","Turkey or chicken","Bacon","Lettuce","Tomato","Mayonnaise"]
+}

@@ -18,13 +18,13 @@ import java.util.List;
  */
 public class JsonUtils {
 
-    private final static String JSON_NAME_KEY              = "name";
-    private final static String JSON_MAIN_NAME_KEY         = "mainName";
-    private final static String JSON_AKA_KEY               = "alsoKnownAs";
-    private final static String JSON_PLACE_OF_ORIGIN_KEY   = "placeOfOrigin";
-    private final static String JSON_DESCRIPTION_KEY       = "description";
-    private final static String JSON_IMAGE_KEY             = "image";
-    private final static String JSON_INGREDIENTS_KEY       = "ingredients";
+    public final static String JSON_NAME_KEY              = "name";
+    public final static String JSON_MAIN_NAME_KEY         = "mainName";
+    public final static String JSON_AKA_KEY               = "alsoKnownAs";
+    public final static String JSON_PLACE_OF_ORIGIN_KEY   = "placeOfOrigin";
+    public final static String JSON_DESCRIPTION_KEY       = "description";
+    public final static String JSON_IMAGE_KEY             = "image";
+    public final static String JSON_INGREDIENTS_KEY       = "ingredients";
 
     /**
      * parse the json into an sandwich object
