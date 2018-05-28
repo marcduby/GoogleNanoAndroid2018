@@ -13,6 +13,10 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 
 import java.util.List;
 
+/**
+ * Activity class to display the selected sandwich details
+ *
+ */
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
@@ -68,6 +72,8 @@ public class DetailActivity extends AppCompatActivity {
 
     /**
      * main method to add sandwich details to the detail view
+     *
+     * @param sandwich                  the sandwich to display
      */
     private void populateUI(Sandwich sandwich) {
         // add the name
@@ -79,6 +85,7 @@ public class DetailActivity extends AppCompatActivity {
         this.descriptionTextView.setText(sandwich.getDescription());
 
         // add the also known as
+        // if not aka data, hide the text view
         this.akaTextView = (TextView)this.findViewById(R.id.also_known_tv);
         this.akaTextView.setText(this.buildListString(sandwich.getAlsoKnownAs()));
 
