@@ -66,7 +66,7 @@ public class JsonUtils {
 
             // set the aka
             jsonArray = jsonObject.getJSONArray(JSON_AKA_KEY);
-            sandwich.setIngredients(getListStringFromJsonArray(jsonArray));
+            sandwich.setAlsoKnownAs(getListStringFromJsonArray(jsonArray));
 
         } catch (JSONException exception) {
             String message = "Got json parsing exception: " + exception.getMessage();
