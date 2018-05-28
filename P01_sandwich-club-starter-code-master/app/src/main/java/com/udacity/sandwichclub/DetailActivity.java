@@ -103,9 +103,11 @@ public class DetailActivity extends AppCompatActivity {
 
         // loop through string
         if (stringList != null) {
-            for (String item : stringList) {
-                buffer.append(item);
-                buffer.append("\n");
+            for (int i = 0; i < stringList.size(); i++) {
+                buffer.append(stringList.get(i));
+                if (i < (stringList.size() -1)) {
+                    buffer.append("\n");
+                }
             }
         }
 
