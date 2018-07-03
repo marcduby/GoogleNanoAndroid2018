@@ -3,6 +3,7 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +61,10 @@ public class DetailActivity extends AppCompatActivity {
         populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
+                .placeholder(R.drawable.baseline_fastfood_black_18dp)
+                .error(R.drawable.baseline_fastfood_black_18dp)
                 .into(ingredientsIv);
+
 
         setTitle(sandwich.getMainName());
     }
@@ -77,25 +81,60 @@ public class DetailActivity extends AppCompatActivity {
      */
     private void populateUI(Sandwich sandwich) {
         // add the name
-        this.nameTextView = (TextView)this.findViewById(R.id.main_name_tv);
-        this.nameTextView.setText(sandwich.getMainName());
+        nameTextView = findViewById(R.id.main_name_tv);
+        if (sandwich.getMainName().isEmpty()) {
+            TextView labelView = findViewById(R.id.main_origin_label_tv);
+            nameTextView.setVisibility(View.GONE);
+            labelView.setVisibility(View.GONE);
+
+        } else {
+            nameTextView.setText(sandwich.getMainName());
+        }
 
         // add the description
-        this.descriptionTextView = (TextView)this.findViewById(R.id.description_tv);
-        this.descriptionTextView.setText(sandwich.getDescription());
+        descriptionTextView = findViewById(R.id.description_tv);
+        if (sandwich.getDescription().isEmpty()) {
+            TextView labelView = findViewById(R.id.description_label_tv);
+            descriptionTextView.setVisibility(View.GONE);
+            labelView.setVisibility(View.GONE);
+
+        } else {
+            descriptionTextView.setText(sandwich.getDescription());
+        }
 
         // add the also known as
         // if not aka data, hide the text view
-        this.akaTextView = (TextView)this.findViewById(R.id.also_known_tv);
-        this.akaTextView.setText(this.buildListString(sandwich.getAlsoKnownAs()));
+        akaTextView = findViewById(R.id.also_known_tv);
+        if (sandwich.getAlsoKnownAs().isEmpty()) {
+            TextView labelView = findViewById(R.id.also_known_label_tv);
+            akaTextView.setVisibility(View.GONE);
+            labelView.setVisibility(View.GONE);
+
+        } else {
+            akaTextView.setText(this.buildListString(sandwich.getAlsoKnownAs()));
+        }
 
         // add the ingredient
-        this.ingredientsTextView = (TextView)this.findViewById(R.id.ingredients_tv);
-        this.ingredientsTextView.setText(this.buildListString(sandwich.getIngredients()));
+        ingredientsTextView = findViewById(R.id.ingredients_tv);
+        if (sandwich.getIngredients().isEmpty()) {
+            TextView labelView = findViewById(R.id.ingredients_label_tv);
+            ingredientsTextView.setVisibility(View.GONE);
+            labelView.setVisibility(View.GONE);
+
+        } else {
+            ingredientsTextView.setText(this.buildListString(sandwich.getIngredients()));
+        }
 
         // add the origin
-        this.originTextView = (TextView)this.findViewById(R.id.origin_tv);
-        this.originTextView.setText(sandwich.getPlaceOfOrigin());
+        originTextView = findViewById(R.id.origin_tv);
+        if (sandwich.getPlaceOfOrigin().isEmpty()) {
+            TextView labelView = findViewById(R.id.main_origin_label_tv);
+            originTextView.setVisibility(View.GONE);
+            labelView.setVisibility(View.GONE);
+
+        } else {
+            originTextView.setText(sandwich.getPlaceOfOrigin());
+        }
     }
 
     /**

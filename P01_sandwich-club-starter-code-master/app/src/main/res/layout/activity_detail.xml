@@ -22,7 +22,7 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/main_name_label"
+        android:id="@+id/main_name_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/detail_name_label"
@@ -35,6 +35,7 @@
         style="@style/detailView"/>
 
     <TextView
+        android:id="@+id/also_known_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/detail_also_known_as_label"
@@ -47,7 +48,7 @@
         style="@style/detailView"/>
 
     <TextView
-        android:id="@+id/main_origin_label"
+        android:id="@+id/main_origin_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/detail_place_of_origin_label"
@@ -60,6 +61,7 @@
         style="@style/detailView"/>
 
     <TextView
+        android:id="@+id/description_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/detail_description_label"
@@ -72,6 +74,7 @@
         style="@style/detailView"/>
 
     <TextView
+        android:id="@+id/ingredients_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/detail_ingredients_label"
