@@ -31,18 +31,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "" + position,
                         Toast.LENGTH_SHORT).show();
 
-                // get the movie bean
-                MovieBean movieBean = MovieUtils.getMoviesByRating().get(position);
-
                 // launch the movie detail activity
-                if (movieBean != null) {
-                    Log.i(this.getClass().getName(), "Loading movie bean with list index: " + position + " and name: " + movieBean.getName());
-                    launchMovieDetailActivity(movieBean);
-
-                } else {
-                    Log.e(this.getClass().getName(), "Can't find movie bean with list index: " + position);
-                    Toast.makeText(MainActivity.this, "" + "No movie to load", Toast.LENGTH_SHORT).show();
-                }
+                launchMovieDetailActivity(position);
             }
         });
     }
@@ -50,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * launch the movie detail activity
      *
-     * @param movieBean
+     * @param position
      */
-    private void launchMovieDetailActivity(MovieBean movieBean) {
+    private void launchMovieDetailActivity(int position) {
         Intent intent = new Intent(this, MovieDetailActivity.class);
-        intent.putExtra(MovieDetailActivity.MOVIE_KEY, movieBean);
+        intent.putExtra(MovieDetailActivity.EXTRA_POSITION, position);
         startActivity(intent);
     }
 }

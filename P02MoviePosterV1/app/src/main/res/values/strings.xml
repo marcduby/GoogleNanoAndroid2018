@@ -1,4 +1,16 @@
 <resources>
-    <string name="app_name">P02-MoviePosterV1</string>
+    <string name="app_name">Movie Browser</string>
     <string name="title_activity_movie_detail">MovieDetailActivity</string>
+
+    <string name="detail_name_label">Title</string>
+    <string name="detail_plot_synopsis_label">Plot Synopsis:</string>
+    <string name="detail_user_rating_label">User Rating:</string>
+    <string name="detail_release_date_label">Release Date:</string>
+
+    <!-- Content descriptions-->
+    <string name="movie_picture_content_description">Movie picture</string>
+
+    <!-- Error messages-->
+    <string name="detail_error_message">Movie data not available</string>
+
 </resources>
