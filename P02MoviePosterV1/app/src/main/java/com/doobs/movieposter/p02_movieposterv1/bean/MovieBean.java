@@ -1,5 +1,6 @@
 package com.doobs.movieposter.p02_movieposterv1.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Date;
  * Created by mduby on 7/7/18.
  */
 
-public class MovieBean {
+public class MovieBean implements Serializable {
     // instance variables
     private String name;            // also PK
     private Float rating;

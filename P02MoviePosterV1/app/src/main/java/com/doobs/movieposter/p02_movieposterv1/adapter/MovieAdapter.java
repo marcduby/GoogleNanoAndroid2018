@@ -50,7 +50,7 @@ public class MovieAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(85, 85));
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(185, 185));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
         } else {
@@ -61,7 +61,7 @@ public class MovieAdapter extends BaseAdapter {
         MovieBean movieBean = this.movieBeanList.get(position);
         Picasso.get()
                 .load(movieBean.getImageUrl())
-                .resize(85, 85)
+                .resize(185, 185)
                 .into(imageView);
 //        imageView.setImageResource(mThumbIds[position]);
         return imageView;
