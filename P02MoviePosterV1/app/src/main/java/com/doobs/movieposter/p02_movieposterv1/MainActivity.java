@@ -27,9 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
                 // toast for debugging
-                Toast.makeText(MainActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "" + position,
+//                        Toast.LENGTH_SHORT).show();
 
                 // launch the movie detail activity
                 launchMovieDetailActivity(position);

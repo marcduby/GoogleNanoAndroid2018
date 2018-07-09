@@ -61,7 +61,8 @@ public class MovieAdapter extends BaseAdapter {
         MovieBean movieBean = this.movieBeanList.get(position);
         Picasso.get()
                 .load(movieBean.getImageUrl())
-                .resize(185, 185)
+//                .resize(185, 185)
+                .fit()
                 .into(imageView);
 //        imageView.setImageResource(mThumbIds[position]);
         return imageView;
