@@ -16,6 +16,8 @@ import com.doobs.movieposter.p02_movieposterv1.adapter.MovieAdapter;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,7 +28,13 @@ public class MainActivity extends AppCompatActivity {
         Log.i(this.getClass().getName(), "In onCreate");
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new MovieAdapter(this));
+
+        // create the adapter with the movie data
+        List<MovieBean> movieBeanList = MovieUtils.getMoviesByRating();
+        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
+
+        // set the adapter
+        gridview.setAdapter(movieAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

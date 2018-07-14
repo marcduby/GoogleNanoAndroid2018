@@ -1,11 +1,14 @@
 package com.doobs.movieposter.p02_movieposterv1.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.doobs.movieposter.p02_movieposterv1.R;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 import com.squareup.picasso.Picasso;
@@ -17,7 +20,7 @@ import java.util.List;
  * Created by mduby on 7/7/18.
  */
 
-public class MovieAdapter extends BaseAdapter {
+public class MovieAdapter extends ArrayAdapter<MovieBean> {
     // instance variables
     private Context mContext;
     private List<MovieBean> movieBeanList = new ArrayList<MovieBean>();
@@ -27,45 +30,32 @@ public class MovieAdapter extends BaseAdapter {
      *
      * @param context
      */
-    public MovieAdapter(Context context) {
-        mContext = context;
-        this.movieBeanList = MovieUtils.getMoviesByRating();
-    }
-
-    public int getCount() {
-        return this.movieBeanList.size();
-    }
-
-    public Object getItem(int position) {
-        return null;
-    }
-
-    public long getItemId(int position) {
-        return 0;
+    public MovieAdapter(Context context, List<MovieBean> movieBeanList) {
+        super(context, 0, movieBeanList);
     }
 
     // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(185, 185));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            imageView = (ImageView) convertView;
+    public View getView(int position, View listView, ViewGroup parent) {
+        // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
+        MovieBean movieBean = getItem(position);
+
+        // Adapters recycle views to AdapterViews.
+        // If this is a new View object we're getting, then inflate the layout.
+        // If not, this view already has the layout inflated from a previous call to getView,
+        // and we modify the View widgets as usual.
+        if (listView == null) {
+            listView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_movie, parent, false);
         }
 
-        // use Picasso to load the image
-        MovieBean movieBean = this.movieBeanList.get(position);
+        ImageView imageView = (ImageView) listView.findViewById(R.id.list_item_movie_iv);
         Picasso.get()
                 .load(movieBean.getImageUrl())
 //                .resize(185, 185)
                 .fit()
                 .into(imageView);
-//        imageView.setImageResource(mThumbIds[position]);
-        return imageView;
+
+        // return
+        return listView;
     }
 
 

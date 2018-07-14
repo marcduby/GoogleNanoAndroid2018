@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="4dp">
 
     <ImageView
-        android:id="@+id/list_item_icon"
+        android:id="@+id/list_item_movie_iv"
         android:layout_width="185dp"
         android:layout_height="277dp"/>
 

@@ -82,7 +82,7 @@ public class MovieUtils {
         List<MovieBean> movieBeanList = new ArrayList<MovieBean>();
 
         // create dummy movie list
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 17; i++) {
             MovieBean movieBean = new MovieBean();
             movieBean.setName(String.valueOf(i));
             movieBean.setImageUrl("http://i.imgur.com/DvpvklR.png");
