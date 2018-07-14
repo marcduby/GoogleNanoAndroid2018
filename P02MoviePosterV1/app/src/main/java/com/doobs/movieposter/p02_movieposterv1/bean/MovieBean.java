@@ -11,9 +11,10 @@ import java.util.Date;
 
 public class MovieBean implements Serializable {
     // instance variables
+    private Integer id;
     private String name;            // also PK
-    private Float rating;
-    private Float popularity;
+    private Double rating;
+    private Double popularity;
     private String title;
     private String plotSynopsis;
     private Date releaseDate;
@@ -28,19 +29,19 @@ public class MovieBean implements Serializable {
         this.name = name;
     }
 
-    public Float getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
-    public Float getPopularity() {
+    public Double getPopularity() {
         return popularity;
     }
 
-    public void setPopularity(Float popularity) {
+    public void setPopularity(Double popularity) {
         this.popularity = popularity;
     }
 
@@ -74,5 +75,13 @@ public class MovieBean implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
