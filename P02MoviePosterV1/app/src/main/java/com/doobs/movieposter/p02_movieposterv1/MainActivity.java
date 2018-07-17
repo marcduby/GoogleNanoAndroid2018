@@ -2,6 +2,7 @@ package com.doobs.movieposter.p02_movieposterv1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.doobs.movieposter.p02_movieposterv1.adapter.MovieAdapter;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
                 launchMovieDetailActivity(position);
             }
         });
+
+        // test load of movies
+//        this.loadMovieList(null, false);
     }
 
     @Override
@@ -95,5 +101,49 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MovieDetailActivity.class);
         intent.putExtra(MovieDetailActivity.EXTRA_POSITION, position);
         startActivity(intent);
+    }
+
+    private void loadMovieList(String jsonInputString, boolean isIntialLoad) {
+        // local variables
+        List<MovieBean> movieBeanList = new ArrayList<MovieBean>();
+
+        // if json not null
+        if (jsonInputString != null) {
+            // get the movie list from the json result
+
+        } else {
+            if (isIntialLoad) {
+                // show toast for error in network
+                String textToShow = "Error loading movies; please check network access";
+                Toast.makeText(this, textToShow, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // create a new adapter
+        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
+
+        // get the grid view
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+
+        // apply the adapter to the grid view
+        gridview.setAdapter(movieAdapter);
+
+    }
+
+    /**
+     * async class to make the network call
+     *
+     */
+    public class MovieLoadTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected String doInBackground(URL... urls) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
     }
 }
