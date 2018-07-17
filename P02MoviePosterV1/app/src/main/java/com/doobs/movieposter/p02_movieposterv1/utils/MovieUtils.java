@@ -3,6 +3,7 @@ package com.doobs.movieposter.p02_movieposterv1.utils;
 import android.net.Uri;
 import android.util.Log;
 
+import com.doobs.movieposter.p02_movieposterv1.BuildConfig;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class MovieUtils {
     // static constants
     public static class MovieService {
         // sample URL: http://api.themoviedb.org/3/movie/popular?api_key=
+        public static final String API_KEY                  = BuildConfig.MOVIEDB_KEY;
 
         public static final String SERVER_NAME              = "http://api.themoviedb.org";
         public static final String ROOT_CONTEXT             = "3/movie";

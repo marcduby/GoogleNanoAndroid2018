@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // load the initial movie list
         try {
             // get the URL
-            URL movieUrl = MovieUtils.getMovieListSortedUri(true, MovieConstants.MOVIE_DB_API_KEY);
+            URL movieUrl = MovieUtils.getMovieListSortedUri(true, MovieUtils.MovieService.API_KEY);
 
             // execute the async task
             new MovieLoadTask().execute(movieUrl);
