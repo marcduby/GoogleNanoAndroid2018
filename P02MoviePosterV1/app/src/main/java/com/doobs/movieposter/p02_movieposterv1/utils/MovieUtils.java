@@ -5,10 +5,14 @@ import android.util.Log;
 
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Utility class to manage the movie data retrieval
@@ -21,12 +25,16 @@ public class MovieUtils {
     public static class MovieService {
         // sample URL: http://api.themoviedb.org/3/movie/popular?api_key=
 
-        public static final String SERVER_NAME              = "api.themoviedb.org";
+        public static final String SERVER_NAME              = "http://api.themoviedb.org";
         public static final String ROOT_CONTEXT             = "3/movie";
         public static final String METHOD_POPULAR           = "popular";
         public static final String METHOD_USER_RATING       = "top_rated";
         public static final String PARAMETER_API_KEY        = "api_key";
+    }
 
+    public static class MovieImage {
+        public static final String SERVER_NAME              = "http://image.tmdb.org/t/p/";
+        public static final String IMAGE_SIZE               = "w185";
     }
 
     /**
@@ -63,9 +71,9 @@ public class MovieUtils {
             movieListUrl = new URL(searchUri.toString());
 
         } catch (MalformedURLException exception) {
-            String errorMessage = "Got url exception" + exception.getMessage();
+            String errorMessage = "Got url exception: " + exception.getMessage();
             Log.e(MovieUtils.class.getName(), errorMessage);
-            throw new MovieException("Got url exception" + exception.getMessage());
+            throw new MovieException(errorMessage);
         }
 
         // return
@@ -93,4 +101,47 @@ public class MovieUtils {
         // return
         return movieBeanList;
     }
+
+    /**
+     * connect to the REST service and return the results of the query
+     *
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    public static String getResponseFromHttpUrl(URL url) throws IOException {
+        // local vaiables
+        HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+        String responseString = null;
+
+        // open the stream
+        try {
+            InputStream inputStream = httpURLConnection.getInputStream();
+
+            // get the response string
+            Scanner scanner = new Scanner(inputStream);
+            scanner.useDelimiter("\\A");
+
+            if (scanner.hasNext()) {
+                responseString = scanner.next();
+            }
+
+        } finally {
+            httpURLConnection.disconnect();
+        }
+
+        // return
+        return responseString;
+    }
+
+    /**
+     * returns the image file url in string format
+     *
+     * @param imageFileString
+     * @return
+     */
+    public static String getImageUrlString(String imageFileString) {
+        return MovieImage.SERVER_NAME + MovieImage.IMAGE_SIZE + imageFileString;
+    }
+
 }

@@ -15,12 +15,20 @@ import android.widget.Toast;
 
 import com.doobs.movieposter.p02_movieposterv1.adapter.MovieAdapter;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
+import com.doobs.movieposter.p02_movieposterv1.utils.MovieConstants;
+import com.doobs.movieposter.p02_movieposterv1.utils.MovieException;
+import com.doobs.movieposter.p02_movieposterv1.utils.MovieJsonParser;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * main activity of the movie app
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -32,12 +40,26 @@ public class MainActivity extends AppCompatActivity {
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
 
+        // load the initial movie list
+        try {
+            // get the URL
+            URL movieUrl = MovieUtils.getMovieListSortedUri(true, MovieConstants.MOVIE_DB_API_KEY);
+
+            // execute the async task
+            new MovieLoadTask().execute(movieUrl);
+
+        } catch (MovieException exception) {
+            Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
+            String error = "Error loading movies; please verify network connection";
+            this.showToast(error);
+        }
+
         // create the adapter with the movie data
-        List<MovieBean> movieBeanList = MovieUtils.getMoviesByRating();
-        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
+//        List<MovieBean> movieBeanList = MovieUtils.getMoviesByRating();
+//        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
 
         // set the adapter
-        gridview.setAdapter(movieAdapter);
+//        gridview.setAdapter(movieAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -103,19 +125,33 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * load the grid view with the movies given a json input string
+     *
+     * @param jsonInputString
+     * @param isIntialLoad
+     */
     private void loadMovieList(String jsonInputString, boolean isIntialLoad) {
         // local variables
         List<MovieBean> movieBeanList = new ArrayList<MovieBean>();
 
         // if json not null
         if (jsonInputString != null) {
-            // get the movie list from the json result
+            try {
+                // get the movie list from the json result
+                movieBeanList = MovieJsonParser.getMovieListFromJsonString(jsonInputString);
+
+            } catch (MovieException exception) {
+                Log.e(this.getClass().getName(), "Got errr loading movies: " + exception.getMessage());
+                String textToShow = "Error loading movies; please check network access";
+                this.showToast(textToShow);
+            }
 
         } else {
             if (isIntialLoad) {
                 // show toast for error in network
                 String textToShow = "Error loading movies; please check network access";
-                Toast.makeText(this, textToShow, Toast.LENGTH_SHORT).show();
+                this.showToast(textToShow);
             }
         }
 
@@ -127,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
 
         // apply the adapter to the grid view
         gridview.setAdapter(movieAdapter);
-
     }
 
     /**
@@ -137,13 +172,47 @@ public class MainActivity extends AppCompatActivity {
     public class MovieLoadTask extends AsyncTask<URL, Void, String> {
 
         @Override
+        /**
+         * background thread
+         *
+         */
         protected String doInBackground(URL... urls) {
-            return null;
+            // local variables
+            URL movieListUrl = null;
+            String responseString = null;
+
+            // get the url
+            movieListUrl = urls[0];
+
+            // call the REST service
+            try {
+                responseString = MovieUtils.getResponseFromHttpUrl(movieListUrl);
+
+            } catch (IOException exception) {
+                Log.e(this.getClass().getName(), "Got network error: " + exception.getMessage());
+            }
+
+            // return
+            return responseString;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        /**
+         * called when background thread is done
+         *
+         */
+        protected void onPostExecute(String result) {
+            loadMovieList(result, false);
         }
     }
+
+    /**
+     * show toast message
+     *
+     * @param message
+     */
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
 }

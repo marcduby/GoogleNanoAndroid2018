@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.doobs.movieposter.p02_movieposterv1.R;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
+import com.doobs.movieposter.p02_movieposterv1.utils.MovieException;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 import com.squareup.picasso.Picasso;
 
@@ -48,8 +49,9 @@ public class MovieAdapter extends ArrayAdapter<MovieBean> {
         }
 
         ImageView imageView = (ImageView) listView.findViewById(R.id.list_item_movie_iv);
+        String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl());
         Picasso.get()
-                .load(movieBean.getImageUrl())
+                .load(imageUrl)
 //                .resize(185, 185)
                 .fit()
                 .into(imageView);
@@ -58,5 +60,27 @@ public class MovieAdapter extends ArrayAdapter<MovieBean> {
         return listView;
     }
 
+    /**
+     * return the movie at position
+     *
+     * @param position
+     * @return
+     * @throws MovieException
+     */
+    public MovieBean getMovieAtPosition(int position) throws MovieException {
+        // local variables
+        MovieBean movieBean = null;
+
+        // make sure the position exists
+        if (position < this.movieBeanList.size()) {
+            movieBean = this.movieBeanList.get(position);
+
+        } else {
+            throw new MovieException("Got incorrect position: " + position + " for movie list of size: " + this.movieBeanList.size());
+        }
+
+        // return
+        return movieBean;
+    }
 
 }
