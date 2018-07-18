@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.doobs.movieposter.p02_movieposterv1.adapter.MovieAdapter;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
-import com.doobs.movieposter.p02_movieposterv1.utils.MovieConstants;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieException;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieJsonParser;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
