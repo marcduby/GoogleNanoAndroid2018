@@ -28,7 +28,16 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
 
     // instance variables
     private List<MovieBean> movieBeanList = new ArrayList<MovieBean>();
+    private MovieItemClickListener movieItemClickListener;
 
+    /**
+     * default constructor
+     *
+     * @param listener
+     */
+    public MoviesRecyclerAdapter(MovieItemClickListener listener) {
+        this.movieItemClickListener = listener;
+    }
 
     @NonNull
     @Override
@@ -94,10 +103,18 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
     }
 
     /**
+     * interface to handle item clicks
+     *
+     */
+    public interface MovieItemClickListener {
+        void onListItemClick(MovieBean movieBean);
+    }
+
+    /**
      * class to hold the individual movie poster items
      *
      */
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
         // instance variables
         ImageView moviePosterView;
         TextView movieNameTextView;
@@ -113,6 +130,9 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
             // get the image view
             this.moviePosterView = (ImageView) itemView.findViewById(R.id.list_item_movie_iv);
             this.movieNameTextView = (TextView) itemView.findViewById(R.id.movie_name_tv);
+
+            // set the listener
+            itemView.setOnClickListener(this);
         }
 
         /**
@@ -136,6 +156,23 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
 
             // set the text
             this.movieNameTextView.setText(movieBean.getName());
+        }
+
+        @Override
+        /**
+         * handle clicks on the view holder
+         *
+         */
+        public void onClick(View view) {
+            // get the index clicked
+            int clickedPosition = this.getAdapterPosition();
+
+            // get the movie
+            MovieBean movieBean = movieBeanList.get(clickedPosition);
+
+            // call the movie item listener with the position
+            movieItemClickListener.onListItemClick(movieBean);
+
         }
     }
 }

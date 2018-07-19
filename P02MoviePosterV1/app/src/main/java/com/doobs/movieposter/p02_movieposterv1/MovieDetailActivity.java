@@ -18,8 +18,7 @@ import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {
     // static cosntants
-    public static final String EXTRA_POSITION = "extra_position";
-    private static final int DEFAULT_POSITION = -1;
+    public static final String EXTRA_MOVIE = "movie_bean_key";
 
     // text views
     private TextView nameTextView;
@@ -44,36 +43,27 @@ public class MovieDetailActivity extends AppCompatActivity {
             closeOnError();
         }
 
-        // get the index of the movie form the list
-        int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
-        if (position == DEFAULT_POSITION) {
-            // EXTRA_POSITION not found in intent
-            Log.e(this.getClass().getName(), "Got default index: " + position);
-            closeOnError();
-            return;
-
-        } else {
-        }
-
-        // get the movie
-        movieBean = MovieUtils.getMoviesByRating().get(position);
-
-        // check again just in case
+        // get the movie bean from the itent
+        movieBean = intent.getParcelableExtra(EXTRA_MOVIE);
         if (movieBean == null) {
-            // Movie data unavailable
-            Log.e(this.getClass().getName(), "Can't find movie bean with list index: " + position);
+            // EXTRA_POSITION not found in intent
+            Log.e(this.getClass().getName(), "Got null movie bean");
             closeOnError();
             return;
-
-        } else {
-            Log.i(this.getClass().getName(), "Loading movie bean with list index: " + position + " and name: " + movieBean.getName());
         }
+
+        // log
+        Log.i(this.getClass().getName(), "Got movie with name: " + movieBean.getName());
 
         // populate the data
         this.populateUI(movieBean);
 
     }
 
+    /**
+     * method to chow toast if error
+     *
+     */
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();

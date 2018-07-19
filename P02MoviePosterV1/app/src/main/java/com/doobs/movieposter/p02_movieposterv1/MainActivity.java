@@ -31,7 +31,7 @@ import java.util.List;
  * main activity of the movie app
  *
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MoviesRecyclerAdapter.MovieItemClickListener {
     // instance variables
     private MoviesRecyclerAdapter moviesRecyclerAdapter;
     private RecyclerView movieRecyclerView;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         this.movieRecyclerView.setLayoutManager(movieListLayoutManager);
 
         // create the adapter
-        this.moviesRecyclerAdapter = new MoviesRecyclerAdapter();
+        this.moviesRecyclerAdapter = new MoviesRecyclerAdapter(this);
 
         // set the adapter on the recycler view
         this.movieRecyclerView.setAdapter(this.moviesRecyclerAdapter);
@@ -136,13 +136,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * launch the movie detail activity
+     * click handler to launch the movie detail activity
      *
-     * @param position
+     * @param movieBean
      */
-    private void launchMovieDetailActivity(int position) {
+    public void onListItemClick(MovieBean movieBean) {
         Intent intent = new Intent(this, MovieDetailActivity.class);
-        intent.putExtra(MovieDetailActivity.EXTRA_POSITION, position);
+        intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movieBean);
         startActivity(intent);
     }
 

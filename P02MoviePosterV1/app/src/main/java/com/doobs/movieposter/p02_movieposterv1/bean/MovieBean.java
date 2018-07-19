@@ -1,5 +1,8 @@
 package com.doobs.movieposter.p02_movieposterv1.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,7 +12,7 @@ import java.util.Date;
  * Created by mduby on 7/7/18.
  */
 
-public class MovieBean implements Serializable {
+public class MovieBean implements Parcelable {
     // instance variables
     private Integer id;
     private String name;            // also PK
@@ -17,9 +20,48 @@ public class MovieBean implements Serializable {
     private Double popularity;
     private String title;
     private String plotSynopsis;
-    private Date releaseDate;
+    private String releaseDate;
     private String imageUrl;
 
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeDouble(rating);
+        parcel.writeDouble(popularity);
+        parcel.writeString(title);
+        parcel.writeString(plotSynopsis);
+        parcel.writeString(releaseDate);
+        parcel.writeString(imageUrl);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<MovieBean> CREATOR = new Parcelable.Creator<MovieBean>() {
+        public MovieBean createFromParcel(Parcel parcel) {
+            MovieBean movieBean = new MovieBean();
+
+            // set the data
+            movieBean.setId(parcel.readInt());
+            movieBean.setName(parcel.readString());
+            movieBean.setRating(parcel.readDouble());
+            movieBean.setPopularity(parcel.readDouble());
+            movieBean.setTitle(parcel.readString());
+            movieBean.setPlotSynopsis(parcel.readString());
+            movieBean.setReleaseDate(parcel.readString());
+            movieBean.setImageUrl(parcel.readString());
+
+            // return
+            return movieBean;
+        }
+
+        public MovieBean[] newArray(int size) {
+            return new MovieBean[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -61,11 +103,11 @@ public class MovieBean implements Serializable {
         this.plotSynopsis = plotSynopsis;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
