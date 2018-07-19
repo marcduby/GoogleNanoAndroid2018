@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
     private MoviesRecyclerAdapter moviesRecyclerAdapter;
     private RecyclerView movieRecyclerView;
 
+    // constants
+    private final int numberOfColumns = 2;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         this.movieRecyclerView.setHasFixedSize(true);
 
         // set the layout manager for the recycler view
-        LinearLayoutManager movieListLayoutManager = new LinearLayoutManager(this);
+        GridLayoutManager movieListLayoutManager = new GridLayoutManager(this, this.numberOfColumns);
         this.movieRecyclerView.setLayoutManager(movieListLayoutManager);
 
         // create the adapter

@@ -117,7 +117,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
     public class MovieViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
         // instance variables
         ImageView moviePosterView;
-        TextView movieNameTextView;
+//        TextView movieNameTextView;
 
         /**
          * default constructor
@@ -129,7 +129,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
 
             // get the image view
             this.moviePosterView = (ImageView) itemView.findViewById(R.id.list_item_movie_iv);
-            this.movieNameTextView = (TextView) itemView.findViewById(R.id.movie_name_tv);
+//            this.movieNameTextView = (TextView) itemView.findViewById(R.id.movie_name_tv);
 
             // set the listener
             itemView.setOnClickListener(this);
@@ -155,7 +155,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
                     .into(this.moviePosterView);
 
             // set the text
-            this.movieNameTextView.setText(movieBean.getName());
+//            this.movieNameTextView.setText(movieBean.getName());
         }
 
         @Override
