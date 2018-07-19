@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.doobs.movieposter.p02_movieposterv1.R;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
@@ -99,6 +100,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
     public class MovieViewHolder extends RecyclerView.ViewHolder {
         // instance variables
         ImageView moviePosterView;
+        TextView movieNameTextView;
 
         /**
          * default constructor
@@ -110,6 +112,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
 
             // get the image view
             this.moviePosterView = (ImageView) itemView.findViewById(R.id.list_item_movie_iv);
+            this.movieNameTextView = (TextView) itemView.findViewById(R.id.movie_name_tv);
         }
 
         /**
@@ -128,8 +131,11 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
             Picasso.get()
                     .load(imageUrl)
 //                .resize(185, 185)
-                    .fit()
+//                    .fit()
                     .into(this.moviePosterView);
+
+            // set the text
+            this.movieNameTextView.setText(movieBean.getName());
         }
     }
 }
