@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.doobs.movieposter.p02_movieposterv1.adapter.MovieAdapter;
+import com.doobs.movieposter.p02_movieposterv1.adapter.MoviesRecyclerAdapter;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieException;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieJsonParser;
@@ -29,20 +32,39 @@ import java.util.List;
  *
  */
 public class MainActivity extends AppCompatActivity {
+    // instance variables
+    private MoviesRecyclerAdapter moviesRecyclerAdapter;
+    private RecyclerView movieRecyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // log
         Log.i(this.getClass().getName(), "In onCreate");
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
+        // get the recycler view
+        this.movieRecyclerView = (RecyclerView) this.findViewById(R.id.movies_rv);
+        this.movieRecyclerView.setHasFixedSize(true);
+
+        // set the layout manager for the recycler view
+        LinearLayoutManager movieListLayoutManager = new LinearLayoutManager(this);
+        this.movieRecyclerView.setLayoutManager(movieListLayoutManager);
+
+        // create the adapter
+        this.moviesRecyclerAdapter = new MoviesRecyclerAdapter();
+
+        // set the adapter on the recycler view
+        this.movieRecyclerView.setAdapter(this.moviesRecyclerAdapter);
 
         // load the initial movie list
         try {
             // get the URL
             URL movieUrl = MovieUtils.getMovieListSortedUri(true, MovieUtils.MovieService.API_KEY);
+
+            // log
+            Log.i(this.getClass().getName(), "Starting asyc task wirth url: : " + movieUrl.toString());
 
             // execute the async task
             new MovieLoadTask().execute(movieUrl);
@@ -60,17 +82,17 @@ public class MainActivity extends AppCompatActivity {
         // set the adapter
 //        gridview.setAdapter(movieAdapter);
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                // toast for debugging
-//                Toast.makeText(MainActivity.this, "" + position,
-//                        Toast.LENGTH_SHORT).show();
-
-                // launch the movie detail activity
-                launchMovieDetailActivity(position);
-            }
-        });
+//        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+//
+//                // toast for debugging
+////                Toast.makeText(MainActivity.this, "" + position,
+////                        Toast.LENGTH_SHORT).show();
+//
+//                // launch the movie detail activity
+//                launchMovieDetailActivity(position);
+//            }
+//        });
 
         // test load of movies
 //        this.loadMovieList(null, false);
@@ -140,6 +162,9 @@ public class MainActivity extends AppCompatActivity {
                 // get the movie list from the json result
                 movieBeanList = MovieJsonParser.getMovieListFromJsonString(jsonInputString);
 
+                // log
+                Log.i(this.getClass().getName(), "Got movie list of size: " + movieBeanList.size());
+
             } catch (MovieException exception) {
                 Log.e(this.getClass().getName(), "Got errr loading movies: " + exception.getMessage());
                 String textToShow = "Error loading movies; please check network access";
@@ -154,14 +179,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // create a new adapter
-        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
-
-        // get the grid view
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-
-        // apply the adapter to the grid view
-        gridview.setAdapter(movieAdapter);
+        // get the movie adapter and set the movie list on it
+        moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
+//        // create a new adapter
+//        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
+//
+//        // get the grid view
+//        GridView gridview = (GridView) findViewById(R.id.gridview);
+//
+//        // apply the adapter to the grid view
+//        gridview.setAdapter(movieAdapter);
     }
 
     /**
@@ -182,6 +209,9 @@ public class MainActivity extends AppCompatActivity {
 
             // get the url
             movieListUrl = urls[0];
+
+            // log
+            Log.i(this.getClass().getName(), "Calling REST service at url: " + movieListUrl);
 
             // call the REST service
             try {
