@@ -63,22 +63,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         this.movieRecyclerView.setAdapter(this.moviesRecyclerAdapter);
 
         // load the initial movie list
-        try {
-            // get the URL
-            URL movieUrl = MovieUtils.getMovieListSortedUri(true, MovieUtils.MovieService.API_KEY);
-
-            // log
-            Log.i(this.getClass().getName(), "Starting asyc task wirth url: : " + movieUrl.toString());
-
-            // execute the async task
-            new MovieLoadTask().execute(movieUrl);
-
-        } catch (MovieException exception) {
-            Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
-            String error = "Error loading movies; please verify network connection";
-            this.showToast(error);
-        }
-
+        this.callMovieRestApi(true);
         // create the adapter with the movie data
 //        List<MovieBean> movieBeanList = MovieUtils.getMoviesByRating();
 //        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
@@ -100,6 +85,30 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
         // test load of movies
 //        this.loadMovieList(null, false);
+    }
+
+    /**
+     * calls the movie REST service and populate the adapter
+     *
+     * @param isMostPopularSort
+     */
+    private void callMovieRestApi(boolean isMostPopularSort) {
+        // load the initial movie list
+        try {
+            // get the URL
+            URL movieUrl = MovieUtils.getMovieListSortedUri(isMostPopularSort, MovieUtils.MovieService.API_KEY);
+
+            // log
+            Log.i(this.getClass().getName(), "Starting asyc task wirth url: : " + movieUrl.toString());
+
+            // execute the async task
+            new MovieLoadTask().execute(movieUrl);
+
+        } catch (MovieException exception) {
+            Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
+            String error = "Error loading movies; please verify network connection";
+            this.showToast(error);
+        }
     }
 
     @Override
@@ -127,12 +136,22 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             Context context = MainActivity.this;
             String textToShow = "List sorted by user rating";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+
+            // load the movies
+            this.callMovieRestApi(false);
+
+            // return
             return true;
 
         } else if (itemThatWasClickedId == R.id.action_order_by_most_popular) {
             Context context = MainActivity.this;
             String textToShow = "List sorted by most popular";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+
+            // load the movies
+            this.callMovieRestApi(true);
+
+            // return
             return true;
         }
 
