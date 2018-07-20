@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
+import com.doobs.movieposter.p02_movieposterv1.utils.MovieException;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 import com.squareup.picasso.Picasso;
 
@@ -113,7 +114,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         // add the release data
         dataView = findViewById(R.id.movie_detail_release_date_tv);
         labelView = findViewById(R.id.release_date_label_tv);
-        dataString = movieBean.getReleaseDate();
+        try {
+            dataString = MovieUtils.formatDate(movieBean.getReleaseDate());
+
+        } catch (MovieException exception) {
+            dataString = movieBean.getReleaseDate();
+        }
         this.bindDataToViews(labelView, dataView, dataString);
 
     }

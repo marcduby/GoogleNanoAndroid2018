@@ -9,9 +9,15 @@ import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -149,6 +155,58 @@ public class MovieUtils {
 
         // return the image path
         return MovieImage.SERVER_NAME + imageSize + imageFileString;
+    }
+
+    /**
+     * test the network connection
+     *
+     * @throws MovieException
+     */
+    public static void testNetwork() throws MovieException {
+        try {
+            int timeoutMilliseconds = 1500;
+            Socket sock = new Socket();
+            SocketAddress sockaddr = new InetSocketAddress("8.8.8.8", 53);
+
+            sock.connect(sockaddr, timeoutMilliseconds);
+            sock.close();
+
+        } catch (IOException exception) {
+            String message = "Got network exception: " + exception;
+            throw new MovieException(message);
+        }
+
+    }
+
+    /**
+     * format the date from yyyy-MM-dd format to human readable format
+     *
+     * @param dateString
+     * @return
+     * @throws MovieException
+     */
+    public static String formatDate(String dateString) throws MovieException {
+        // local variables
+        Date date = null;
+        String returnString = null;
+        String inputFormat = "yyyy-MM-dd";
+        String outputFormat = "E MMM dd, yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(inputFormat);
+
+        // parse the date if possible
+        try {
+            date = simpleDateFormat.parse(dateString);
+
+            // now convert in friendly format
+            simpleDateFormat = new SimpleDateFormat(outputFormat);
+            returnString = simpleDateFormat.format(date);
+
+        } catch (ParseException exception) {
+            throw new MovieException("Got date parsing error: " + exception.getMessage());
+        }
+
+        // return
+        return returnString;
     }
 
 }

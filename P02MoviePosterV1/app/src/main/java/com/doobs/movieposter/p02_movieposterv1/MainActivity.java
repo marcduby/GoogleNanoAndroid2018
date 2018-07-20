@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.doobs.movieposter.p02_movieposterv1.adapter.MovieAdapter;
 import com.doobs.movieposter.p02_movieposterv1.adapter.MoviesRecyclerAdapter;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieException;
@@ -24,6 +23,9 @@ import com.doobs.movieposter.p02_movieposterv1.utils.MovieJsonParser;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
     // instance variables
     private MoviesRecyclerAdapter moviesRecyclerAdapter;
     private RecyclerView movieRecyclerView;
+    private boolean isSortByPopular = true;
 
     // constants
     private final int numberOfColumns = 2;
@@ -63,28 +66,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         this.movieRecyclerView.setAdapter(this.moviesRecyclerAdapter);
 
         // load the initial movie list
-        this.callMovieRestApi(true);
-        // create the adapter with the movie data
-//        List<MovieBean> movieBeanList = MovieUtils.getMoviesByRating();
-//        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
-
-        // set the adapter
-//        gridview.setAdapter(movieAdapter);
-
-//        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-//
-//                // toast for debugging
-////                Toast.makeText(MainActivity.this, "" + position,
-////                        Toast.LENGTH_SHORT).show();
-//
-//                // launch the movie detail activity
-//                launchMovieDetailActivity(position);
-//            }
-//        });
-
-        // test load of movies
-//        this.loadMovieList(null, false);
+        this.callMovieRestApi(this.isSortByPopular);
     }
 
     /**
@@ -137,8 +119,11 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             String textToShow = "List sorted by user rating";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
+            // set the instance variable for sort preference
+            this.isSortByPopular = false;
+
             // load the movies
-            this.callMovieRestApi(false);
+            this.callMovieRestApi(this.isSortByPopular);
 
             // return
             return true;
@@ -148,8 +133,11 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             String textToShow = "List sorted by most popular";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
+            // set the instance variable for sort preference
+            this.isSortByPopular = true;
+
             // load the movies
-            this.callMovieRestApi(true);
+            this.callMovieRestApi(this.isSortByPopular);
 
             // return
             return true;
@@ -204,14 +192,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
         // get the movie adapter and set the movie list on it
         moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
-//        // create a new adapter
-//        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
-//
-//        // get the grid view
-//        GridView gridview = (GridView) findViewById(R.id.gridview);
-//
-//        // apply the adapter to the grid view
-//        gridview.setAdapter(movieAdapter);
     }
 
     /**
@@ -230,18 +210,26 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             URL movieListUrl = null;
             String responseString = null;
 
-            // get the url
-            movieListUrl = urls[0];
-
-            // log
-            Log.i(this.getClass().getName(), "Calling REST service at url: " + movieListUrl);
-
-            // call the REST service
             try {
-                responseString = MovieUtils.getResponseFromHttpUrl(movieListUrl);
+                // will get exception if no conection
+                MovieUtils.testNetwork();
 
-            } catch (IOException exception) {
-                Log.e(this.getClass().getName(), "Got network error: " + exception.getMessage());
+                // get the url
+                movieListUrl = urls[0];
+
+                // log
+                Log.i(this.getClass().getName(), "Calling REST service at url: " + movieListUrl);
+
+                // call the REST service
+                try {
+                    responseString = MovieUtils.getResponseFromHttpUrl(movieListUrl);
+
+                } catch (IOException exception) {
+                    Log.e(this.getClass().getName(), "Got network error: " + exception.getMessage());
+                }
+
+            } catch (MovieException exception) {
+                Log.e(this.getClass().getName(), "Got exception loading movies: " + exception.getMessage());
             }
 
             // return
@@ -254,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
          *
          */
         protected void onPostExecute(String result) {
-            loadMovieList(result, false);
+            loadMovieList(result, true);
         }
     }
 
