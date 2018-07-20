@@ -149,15 +149,7 @@ public class MovieJsonParser {
 
         // get the release date
         tempString = inputJsonObject.optString(MovieJsonKeys.RELEASE_DATE);
-        try {
-            if (tempString != null) {
-                tempDate = formatter.parse(tempString);
-                movieBean.setReleaseDate(tempDate);
-            }
-
-        } catch (ParseException exception) {
-            throw new MovieException("Got movie date parse exception for date: " + tempString + " : " + exception.getMessage());
-        }
+        movieBean.setReleaseDate(tempString);
 
         // return
         return movieBean;

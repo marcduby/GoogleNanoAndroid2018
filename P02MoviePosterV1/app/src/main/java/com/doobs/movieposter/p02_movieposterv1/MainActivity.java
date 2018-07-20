@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,36 +16,72 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.doobs.movieposter.p02_movieposterv1.adapter.MovieAdapter;
+import com.doobs.movieposter.p02_movieposterv1.adapter.MoviesRecyclerAdapter;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieException;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieJsonParser;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * main activity of the movie app
+ * Main activity of the movie app
  *
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MoviesRecyclerAdapter.MovieItemClickListener {
+    // instance variables
+    private MoviesRecyclerAdapter moviesRecyclerAdapter;
+    private RecyclerView movieRecyclerView;
+    private boolean isSortByPopular = true;
+
+    // constants
+    private final int numberOfColumns = 2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // log
         Log.i(this.getClass().getName(), "In onCreate");
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
+        // get the recycler view
+        this.movieRecyclerView = (RecyclerView) this.findViewById(R.id.movies_rv);
+        this.movieRecyclerView.setHasFixedSize(true);
 
+        // set the layout manager for the recycler view
+        GridLayoutManager movieListLayoutManager = new GridLayoutManager(this, this.numberOfColumns);
+        this.movieRecyclerView.setLayoutManager(movieListLayoutManager);
+
+        // create the adapter
+        this.moviesRecyclerAdapter = new MoviesRecyclerAdapter(this);
+
+        // set the adapter on the recycler view
+        this.movieRecyclerView.setAdapter(this.moviesRecyclerAdapter);
+
+        // load the initial movie list
+        this.callMovieRestApi(this.isSortByPopular);
+    }
+
+    /**
+     * calls the movie REST service and populate the adapter
+     *
+     * @param isMostPopularSort
+     */
+    private void callMovieRestApi(boolean isMostPopularSort) {
         // load the initial movie list
         try {
             // get the URL
-            URL movieUrl = MovieUtils.getMovieListSortedUri(true, MovieUtils.MovieService.API_KEY);
+            URL movieUrl = MovieUtils.getMovieListSortedUri(isMostPopularSort, MovieUtils.MovieService.API_KEY);
+
+            // log
+            Log.i(this.getClass().getName(), "Starting asyc task wirth url: : " + movieUrl.toString());
 
             // execute the async task
             new MovieLoadTask().execute(movieUrl);
@@ -52,28 +91,6 @@ public class MainActivity extends AppCompatActivity {
             String error = "Error loading movies; please verify network connection";
             this.showToast(error);
         }
-
-        // create the adapter with the movie data
-//        List<MovieBean> movieBeanList = MovieUtils.getMoviesByRating();
-//        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
-
-        // set the adapter
-//        gridview.setAdapter(movieAdapter);
-
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                // toast for debugging
-//                Toast.makeText(MainActivity.this, "" + position,
-//                        Toast.LENGTH_SHORT).show();
-
-                // launch the movie detail activity
-                launchMovieDetailActivity(position);
-            }
-        });
-
-        // test load of movies
-//        this.loadMovieList(null, false);
     }
 
     @Override
@@ -101,12 +118,28 @@ public class MainActivity extends AppCompatActivity {
             Context context = MainActivity.this;
             String textToShow = "List sorted by user rating";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+
+            // set the instance variable for sort preference
+            this.isSortByPopular = false;
+
+            // load the movies
+            this.callMovieRestApi(this.isSortByPopular);
+
+            // return
             return true;
 
         } else if (itemThatWasClickedId == R.id.action_order_by_most_popular) {
             Context context = MainActivity.this;
             String textToShow = "List sorted by most popular";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+
+            // set the instance variable for sort preference
+            this.isSortByPopular = true;
+
+            // load the movies
+            this.callMovieRestApi(this.isSortByPopular);
+
+            // return
             return true;
         }
 
@@ -114,13 +147,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * launch the movie detail activity
+     * click handler to launch the movie detail activity
      *
-     * @param position
+     * @param movieBean
      */
-    private void launchMovieDetailActivity(int position) {
+    public void onListItemClick(MovieBean movieBean) {
         Intent intent = new Intent(this, MovieDetailActivity.class);
-        intent.putExtra(MovieDetailActivity.EXTRA_POSITION, position);
+        intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movieBean);
         startActivity(intent);
     }
 
@@ -140,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
                 // get the movie list from the json result
                 movieBeanList = MovieJsonParser.getMovieListFromJsonString(jsonInputString);
 
+                // log
+                Log.i(this.getClass().getName(), "Got movie list of size: " + movieBeanList.size());
+
             } catch (MovieException exception) {
                 Log.e(this.getClass().getName(), "Got errr loading movies: " + exception.getMessage());
                 String textToShow = "Error loading movies; please check network access";
@@ -154,14 +190,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // create a new adapter
-        MovieAdapter movieAdapter = new MovieAdapter(this, movieBeanList);
-
-        // get the grid view
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-
-        // apply the adapter to the grid view
-        gridview.setAdapter(movieAdapter);
+        // get the movie adapter and set the movie list on it
+        moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
     }
 
     /**
@@ -180,15 +210,26 @@ public class MainActivity extends AppCompatActivity {
             URL movieListUrl = null;
             String responseString = null;
 
-            // get the url
-            movieListUrl = urls[0];
-
-            // call the REST service
             try {
-                responseString = MovieUtils.getResponseFromHttpUrl(movieListUrl);
+                // will get exception if no conection
+                MovieUtils.testNetwork();
 
-            } catch (IOException exception) {
-                Log.e(this.getClass().getName(), "Got network error: " + exception.getMessage());
+                // get the url
+                movieListUrl = urls[0];
+
+                // log
+                Log.i(this.getClass().getName(), "Calling REST service at url: " + movieListUrl);
+
+                // call the REST service
+                try {
+                    responseString = MovieUtils.getResponseFromHttpUrl(movieListUrl);
+
+                } catch (IOException exception) {
+                    Log.e(this.getClass().getName(), "Got network error: " + exception.getMessage());
+                }
+
+            } catch (MovieException exception) {
+                Log.e(this.getClass().getName(), "Got exception loading movies: " + exception.getMessage());
             }
 
             // return
@@ -201,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
          *
          */
         protected void onPostExecute(String result) {
-            loadMovieList(result, false);
+            loadMovieList(result, true);
         }
     }
 

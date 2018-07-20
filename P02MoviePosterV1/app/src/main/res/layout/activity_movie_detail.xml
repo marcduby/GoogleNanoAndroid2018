@@ -11,15 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:padding="4dp"
         tools:context="com.udacity.movieposter.p02_movieposterv1.MovieDetailActivity">
 
         <ImageView
-            android:id="@+id/image_iv"
-            android:layout_width="400dp"
-            android:layout_height="486dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:layout_gravity="center"
-            android:contentDescription="@string/movie_picture_content_description"
+            android:contentDescription="sandwich_picture_content_description"
+            android:id="@+id/movie_detail_poster_iv"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -30,10 +31,52 @@
             style="@style/labelView" />
 
         <TextView
-            android:id="@+id/main_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/movie_detail_title_tv"
+            style="@style/detailView"/>
+
+        <TextView
+            android:id="@+id/synopsis_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_plot_synopsis_label"
+            style="@style/labelView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_detail_synopsis_tv"
+            style="@style/detailView"/>
+
+        <TextView
+            android:id="@+id/user_rating_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_user_rating_label"
+            style="@style/labelView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_detail_user_rating_tv"
+            style="@style/detailView"/>
+
+        <TextView
+            android:id="@+id/release_date_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_release_date_label"
+            style="@style/labelView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_detail_release_date_tv"
             style="@style/detailView"/>
 
     </LinearLayout>
+
+
+
 </ScrollView>

@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Test adapter class used to develop the UI w/o network access
+ *
  * Created by mduby on 7/7/18.
  */
 
@@ -49,7 +51,7 @@ public class MovieAdapter extends ArrayAdapter<MovieBean> {
         }
 
         ImageView imageView = (ImageView) listView.findViewById(R.id.list_item_movie_iv);
-        String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl());
+        String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl(), false);
         Picasso.get()
                 .load(imageUrl)
 //                .resize(185, 185)
