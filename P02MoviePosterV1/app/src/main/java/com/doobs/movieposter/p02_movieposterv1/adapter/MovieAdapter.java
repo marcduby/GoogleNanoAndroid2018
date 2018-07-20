@@ -49,7 +49,7 @@ public class MovieAdapter extends ArrayAdapter<MovieBean> {
         }
 
         ImageView imageView = (ImageView) listView.findViewById(R.id.list_item_movie_iv);
-        String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl());
+        String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl(), false);
         Picasso.get()
                 .load(imageUrl)
 //                .resize(185, 185)

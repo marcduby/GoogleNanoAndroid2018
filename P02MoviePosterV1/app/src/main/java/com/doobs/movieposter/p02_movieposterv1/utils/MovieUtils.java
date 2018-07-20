@@ -36,7 +36,8 @@ public class MovieUtils {
 
     public static class MovieImage {
         public static final String SERVER_NAME              = "http://image.tmdb.org/t/p/";
-        public static final String IMAGE_SIZE               = "w185";
+        public static final String POSTER_IMAGE_SIZE        = "w185";
+        public static final String THUMBNAILAGE_SIZE        = "w92";
     }
 
     /**
@@ -142,8 +143,12 @@ public class MovieUtils {
      * @param imageFileString
      * @return
      */
-    public static String getImageUrlString(String imageFileString) {
-        return MovieImage.SERVER_NAME + MovieImage.IMAGE_SIZE + imageFileString;
+    public static String getImageUrlString(String imageFileString, boolean isThumbnail) {
+        // local variables
+        String imageSize = (isThumbnail ? MovieImage.THUMBNAILAGE_SIZE : MovieImage.POSTER_IMAGE_SIZE);
+
+        // return the image path
+        return MovieImage.SERVER_NAME + imageSize + imageFileString;
     }
 
 }

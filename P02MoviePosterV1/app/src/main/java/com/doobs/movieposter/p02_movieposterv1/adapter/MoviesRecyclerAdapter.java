@@ -142,7 +142,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
          */
         protected void bind(MovieBean movieBean) {
             // get the image url
-            String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl());
+            String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl(), false);
 
             // log
             Log.i(this.getClass().getName(), "Inflating image for url: " + imageUrl);
@@ -150,8 +150,6 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
             // add the image to the image view
             Picasso.get()
                     .load(imageUrl)
-//                .resize(185, 185)
-//                    .fit()
                     .into(this.moviePosterView);
 
             // set the text

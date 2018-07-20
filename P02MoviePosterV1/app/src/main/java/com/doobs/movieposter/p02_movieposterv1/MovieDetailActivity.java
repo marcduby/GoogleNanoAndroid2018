@@ -36,8 +36,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        ImageView ingredientsIv = findViewById(R.id.image_iv);
-
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
@@ -76,20 +74,25 @@ public class MovieDetailActivity extends AppCompatActivity {
      */
     private void populateUI(MovieBean movieBean) {
         // populate the image
-        this.movieImageView = findViewById(R.id.image_iv);
+        this.movieImageView = findViewById(R.id.movie_detail_poster_iv);
+        String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl(), false);
+
+        // log
+        Log.i(this.getClass().getName(), "Displaying image: " + imageUrl);
+
+        // display the thumbnail poster image
         Picasso.get()
-                .load(movieBean.getImageUrl())
-                .resize(400, 486)
-                .error(R.drawable.no_movie_picture)
-                .into(this.movieImageView);
+                .load(imageUrl)
+//                .fit()
+                .into(movieImageView);
 
 
         // add the name
-        nameTextView = findViewById(R.id.main_name_tv);
+        nameTextView = findViewById(R.id.movie_detail_title_tv);
         if (movieBean.getName().isEmpty()) {
-            TextView labelView = findViewById(R.id.name_label_tv);
+//            TextView labelView = findViewById(R.id.name_label_tv);
             nameTextView.setVisibility(View.GONE);
-            labelView.setVisibility(View.GONE);
+//            labelView.setVisibility(View.GONE);
 
         } else {
             nameTextView.setText(movieBean.getName());
