@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * main activity of the movie app
+ * Main activity of the movie app
  *
  */
 public class MainActivity extends AppCompatActivity implements MoviesRecyclerAdapter.MovieItemClickListener {

@@ -17,6 +17,10 @@ import com.doobs.movieposter.p02_movieposterv1.utils.MovieException;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Detail activity class to display the selected movie details
+ *
+ */
 public class MovieDetailActivity extends AppCompatActivity {
     // static cosntants
     public static final String EXTRA_MOVIE = "movie_bean_key";

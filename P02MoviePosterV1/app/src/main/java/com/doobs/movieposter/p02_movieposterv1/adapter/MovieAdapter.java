@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Test adapter class used to develop the UI w/o network access
+ *
  * Created by mduby on 7/7/18.
  */
 
