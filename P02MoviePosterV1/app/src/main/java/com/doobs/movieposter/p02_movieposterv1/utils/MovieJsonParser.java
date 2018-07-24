@@ -1,20 +1,20 @@
 package com.doobs.movieposter.p02_movieposterv1.utils;
 
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
+import com.doobs.movieposter.p02_movieposterv1.bean.MovieReviewBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Class to parse json into movie bean objects
+ * Class to parse json into movie bean and related objects
  *
  * Created by mduby on 7/9/18.
  */
@@ -26,15 +26,23 @@ public class MovieJsonParser {
      *
      */
     public static class MovieJsonKeys {
-        public static final String ID                   = "id";
         public static final String USER_RATING          = "vote_average";
         public static final String NAME                 = "title";
         public static final String POLULARITY           = "popularity";
         public static final String IMAGE_PATH           = "poster_path";
         public static final String SYNOPSIS             = "overview";
         public static final String RELEASE_DATE         = "release_date";
+    }
 
+    public static class SharedJsonKeys {
+        public static final String ID                   = "id";
         public static final String RESULTS              = "results";
+    }
+
+    public static class MoviewReviewJsonKeys {
+        public static final String AUTHOR               = "author";
+        public static final String CONTENT              = "content";
+        public static final String URL                  = "url";
     }
 
     /**
@@ -87,7 +95,7 @@ public class MovieJsonParser {
         Date tempDate = null;
 
         // get the result array
-        jsonArray = inputJsonObject.optJSONArray(MovieJsonKeys.RESULTS);
+        jsonArray = inputJsonObject.optJSONArray(SharedJsonKeys.RESULTS);
 
         // if there are movies, then parse
         if (jsonArray != null) {
@@ -136,7 +144,7 @@ public class MovieJsonParser {
         movieBean.setPopularity(tempDouble);
 
         // get the id
-        tempInteger = inputJsonObject.optInt(MovieJsonKeys.ID);
+        tempInteger = inputJsonObject.optInt(SharedJsonKeys.ID);
         movieBean.setId(tempInteger);
 
         // get the image location
@@ -153,5 +161,38 @@ public class MovieJsonParser {
 
         // return
         return movieBean;
+    }
+
+    /**
+     * parse the json movie review object
+     *
+     * @param inputJsonObject
+     * @return
+     * @throws MovieException
+     */
+    public static MovieReviewBean getMoviewReviewFromJson(JSONObject inputJsonObject) throws MovieException {
+        // local variables
+        MovieReviewBean movieReviewBean = new MovieReviewBean();
+        String tempString = null;
+        Integer tempInteger = null;
+
+        // get the title
+        tempString = inputJsonObject.optString(MoviewReviewJsonKeys.AUTHOR);
+        movieReviewBean.setAuthor(tempString);
+
+        // get the id
+        tempInteger = inputJsonObject.optInt(SharedJsonKeys.ID);
+        movieReviewBean.setId(tempInteger);
+
+        // get the image location
+        tempString = inputJsonObject.optString(MoviewReviewJsonKeys.URL);
+        movieReviewBean.setUrl(tempString);
+
+        // get the sysnopsis
+        tempString = inputJsonObject.optString(MoviewReviewJsonKeys.CONTENT);
+        movieReviewBean.setContent(tempString);
+
+        // return
+        return movieReviewBean;
     }
 }
