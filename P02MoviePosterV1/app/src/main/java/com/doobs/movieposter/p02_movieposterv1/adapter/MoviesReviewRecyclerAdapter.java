@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.doobs.movieposter.p02_movieposterv1.R;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
+import com.doobs.movieposter.p02_movieposterv1.bean.MovieReviewBean;
 import com.doobs.movieposter.p02_movieposterv1.utils.MovieUtils;
 import com.squareup.picasso.Picasso;
 
@@ -24,21 +25,21 @@ import java.util.List;
  * Created by mduby on 7/18/18.
  */
 
-public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAdapter.MovieViewHolder> {
+public class MoviesReviewRecyclerAdapter extends RecyclerView.Adapter<MoviesReviewRecyclerAdapter.MovieReviewViewHolder> {
     // constants
     private String logClassName = this.getClass().getName();
 
     // instance variables
-    private List<MovieBean> movieBeanList = new ArrayList<MovieBean>();
-    private MovieItemClickListener movieItemClickListener;
+    private List<MovieReviewBean> movieReviewBeanList = new ArrayList<MovieReviewBean>();
+    private MovieReviewItemClickListener movieReviewItemClickListener;
 
     /**
      * default constructor
      *
      * @param listener
      */
-    public MoviesRecyclerAdapter(MovieItemClickListener listener) {
-        this.movieItemClickListener = listener;
+    public MoviesReviewRecyclerAdapter(MovieReviewItemClickListener listener) {
+        this.movieReviewItemClickListener = listener;
     }
 
     @NonNull
@@ -47,26 +48,26 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
      * called when creating new view holder instance
      *
      */
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // get the context
         Context context = parent.getContext();
-        MovieViewHolder movieViewHolder = null;
+        MovieReviewViewHolder movieReviewViewHolder = null;
 
         // get the movie item layout
-        int movieLayoutId = R.layout.list_item_movie;
+        int movieLayoutId = R.layout.list_item_review;
 
         // inflate the layout
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(movieLayoutId, parent, false);
 
         // create the view holder
-        movieViewHolder = new MovieViewHolder(view);
+        movieReviewViewHolder = new MovieReviewViewHolder(view);
 
         // log
-        Log.i(this.logClassName, "Create view holder");
+        Log.i(this.logClassName, "Create moview review view holder");
 
         // return
-        return movieViewHolder;
+        return movieReviewViewHolder;
     }
 
     @Override
@@ -74,12 +75,12 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
      * called when binding new data from the movie list
      *
      */
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieReviewViewHolder holder, int position) {
         // populate the view holder with a movie at the position
-        holder.bind(this.movieBeanList.get(position));
+        holder.bind(this.movieReviewBeanList.get(position));
 
         // log
-        Log.i(this.logClassName, "Bound view holder for position: " + position);
+        Log.i(this.logClassName, "Bound movie review view holder for position: " + position);
     }
 
     @Override
@@ -88,17 +89,17 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
      *
      */
     public int getItemCount() {
-        return this.movieBeanList.size();
+        return this.movieReviewBeanList.size();
     }
 
     /**
      * sets the movie list
      *
-     * @param movieBeanList
+     * @param movieReviewBeanList
      */
-    public void setMovieBeanList(List<MovieBean> movieBeanList) {
+    public void setMovieReviewBeanList(List<MovieReviewBean> movieReviewBeanList) {
         // set the movie list
-        this.movieBeanList = movieBeanList;
+        this.movieReviewBeanList = movieReviewBeanList;
 
         // propogate event that data changed
         this.notifyDataSetChanged();
@@ -108,8 +109,8 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
      * interface to handle item clicks
      *
      */
-    public interface MovieItemClickListener {
-        void onListItemClick(MovieBean movieBean);
+    public interface MovieReviewItemClickListener {
+        void onListItemClick(MovieReviewBean movieReviewBean);
     }
 
     /**
@@ -118,7 +119,10 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
      */
     public class MovieReviewViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
         // instance variables
-//        TextView movieNameTextView;
+        TextView authorTextView;
+        TextView authorLabelTextView;
+        TextView contentTextView;
+        TextView contentLabelTextView;
 
         /**
          * default constructor
@@ -128,9 +132,11 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         public MovieReviewViewHolder(View itemView) {
             super(itemView);
 
-            // get the image view
-            this.moviePosterView = (ImageView) itemView.findViewById(R.id.list_item_movie_iv);
-//            this.movieNameTextView = (TextView) itemView.findViewById(R.id.movie_name_tv);
+            // get the text views
+            this.authorTextView = (TextView) itemView.findViewById(R.id.review_author_tv);
+            this.authorLabelTextView = (TextView) itemView.findViewById(R.id.review_author_label_tv);
+            this.contentTextView = (TextView) itemView.findViewById(R.id.review_content_tv);
+            this.contentLabelTextView = (TextView) itemView.findViewById(R.id.review_content_label_tv);
 
             // set the listener
             itemView.setOnClickListener(this);
@@ -139,22 +145,12 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         /**
          * sets the poster image
          *
-         * @param movieBean
+         * @param movieReviewBean
          */
-        protected void bind(MovieBean movieBean) {
-            // get the image url
-            String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl(), false);
-
-            // log
-            Log.i(this.getClass().getName(), "Inflating image for url: " + imageUrl);
-
-            // add the image to the image view
-            Picasso.get()
-                    .load(imageUrl)
-                    .into(this.moviePosterView);
-
-            // set the text
-//            this.movieNameTextView.setText(movieBean.getName());
+        protected void bind(MovieReviewBean movieReviewBean) {
+            // bind the author
+            MovieUtils.bindDataToViews(this.authorLabelTextView, this.authorTextView, movieReviewBean.getAuthor());
+            MovieUtils.bindDataToViews(this.contentLabelTextView, this.contentTextView, movieReviewBean.getContent());
         }
 
         @Override
@@ -167,10 +163,10 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
             int clickedPosition = this.getAdapterPosition();
 
             // get the movie
-            MovieBean movieBean = movieBeanList.get(clickedPosition);
+            MovieReviewBean movieReviewBean = movieReviewBeanList.get(clickedPosition);
 
             // call the movie item listener with the position
-            movieItemClickListener.onListItemClick(movieBean);
+            movieReviewItemClickListener.onListItemClick(movieReviewBean);
 
         }
     }

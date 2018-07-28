@@ -35,4 +35,13 @@ public abstract class AbstractDetailActivity extends AppCompatActivity {
             dataView.setText(dataString);
         }
     }
+
+    /**
+     * show toast message
+     *
+     * @param message
+     */
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -2,6 +2,8 @@ package com.doobs.movieposter.p02_movieposterv1.utils;
 
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.doobs.movieposter.p02_movieposterv1.BuildConfig;
 import com.doobs.movieposter.p02_movieposterv1.bean.MovieBean;
@@ -38,6 +40,8 @@ public class MovieUtils {
         public static final String METHOD_POPULAR           = "popular";
         public static final String METHOD_USER_RATING       = "top_rated";
         public static final String PARAMETER_API_KEY        = "api_key";
+
+        public static final String METHOD_REVIEWS           = "reviews";
     }
 
     public static class MovieImage {
@@ -57,12 +61,11 @@ public class MovieUtils {
     public static URL getMovieListSortedUri(boolean isMostPopularSort, String apiKey) throws MovieException {
         // local variables
         Uri searchUri = null;
-        Uri.Builder uriBuilder = null;
         String serverAndContextString = null;
         URL movieListUrl = null;
 
         // build the string
-        serverAndContextString = MovieService.SERVER_NAME + "/" + MovieService.ROOT_CONTEXT + "/";
+        serverAndContextString = getServerAndContextString();
         if (isMostPopularSort) {
              serverAndContextString = serverAndContextString + MovieService.METHOD_POPULAR;
 
@@ -87,6 +90,53 @@ public class MovieUtils {
 
         // return
         return movieListUrl;
+    }
+
+    /**
+     * returns the movie review list url givan a movie id
+     *
+     * @param movieId
+     * @param apiKey
+     * @return
+     * @throws MovieException
+     */
+    public static URL getMoviewReviewURL(int movieId, String apiKey) throws MovieException {
+        // local variables
+        Uri searchUri = null;
+        String serverAndContextString = null;
+        URL movieReviewListUrl = null;
+
+        // build the string
+        serverAndContextString = getServerAndContextString();
+        serverAndContextString = serverAndContextString + String.valueOf(movieId) + "/" + MovieService.METHOD_REVIEWS;
+
+        // build the uri
+        searchUri = Uri.parse(serverAndContextString).buildUpon()
+                .appendQueryParameter(MovieService.PARAMETER_API_KEY, apiKey)
+                .build();
+
+        // build the url
+        try {
+            movieReviewListUrl = new URL(searchUri.toString());
+
+        } catch (MalformedURLException exception) {
+            String errorMessage = "Got url exception: " + exception.getMessage();
+            Log.e(MovieUtils.class.getName(), errorMessage);
+            throw new MovieException(errorMessage);
+        }
+
+        // return
+        return movieReviewListUrl;
+    }
+
+    /**
+     * returns the movie REST service server and context string
+     *
+     * @return
+     */
+    private static String getServerAndContextString() {
+        // return the server and context
+        return  MovieService.SERVER_NAME + "/" + MovieService.ROOT_CONTEXT + "/";
     }
 
     /**
@@ -209,4 +259,20 @@ public class MovieUtils {
         return returnString;
     }
 
+    /**
+     * apply data to the text views; hide them if there is no data
+     *
+     * @param labelView
+     * @param dataView
+     * @param dataString
+     */
+    public static void bindDataToViews(TextView labelView, TextView dataView, String dataString) {
+        if (dataString.isEmpty()) {
+            dataView.setVisibility(View.GONE);
+            labelView.setVisibility(View.GONE);
+
+        } else {
+            dataView.setText(dataString);
+        }
+    }
 }
