@@ -44,13 +44,13 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_review_list);
 
         // log
         Log.i(this.getClass().getName(), "In onCreate");
 
         // get the recycler view
-        this.movieReviewRecyclerView = (RecyclerView) this.findViewById(R.id.movie_list_review_rv);
+        this.movieReviewRecyclerView = (RecyclerView) this.findViewById(R.id.movie_review_list_rv);
         this.movieReviewRecyclerView.setHasFixedSize(true);
 
         // set the layout manager for the recycler view
@@ -66,6 +66,9 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
         // get the movie id from the intent
         Intent intent = this.getIntent();
         int movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1);
+
+        // log
+        Log.i(this.getClass().getName(), "Got movie id: " + movieId);
 
         // call the
         // load the initial movie list
@@ -99,7 +102,7 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
     @Override
     /**
      * will open the movie review url
-     * 
+     *
      */
     public void onListItemClick(MovieReviewBean movieReviewBean) {
         // get the movie url

@@ -1,5 +1,6 @@
 package com.doobs.movieposter.p02_movieposterv1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView UserRatingTextView;
     private TextView releaseDateTextView;
     private ImageView movieImageView;
+
+    // instance variables
 
     // 
     @Override
@@ -78,11 +82,28 @@ public class MovieDetailActivity extends AppCompatActivity {
      *
      * @param movieBean                  the movie to display
      */
-    private void populateUI(MovieBean movieBean) {
+    private void populateUI(final MovieBean movieBean) {
         // instance vartiables
         TextView dataView = null;
         TextView labelView = null;
         String dataString = null;
+
+        // get the review button and add the on click listener to it
+        Button reviewButton = (Button) findViewById(R.id.moview_review_button);
+        reviewButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // create the intent
+                Intent intent = new Intent(MovieDetailActivity.this, MovieReviewListActivity.class);
+
+                // set the movie id as an extra
+                intent.putExtra(MovieReviewListActivity.EXTRA_MOVIE_ID, movieBean.getId());
+
+                // launch the new activity
+                startActivity(intent);
+            }
+        });
 
         // populate the image
         this.movieImageView = findViewById(R.id.movie_detail_poster_iv);

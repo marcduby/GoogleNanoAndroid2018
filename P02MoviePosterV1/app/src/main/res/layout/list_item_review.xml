@@ -16,7 +16,7 @@
             android:id="@+id/review_author_label_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/detail_name_label"
+            android:text="@string/review_detail_author_label"
             style="@style/labelView" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:id="@+id/review_content_label_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/detail_plot_synopsis_label"
+            android:text="@string/review_detail_content_label"
             style="@style/labelView" />
 
         <TextView
@@ -38,19 +38,14 @@
             android:id="@+id/review_content_tv"
             style="@style/detailView"/>
 
-        <TextView
-            android:id="@+id/review_url_label_tv"
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/detail_user_rating_label"
-            style="@style/labelView" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/review_url_tv"
-            style="@style/detailView"/>
-
+            android:id="@+id/review_url_button"
+            android:text="@string/review_detail_url_button_label"
+            android:textAllCaps="false"
+            android:layout_gravity="center"/>
+        
     </LinearLayout>
 
 </FrameLayout>
