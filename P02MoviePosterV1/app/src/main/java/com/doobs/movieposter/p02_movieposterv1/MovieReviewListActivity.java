@@ -1,6 +1,7 @@
 package com.doobs.movieposter.p02_movieposterv1;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -86,7 +87,7 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
             Log.i(this.getClass().getName(), "Starting asyc task wirth url: : " + movieReviewUrl.toString());
 
             // execute the async task
-            new MainActivity.MovieLoadTask().execute(movieReviewUrl);
+            new MovieReviewListActivity.MovieReviewLoadTask().execute(movieReviewUrl);
 
         } catch (MovieException exception) {
             Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
@@ -96,11 +97,17 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
     }
 
     @Override
+    /**
+     * will open the movie review url
+     * 
+     */
     public void onListItemClick(MovieReviewBean movieReviewBean) {
         // get the movie url
+        String url = movieReviewBean.getUrl();
 
         // call an explicit intent to open the web page
-
+        Intent reviewUrlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(reviewUrlIntent);
     }
 
     /**
@@ -110,61 +117,6 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * main method to add movie details to the detail view
-     *
-     * @param movieReviewBean                  the movie to display
-     */
-    private void populateUI(MovieReviewBean movieReviewBean) {
-        // instance vartiables
-        TextView dataView = null;
-        TextView labelView = null;
-        String dataString = null;
-
-        // populate the image
-        this.movieImageView = findViewById(R.id.movie_detail_poster_iv);
-        String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl(), false);
-
-        // log
-        Log.i(this.getClass().getName(), "Displaying image: " + imageUrl);
-
-        // display the thumbnail poster image
-        Picasso.get()
-                .load(imageUrl)
-                .into(movieImageView);
-
-
-        // add the name
-        dataView = findViewById(R.id.movie_detail_title_tv);
-        labelView = findViewById(R.id.name_label_tv);
-        dataString = movieBean.getName();
-        this.bindDataToViews(labelView, dataView, dataString);
-
-        // add the plot synopsis
-        dataView = findViewById(R.id.movie_detail_synopsis_tv);
-        labelView = findViewById(R.id.synopsis_label_tv);
-        dataString = movieBean.getPlotSynopsis();
-        this.bindDataToViews(labelView, dataView, dataString);
-
-        // add the user rating
-        dataView = findViewById(R.id.movie_detail_user_rating_tv);
-        labelView = findViewById(R.id.user_rating_label_tv);
-        dataString = (movieBean.getRating() == null ? null : movieBean.getRating().toString());
-        this.bindDataToViews(labelView, dataView, dataString);
-
-        // add the release data
-        dataView = findViewById(R.id.movie_detail_release_date_tv);
-        labelView = findViewById(R.id.release_date_label_tv);
-        try {
-            dataString = MovieUtils.formatDate(movieBean.getReleaseDate());
-
-        } catch (MovieException exception) {
-            dataString = movieBean.getReleaseDate();
-        }
-        this.bindDataToViews(labelView, dataView, dataString);
-
     }
 
     /**
@@ -180,27 +132,25 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
         if (jsonInputString != null) {
             try {
                 // get the movie list from the json result
-                movieBeanList = MovieJsonParser.getMovieListFromJsonString(jsonInputString);
+                movieReviewBeanList = MovieJsonParser.getMovieReviewListFromJsonString(jsonInputString);
 
                 // log
-                Log.i(this.getClass().getName(), "Got movie list of size: " + movieBeanList.size());
+                Log.i(this.getClass().getName(), "Got movie review list of size: " + movieReviewBeanList.size());
 
             } catch (MovieException exception) {
-                Log.e(this.getClass().getName(), "Got errr loading movies: " + exception.getMessage());
-                String textToShow = "Error loading movies; please check network access";
+                Log.e(this.getClass().getName(), "Got error loading movie reviews: " + exception.getMessage());
+                String textToShow = "Error loading movie reviews; please check network access";
                 this.showToast(textToShow);
             }
 
         } else {
-            if (isIntialLoad) {
-                // show toast for error in network
-                String textToShow = "Error loading movies; please check network access";
-                this.showToast(textToShow);
-            }
+            // show toast for error in network
+            String textToShow = "Error loading movie reviews; please check network access";
+            this.showToast(textToShow);
         }
 
         // get the movie adapter and set the movie list on it
-        moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
+        moviesReviewRecyclerAdapter.setMovieReviewBeanList(movieReviewBeanList);
     }
 
     /**
@@ -255,4 +205,12 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
         }
     }
 
+    /**
+     * show toast message
+     *
+     * @param message
+     */
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }

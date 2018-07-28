@@ -143,13 +143,15 @@ public class MoviesReviewRecyclerAdapter extends RecyclerView.Adapter<MoviesRevi
         }
 
         /**
-         * sets the poster image
+         * sets the review details data
          *
          * @param movieReviewBean
          */
         protected void bind(MovieReviewBean movieReviewBean) {
             // bind the author
             MovieUtils.bindDataToViews(this.authorLabelTextView, this.authorTextView, movieReviewBean.getAuthor());
+
+            // bind the content
             MovieUtils.bindDataToViews(this.contentLabelTextView, this.contentTextView, movieReviewBean.getContent());
         }
 

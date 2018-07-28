@@ -116,8 +116,9 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
      * class to hold the individual movie poster items
      *
      */
-    public class MovieReviewViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+    public class MovieViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
         // instance variables
+        ImageView moviePosterView = null;
 //        TextView movieNameTextView;
 
         /**
@@ -125,7 +126,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
          *
          * @param itemView
          */
-        public MovieReviewViewHolder(View itemView) {
+        public MovieViewHolder(View itemView) {
             super(itemView);
 
             // get the image view

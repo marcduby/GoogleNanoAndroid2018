@@ -87,12 +87,8 @@ public class MovieJsonParser {
     public static List<MovieBean> getMovieListFromJson(JSONObject inputJsonObject) throws MovieException {
         List<MovieBean> movieBeanList = new ArrayList<MovieBean>();
         MovieBean movieBean = null;
-        String tempString = null;
         JSONObject jsonObject = null;
         JSONArray jsonArray = null;
-        Double tempDouble = null;
-        Integer tempInteger = null;
-        Date tempDate = null;
 
         // get the result array
         jsonArray = inputJsonObject.optJSONArray(SharedJsonKeys.RESULTS);
@@ -164,13 +160,79 @@ public class MovieJsonParser {
     }
 
     /**
+     * get the movie review list from a json object string
+     *
+     * @param inputJsonString
+     * @return
+     * @throws MovieException
+     */
+    public static List<MovieReviewBean> getMovieReviewListFromJsonString(String inputJsonString) throws MovieException {
+        // local variables
+        List<MovieReviewBean> movieReviewBeanList = null;
+        JSONObject jsonObject = null;
+
+        // get the json object
+        if (inputJsonString == null) {
+            throw new MovieException("Got null input json to translate to movie review list");
+
+        } else {
+            try {
+                jsonObject = new JSONObject(inputJsonString);
+
+            } catch (JSONException exception) {
+                throw new MovieException("Got json exception translating to movie review list: " + exception.getMessage());
+            }
+        }
+
+        // get the list
+        movieReviewBeanList = getMovieReviewListFromJson(jsonObject);
+
+        // return
+        return movieReviewBeanList;
+    }
+
+    /**
+     * get the movie list from a json object
+     *
+     * @param inputJsonObject
+     * @return
+     * @throws MovieException
+     */
+    public static List<MovieReviewBean> getMovieReviewListFromJson(JSONObject inputJsonObject) throws MovieException {
+        List<MovieReviewBean> movieReviewBeanList = new ArrayList<MovieReviewBean>();
+        MovieReviewBean movieReviewBean = null;
+        JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+
+        // get the result array
+        jsonArray = inputJsonObject.optJSONArray(SharedJsonKeys.RESULTS);
+
+        // if there are movies, then parse
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                jsonObject = jsonArray.optJSONObject(i);
+
+                if (jsonObject != null) {
+                    movieReviewBean = getMovieReviewFromJson(jsonObject);
+
+                    // add to list
+                    movieReviewBeanList.add(movieReviewBean);
+                }
+            }
+        }
+
+        // return
+        return movieReviewBeanList;
+    }
+
+    /**
      * parse the json movie review object
      *
      * @param inputJsonObject
      * @return
      * @throws MovieException
      */
-    public static MovieReviewBean getMoviewReviewFromJson(JSONObject inputJsonObject) throws MovieException {
+    public static MovieReviewBean getMovieReviewFromJson(JSONObject inputJsonObject) throws MovieException {
         // local variables
         MovieReviewBean movieReviewBean = new MovieReviewBean();
         String tempString = null;
