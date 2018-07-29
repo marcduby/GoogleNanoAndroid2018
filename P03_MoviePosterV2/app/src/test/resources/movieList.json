@@ -1,0 +1,27 @@
+{
+  "page": 1,
+  "total_results": 19989,
+  "total_pages": 1000,
+  "results": [
+    {
+      "vote_count": 1609,
+      "id": 351286,
+      "video": false,
+      "vote_average": 6.6,
+      "title": "Jurassic World: Fallen Kingdom",
+      "popularity": 330.924,
+      "poster_path": "/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg",
+      "original_language": "en",
+      "original_title": "Jurassic World: Fallen Kingdom",
+      "genre_ids": [
+        28,
+        12,
+        878
+      ],
+      "backdrop_path": "/gBmrsugfWpiXRh13Vo3j0WW55qD.jpg",
+      "adult": false,
+      "overview": "Several years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the island of Isla Nublar.",
+      "release_date": "2018-06-06"
+    }
+  ]
+}

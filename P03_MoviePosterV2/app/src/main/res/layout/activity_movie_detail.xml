@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="4dp"
+        tools:context="com.udacity.moviebrowser.MovieDetailActivity">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:contentDescription="sandwich_picture_content_description"
+            android:id="@+id/movie_detail_poster_iv"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/name_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_name_label"
+            style="@style/labelView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_detail_title_tv"
+            style="@style/detailView"/>
+
+        <TextView
+            android:id="@+id/synopsis_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_plot_synopsis_label"
+            style="@style/labelView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_detail_synopsis_tv"
+            style="@style/detailView"/>
+
+        <TextView
+            android:id="@+id/user_rating_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_user_rating_label"
+            style="@style/labelView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_detail_user_rating_tv"
+            style="@style/detailView"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/moview_review_button"
+            android:textAllCaps="false"
+            android:text="@string/detail_review_button_label"/>
+
+        <TextView
+            android:id="@+id/release_date_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_release_date_label"
+            style="@style/labelView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_detail_release_date_tv"
+            style="@style/detailView"/>
+
+    </LinearLayout>
+
+
+
+</ScrollView>

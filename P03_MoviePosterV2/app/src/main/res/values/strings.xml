@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Movie Browser</string>
+    <string name="title_activity_movie_detail">MovieDetailActivity</string>
+
+    <!-- detail activity strings -->
+    <string name="detail_name_label">Title</string>
+    <string name="detail_plot_synopsis_label">Plot Synopsis:</string>
+    <string name="detail_user_rating_label">User Rating:</string>
+    <string name="detail_release_date_label">Release Date:</string>
+    <string name="detail_review_button_label">See Reviews</string>
+
+    <!-- review list activity strings -->
+    <string name="review_detail_author_label">Title</string>
+    <string name="review_detail_content_label">Plot Synopsis:</string>
+    <string name="review_detail_url_button_label">See Full Review</string>
+
+    <!-- Content descriptions-->
+    <string name="movie_picture_content_description">Movie picture</string>
+
+    <!-- Error messages-->
+    <string name="detail_error_message">Movie data not available</string>
+
+    <!-- menu options -->
+    <string name="action_order_by_user_rating">Sort by User Rating</string>
+    <string name="action_order_by_most_popular">Sort by Most Popular</string>
+
+</resources>
