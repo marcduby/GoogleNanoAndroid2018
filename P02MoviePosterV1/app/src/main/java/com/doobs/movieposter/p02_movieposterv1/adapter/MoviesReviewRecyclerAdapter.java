@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -123,6 +124,7 @@ public class MoviesReviewRecyclerAdapter extends RecyclerView.Adapter<MoviesRevi
         TextView authorLabelTextView;
         TextView contentTextView;
         TextView contentLabelTextView;
+        Button webReviewButton;
 
         /**
          * default constructor
@@ -137,9 +139,10 @@ public class MoviesReviewRecyclerAdapter extends RecyclerView.Adapter<MoviesRevi
             this.authorLabelTextView = (TextView) itemView.findViewById(R.id.review_author_label_tv);
             this.contentTextView = (TextView) itemView.findViewById(R.id.review_content_tv);
             this.contentLabelTextView = (TextView) itemView.findViewById(R.id.review_content_label_tv);
+            this.webReviewButton = (Button) itemView.findViewById(R.id.review_url_button);
 
-            // set the listener
-            itemView.setOnClickListener(this);
+            // set the listener on the button
+            this.webReviewButton.setOnClickListener(this);
         }
 
         /**

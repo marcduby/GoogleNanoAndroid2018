@@ -12,7 +12,7 @@
     <!-- review list activity strings -->
     <string name="review_detail_author_label">Title</string>
     <string name="review_detail_content_label">Plot Synopsis:</string>
-    <string name="review_detail_url_button_label">See Web Review</string>
+    <string name="review_detail_url_button_label">See Full Review</string>
 
     <!-- Content descriptions-->
     <string name="movie_picture_content_description">Movie picture</string>
