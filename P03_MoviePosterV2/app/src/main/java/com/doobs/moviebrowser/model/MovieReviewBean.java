@@ -1,4 +1,4 @@
-package com.doobs.moviebrowser.bean;
+package com.doobs.moviebrowser.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

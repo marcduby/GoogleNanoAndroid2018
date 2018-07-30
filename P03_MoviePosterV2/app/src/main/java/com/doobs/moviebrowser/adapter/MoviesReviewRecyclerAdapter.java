@@ -8,14 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doobs.moviebrowser.R;
-import com.doobs.moviebrowser.bean.MovieBean;
-import com.doobs.moviebrowser.bean.MovieReviewBean;
+import com.doobs.moviebrowser.model.MovieReviewBean;
 import com.doobs.moviebrowser.utils.MovieUtils;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;

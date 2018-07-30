@@ -1,7 +1,7 @@
 package com.doobs.moviebrowser.utils;
 
-import com.doobs.moviebrowser.bean.MovieBean;
-import com.doobs.moviebrowser.bean.MovieReviewBean;
+import com.doobs.moviebrowser.model.MovieBean;
+import com.doobs.moviebrowser.model.MovieReviewBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;

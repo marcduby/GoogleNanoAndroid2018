@@ -1,26 +1,51 @@
-package com.doobs.moviebrowser.bean;
+package com.doobs.moviebrowser.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
-import java.util.Date;
+import android.support.annotation.NonNull;
 
 /**
  * Bean class to hold the individual movie data
  *
  * Created by mduby on 7/7/18.
  */
-
+@Entity(tableName = "mov_movies")
 public class MovieBean implements Parcelable {
     // instance variables
+    @NonNull
+    @ColumnInfo(name = "id")
+    @PrimaryKey
     private Integer id;
-    private String name;            // also PK
+
+    @NonNull
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @NonNull
+    @ColumnInfo(name = "rating")
     private Double rating;
+
+    @NonNull
+    @ColumnInfo(name = "popularity")
     private Double popularity;
+
+    @NonNull
+    @ColumnInfo(name = "title")
     private String title;
+
+    @NonNull
+    @ColumnInfo(name = "plot")
     private String plotSynopsis;
+
+    @NonNull
+    @ColumnInfo(name = "release_date")
     private String releaseDate;
+
+    @NonNull
+    @ColumnInfo(name = "image_url")
     private String imageUrl;
 
     @Override

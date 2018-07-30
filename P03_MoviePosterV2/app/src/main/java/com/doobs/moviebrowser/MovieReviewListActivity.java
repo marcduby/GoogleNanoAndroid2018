@@ -5,24 +5,16 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doobs.moviebrowser.adapter.MoviesRecyclerAdapter;
 import com.doobs.moviebrowser.adapter.MoviesReviewRecyclerAdapter;
-import com.doobs.moviebrowser.bean.MovieBean;
-import com.doobs.moviebrowser.bean.MovieReviewBean;
-import com.doobs.moviebrowser.utils.AbstractDetailActivity;
+import com.doobs.moviebrowser.model.MovieReviewBean;
 import com.doobs.moviebrowser.utils.MovieException;
 import com.doobs.moviebrowser.utils.MovieJsonParser;
 import com.doobs.moviebrowser.utils.MovieUtils;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URL;

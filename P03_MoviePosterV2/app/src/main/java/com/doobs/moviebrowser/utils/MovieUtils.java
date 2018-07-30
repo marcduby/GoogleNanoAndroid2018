@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.doobs.moviebrowser.BuildConfig;
-import com.doobs.moviebrowser.bean.MovieBean;
+import com.doobs.moviebrowser.model.MovieBean;
 
 import java.io.IOException;
 import java.io.InputStream;
