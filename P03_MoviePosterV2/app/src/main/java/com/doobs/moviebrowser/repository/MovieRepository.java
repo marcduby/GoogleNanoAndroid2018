@@ -43,6 +43,24 @@ public class MovieRepository {
     }
 
     /**
+     * insert a movie into the database
+     *
+     * @param movieBean
+     */
+    public void insert(MovieBean movieBean) {
+        new InsertMovieAsyncTask(this.movieDao).execute(movieBean);
+    }
+
+    /**
+     * delete a movie from the database
+     *
+     * @param movieBean
+     */
+    public void delete(MovieBean movieBean) {
+        new DeleteMovieAsyncTask(this.movieDao).execute(movieBean);
+    }
+
+    /**
      * async class to insert movie data
      *
      */

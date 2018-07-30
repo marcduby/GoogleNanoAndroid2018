@@ -20,6 +20,12 @@
     <!-- Error messages-->
     <string name="detail_error_message">Movie data not available</string>
 
+    <!-- movie list sort descriotions -->
+    <string name="movie_list_popular_message">Most Popular Movies</string>
+    <string name="movie_list_rating_message">Best Rated Movies</string>
+    <string name="movie_list_favorites_message">Your Favorite Movies</string>
+
+
     <!-- menu options -->
     <string name="action_order_by_user_rating">Sort by User Rating</string>
     <string name="action_order_by_most_popular">Sort by Most Popular</string>

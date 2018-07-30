@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doobs.moviebrowser.adapter.MoviesRecyclerAdapter;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
     private MoviesRecyclerAdapter moviesRecyclerAdapter;
     private RecyclerView movieRecyclerView;
     private boolean isSortByPopular = true;
+    private TextView movieListOptionTextView;
 
     // constants
     private final int numberOfColumns = 2;
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
         // log
         Log.i(this.getClass().getName(), "In onCreate");
+
+        // get the movie option text view
+        this.movieListOptionTextView = (TextView)this.findViewById(R.id.movie_list_sorting_tv);
 
         // get the recycler view
         this.movieRecyclerView = (RecyclerView) this.findViewById(R.id.movies_rv);
@@ -74,10 +79,18 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             URL movieUrl = MovieUtils.getMovieListSortedUri(isMostPopularSort, MovieUtils.MovieService.API_KEY);
 
             // log
-            Log.i(this.getClass().getName(), "Starting asyc task wirth url: : " + movieUrl.toString());
+            Log.i(this.getClass().getName(), "Starting asyc task with url: : " + movieUrl.toString());
 
             // execute the async task
             new MovieLoadTask().execute(movieUrl);
+
+            // set the movie option text view
+            if (isMostPopularSort) {
+                this.movieListOptionTextView.setText(R.string.movie_list_popular_message);
+
+            } else {
+                this.movieListOptionTextView.setText(R.string.movie_list_rating_message);
+            }
 
         } catch (MovieException exception) {
             Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
