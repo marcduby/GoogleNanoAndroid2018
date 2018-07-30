@@ -7,12 +7,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.doobs.moviebrowser.utils.MovieBrowserConstants;
+
 /**
  * Bean class to hold the individual movie data
  *
  * Created by mduby on 7/7/18.
  */
-@Entity(tableName = "mov_movies")
+@Entity(tableName = MovieBrowserConstants.Database.TABLE_NAME_MOVIE)
 public class MovieBean implements Parcelable {
     // instance variables
     @NonNull

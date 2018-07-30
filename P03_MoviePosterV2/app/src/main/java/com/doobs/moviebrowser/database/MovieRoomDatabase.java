@@ -5,9 +5,13 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.doobs.moviebrowser.dao.MovieDao;
 import com.doobs.moviebrowser.model.MovieBean;
+import com.doobs.moviebrowser.utils.MovieBrowserConstants;
 
 /**
+ * Room database class to manage store the movie data storing
+ *
  * Created by mduby on 7/30/18.
  */
 @Database(entities = {MovieBean.class}, version = 1)
@@ -24,7 +28,9 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
     public MovieRoomDatabase getInstance(final Context context) {
         if (movieRoomDatabase == null) {
             synchronized (MovieRoomDatabase.class) {
-                movieRoomDatabase = Room.databaseBuilder(context.getApplicationContext(), MovieRoomDatabase.class, "movie_database").build();
+                movieRoomDatabase = Room.databaseBuilder(context.getApplicationContext(),
+                        MovieRoomDatabase.class,
+                        MovieBrowserConstants.Database.DATABASE_NAME).build();
             }
         }
 
@@ -32,5 +38,10 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
         return movieRoomDatabase;
     }
 
-
+    /**
+     * returns the associated DAO
+     *
+     * @return
+     */
+    public abstract MovieDao getMovieDao();
 }
