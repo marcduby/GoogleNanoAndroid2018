@@ -24,27 +24,22 @@ public class MovieBean implements Parcelable {
     @ColumnInfo(name = "name")
     private String name;
 
-    @NonNull
     @ColumnInfo(name = "rating")
     private Double rating;
 
-    @NonNull
     @ColumnInfo(name = "popularity")
     private Double popularity;
 
-    @NonNull
-    @ColumnInfo(name = "title")
-    private String title;
+//    @NonNull
+//    @ColumnInfo(name = "title")
+//    private String title;
 
-    @NonNull
     @ColumnInfo(name = "plot")
     private String plotSynopsis;
 
-    @NonNull
     @ColumnInfo(name = "release_date")
     private String releaseDate;
 
-    @NonNull
     @ColumnInfo(name = "image_url")
     private String imageUrl;
 
@@ -54,7 +49,6 @@ public class MovieBean implements Parcelable {
         parcel.writeString(name);
         parcel.writeDouble(rating);
         parcel.writeDouble(popularity);
-        parcel.writeString(title);
         parcel.writeString(plotSynopsis);
         parcel.writeString(releaseDate);
         parcel.writeString(imageUrl);
@@ -74,7 +68,6 @@ public class MovieBean implements Parcelable {
             movieBean.setName(parcel.readString());
             movieBean.setRating(parcel.readDouble());
             movieBean.setPopularity(parcel.readDouble());
-            movieBean.setTitle(parcel.readString());
             movieBean.setPlotSynopsis(parcel.readString());
             movieBean.setReleaseDate(parcel.readString());
             movieBean.setImageUrl(parcel.readString());
@@ -110,14 +103,6 @@ public class MovieBean implements Parcelable {
 
     public void setPopularity(Double popularity) {
         this.popularity = popularity;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getPlotSynopsis() {
