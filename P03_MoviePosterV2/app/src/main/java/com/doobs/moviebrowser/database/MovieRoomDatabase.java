@@ -25,7 +25,7 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
      * @param context
      * @return
      */
-    public MovieRoomDatabase getInstance(final Context context) {
+    public static MovieRoomDatabase getInstance(final Context context) {
         if (movieRoomDatabase == null) {
             synchronized (MovieRoomDatabase.class) {
                 movieRoomDatabase = Room.databaseBuilder(context.getApplicationContext(),
