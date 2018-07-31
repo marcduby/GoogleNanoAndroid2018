@@ -1,8 +1,11 @@
 package com.doobs.moviebrowser;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 
 import com.doobs.moviebrowser.adapter.MoviesRecyclerAdapter;
 import com.doobs.moviebrowser.model.MovieBean;
+import com.doobs.moviebrowser.model.MovieViewModel;
 import com.doobs.moviebrowser.utils.MovieBrowserConstants;
 import com.doobs.moviebrowser.utils.MovieException;
 import com.doobs.moviebrowser.utils.MovieJsonParser;
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
     private MoviesRecyclerAdapter moviesRecyclerAdapter;
     private RecyclerView movieRecyclerView;
     private TextView movieListOptionTextView;
+    private MovieViewModel movieViewModel;
 
     // constants
     private final int numberOfColumns = 2;
@@ -65,6 +70,18 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
         // load the initial movie list
         this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
+
+        // get the movie view model
+        this.movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+
+        // set the observer on the mutable live data movie list used for display
+        this.movieViewModel.getDisplayMovieList().observe(this, new Observer<List<MovieBean>>() {
+            @Override
+            public void onChanged(@Nullable List<MovieBean> movieBeanList) {
+                // set the data o the adapter
+                moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
+            }
+        });
     }
 
     /**
@@ -221,8 +238,10 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             }
         }
 
+        // get the view model and set the new list on it
+        this.movieViewModel.setDisplayMovieList(movieBeanList);
         // get the movie adapter and set the movie list on it
-        moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
+//        moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
     }
 
     /**

@@ -3,6 +3,7 @@ package com.doobs.moviebrowser.model;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 import com.doobs.moviebrowser.repository.MovieRepository;
 
@@ -17,6 +18,7 @@ public class MovieViewModel extends AndroidViewModel {
     // instance variables
     private MovieRepository movieRepository;
     private LiveData<List<MovieBean>> movieList;
+    private MutableLiveData<List<MovieBean>> displayMovieList = new MutableLiveData<List<MovieBean>>();
 
     /**
      * default constructor
@@ -48,11 +50,29 @@ public class MovieViewModel extends AndroidViewModel {
     }
 
     /**
-     * movie list getter
+     * movie list getter (for DB list)
      *
      * @return
      */
     public LiveData<List<MovieBean>> getMovieList() {
         return movieList;
+    }
+
+    /**
+     * movie list getter for the main activity list view display
+     *
+     * @return
+     */
+    public MutableLiveData<List<MovieBean>> getDisplayMovieList() {
+        return displayMovieList;
+    }
+
+    /**
+     * set the movies to display; will modify the observed mutable live data list
+     *
+     * @param movieList
+     */
+    public void setDisplayMovieList(List<MovieBean> movieList) {
+        this.displayMovieList.postValue(movieList);
     }
 }
