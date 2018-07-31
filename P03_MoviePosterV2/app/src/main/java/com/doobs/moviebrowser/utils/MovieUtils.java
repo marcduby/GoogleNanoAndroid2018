@@ -43,6 +43,7 @@ public class MovieUtils {
 
         public static final String METHOD_REVIEWS           = "reviews";
         public static final String METHOD_TRAILERS          = "trailers";
+        public static final String METHOD_VIDEOS            = "videos";
     }
 
     public static class MovieImage {
@@ -120,7 +121,7 @@ public class MovieUtils {
      * @throws MovieException
      */
     public static URL getMovieTrailerURL(int movieId, String apiKey) throws MovieException {
-        return getMovieLinkURL(movieId, MovieService.METHOD_TRAILERS, apiKey);
+        return getMovieLinkURL(movieId, MovieService.METHOD_VIDEOS, apiKey);
     }
 
     /**

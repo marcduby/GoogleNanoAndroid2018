@@ -18,9 +18,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="labelView" parent="AppTheme">
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">6dp</item>
+    <style name="labelView" parent="labelViewNoMargin">
         <item name="android:layout_marginTop">10sp</item>
     </style>
 
@@ -28,10 +26,17 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="detailView" parent="AppTheme">
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+    <style name="detailView" parent="detailViewNoMargin">
         <item name="android:layout_marginTop">2sp</item>
     </style>
 
+    <style name="labelViewNoMargin" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">6dp</item>
+    </style>
+
+    <style name="detailViewNoMargin" parent="AppTheme">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
 </resources>

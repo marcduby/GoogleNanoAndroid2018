@@ -51,6 +51,7 @@ public class MovieJsonParser {
         public static final String NAME                 = "name";
         public static final String TYPE                 = "type";
         public static final String SOURCE               = "source";
+        public static final String KEY                  = "key";
     }
 
     /**
@@ -312,7 +313,7 @@ public class MovieJsonParser {
         JSONArray jsonArray = null;
 
         // get the result array
-        jsonArray = inputJsonObject.optJSONArray(MoviewTrailerJsonKeys.YOUTUBE);
+        jsonArray = inputJsonObject.optJSONArray(SharedJsonKeys.RESULTS);
 
         // if there are movies, then parse
         if (jsonArray != null) {
@@ -353,7 +354,7 @@ public class MovieJsonParser {
         movieTrailerBean.setType(tempString);
 
         // get the title
-        tempString = inputJsonObject.optString(MoviewTrailerJsonKeys.SOURCE);
+        tempString = inputJsonObject.optString(MoviewTrailerJsonKeys.KEY);
         movieTrailerBean.setSource(tempString);
 
         // return
