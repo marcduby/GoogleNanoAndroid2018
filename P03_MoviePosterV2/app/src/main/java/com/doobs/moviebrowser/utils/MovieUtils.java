@@ -42,12 +42,19 @@ public class MovieUtils {
         public static final String PARAMETER_API_KEY        = "api_key";
 
         public static final String METHOD_REVIEWS           = "reviews";
+        public static final String METHOD_TRAILERS          = "trailers";
     }
 
     public static class MovieImage {
         public static final String SERVER_NAME              = "http://image.tmdb.org/t/p/";
         public static final String POSTER_IMAGE_SIZE        = "w185";
         public static final String THUMBNAILAGE_SIZE        = "w92";
+    }
+
+    public static class YouTube {
+        public static final String APPLICATION_PATH         = "vnd.youtube:";
+        public static final String WEB_URL                  = "http://www.youtube.com/watch?v=";
+
     }
 
     /**
@@ -93,14 +100,39 @@ public class MovieUtils {
     }
 
     /**
-     * returns the movie review list url givan a movie id
+     * returns the movie review list url given a movie id
      *
      * @param movieId
      * @param apiKey
      * @return
      * @throws MovieException
      */
-    public static URL getMoviewReviewURL(int movieId, String apiKey) throws MovieException {
+    public static URL getMovieReviewURL(int movieId, String apiKey) throws MovieException {
+        return getMovieLinkURL(movieId, MovieService.METHOD_REVIEWS, apiKey);
+    }
+
+    /**
+     * returns the movie review list url given a movie id
+     *
+     * @param movieId
+     * @param apiKey
+     * @return
+     * @throws MovieException
+     */
+    public static URL getMovieTrailerURL(int movieId, String apiKey) throws MovieException {
+        return getMovieLinkURL(movieId, MovieService.METHOD_TRAILERS, apiKey);
+    }
+
+    /**
+     * returns the movie list url given a movie id and sub oath method
+     *
+     * @param movieId
+     * @param subPath
+     * @param apiKey
+     * @return
+     * @throws MovieException
+     */
+    public static URL getMovieLinkURL(int movieId, String subPath, String apiKey) throws MovieException {
         // local variables
         Uri searchUri = null;
         String serverAndContextString = null;
@@ -108,7 +140,7 @@ public class MovieUtils {
 
         // build the string
         serverAndContextString = getServerAndContextString();
-        serverAndContextString = serverAndContextString + String.valueOf(movieId) + "/" + MovieService.METHOD_REVIEWS;
+        serverAndContextString = serverAndContextString + String.valueOf(movieId) + "/" + subPath;
 
         // build the uri
         searchUri = Uri.parse(serverAndContextString).buildUpon()
@@ -274,5 +306,25 @@ public class MovieUtils {
         } else {
             dataView.setText(dataString);
         }
+    }
+
+    /**
+     * return the youtube application url given the video source
+     *
+     * @param source
+     * @return
+     */
+    public static String getYouTubeApplicationUrl(String source) {
+        return YouTube.APPLICATION_PATH + source;
+    }
+
+    /**
+     * return the youtube web url given the video source
+     *
+     * @param source
+     * @return
+     */
+    public static String getYouTubeWebUrl(String source) {
+        return YouTube.WEB_URL + source;
     }
 }

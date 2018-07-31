@@ -157,7 +157,7 @@ public class MoviesReviewRecyclerAdapter extends RecyclerView.Adapter<MoviesRevi
 
         @Override
         /**
-         * handle clicks on the view holder
+         * handle clicks on the view holder button
          *
          */
         public void onClick(View view) {

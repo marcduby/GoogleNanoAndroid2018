@@ -38,6 +38,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ImageView movieImageView;
     Button favoritesButton;
     Button reviewButton;
+    Button trailerButton;
 
     // instance variables
     private MovieViewModel movieViewModel;
@@ -88,7 +89,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // get the buttons
         this.favoritesButton = (Button) findViewById(R.id.movie_detail_favorites_button);
-        this.reviewButton = (Button) findViewById(R.id.moview_review_button);
+        this.reviewButton = (Button) findViewById(R.id.movie_review_button);
+        this.trailerButton = (Button) findViewById(R.id.movie_trailer_button);
 
         // get the favorites button and add the on click listener to it
         this.favoritesButton.setOnClickListener( new View.OnClickListener() {
@@ -111,7 +113,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
 
         // get the review button and add the on click listener to it
-        reviewButton.setOnClickListener( new View.OnClickListener() {
+        this.reviewButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -120,6 +122,22 @@ public class MovieDetailActivity extends AppCompatActivity {
 
                 // set the movie id as an extra
                 intent.putExtra(MovieReviewListActivity.EXTRA_MOVIE_ID, movieBean.getId());
+
+                // launch the new activity
+                startActivity(intent);
+            }
+        });
+
+        // get the review button and add the on click listener to it
+        this.trailerButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // create the intent
+                Intent intent = new Intent(MovieDetailActivity.this, MovieTrailerListActivity.class);
+
+                // set the movie id as an extra
+                intent.putExtra(MovieTrailerListActivity.EXTRA_MOVIE_ID, movieBean.getId());
 
                 // launch the new activity
                 startActivity(intent);

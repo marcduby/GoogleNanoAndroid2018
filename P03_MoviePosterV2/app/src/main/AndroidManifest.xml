@@ -30,6 +30,11 @@
             android:name=".MovieReviewListActivity"
             android:parentActivityName=".MovieDetailActivity">
         </activity>
+
+        <activity
+            android:name=".MovieTrailerListActivity"
+            android:parentActivityName=".MovieDetailActivity">
+        </activity>
     </application>
 
 </manifest>
