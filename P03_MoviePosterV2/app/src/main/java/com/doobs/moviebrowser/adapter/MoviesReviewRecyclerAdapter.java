@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Recycler class to load the movie data
+ * Recycler class to load the movie review data
  *
  * Created by mduby on 7/18/18.
  */

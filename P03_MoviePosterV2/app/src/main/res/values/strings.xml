@@ -10,9 +10,14 @@
     <string name="detail_review_button_label">See Reviews</string>
 
     <!-- review list activity strings -->
-    <string name="review_detail_author_label">Title</string>
+    <string name="review_detail_author_label">Title:</string>
     <string name="review_detail_content_label">Plot Synopsis:</string>
     <string name="review_detail_url_button_label">See Full Review</string>
+
+    <!-- trailer list activity strings -->
+    <string name="trailer_detail_name_label">Name:</string>
+    <string name="trailer_detail_type_label">Type:</string>
+    <string name="trailer_detail_youtube_button_label">Watch Trailer</string>
 
     <!-- Content descriptions-->
     <string name="movie_picture_content_description">Movie picture</string>
