@@ -1,14 +1,24 @@
 # GoogleNanoAndroid2018 #
 
-## Project 3 (Movies v2, reviews) ##
+
+## Project 3 (Movies v2, reviews, database and trailers) ##
 * Used the following references
-  * the Google Architecture Components code lab: https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#0
-  * also reference a sample project I coded to follow the code lab: https://github.com/marcduby/DividendCashFlowAndroid
-  * refence this blog on using MutableLiveData: https://blog.oozou.com/calling-web-service-with-android-architecture-component-8de864800a93
+  * The Google Architecture Components code lab:
+    * https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#0
+  * Also reference a sample project I coded to follow the code lab:
+    * https://github.com/marcduby/DividendCashFlowAndroid
+  * Reference this blog on using MutableLiveData:
+    * https://blog.oozou.com/calling-web-service-with-android-architecture-component-8de864800a93
+  * Reference this stackoverflow thread on using MutableLivaData:
+    * https://stackoverflow.com/questions/44204978/how-to-update-livedata-of-a-viewmodel-from-background-service-and-update-ui
+  * For Youtube video display, used the techniqwue outlined in this stackoverflow post:
+    * https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent
+
 
 ## Project 2 (Movies v1, browse posters) ##
 * Setup: add your moviedb API key to the gradle.properties file for the build
-  * For the network check, used technique described in: https://stackoverflow.com/questions/1560788/how-to-check-internet-access-on-android-inetaddress-never-times-out
+  * For the network check, used technique described in:
+    * https://stackoverflow.com/questions/1560788/how-to-check-internet-access-on-android-inetaddress-never-times-out
   * Referenced the Udacity Android Development course for the layout ideas
 
 
