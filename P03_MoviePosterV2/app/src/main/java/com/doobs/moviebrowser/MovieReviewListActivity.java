@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doobs.moviebrowser.adapter.MoviesReviewRecyclerAdapter;
@@ -32,6 +33,7 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
     // text views
     private MoviesReviewRecyclerAdapter moviesReviewRecyclerAdapter;
     private RecyclerView movieReviewRecyclerView;
+    private TextView reviewCountTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,9 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
 
         // log
         Log.i(this.getClass().getName(), "In onCreate");
+
+        // get the count text view
+        this.reviewCountTextView = (TextView)this.findViewById(R.id.movie_review_list_count_tv);
 
         // get the recycler view
         this.movieReviewRecyclerView = (RecyclerView) this.findViewById(R.id.movie_review_list_rv);
@@ -146,6 +151,14 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
 
         // get the movie adapter and set the movie list on it
         moviesReviewRecyclerAdapter.setMovieReviewBeanList(movieReviewBeanList);
+
+        // set the count text view
+        if (movieReviewBeanList.size() > 0) {
+            this.reviewCountTextView.setText(movieReviewBeanList.size() + " movie review" + (movieReviewBeanList.size() > 1 ? "s" : ""));
+
+        } else {
+            this.reviewCountTextView.setText("No movie reviews found");
+        }
     }
 
     /**

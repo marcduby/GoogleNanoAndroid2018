@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doobs.moviebrowser.adapter.MoviesReviewRecyclerAdapter;
@@ -36,6 +37,7 @@ public class MovieTrailerListActivity extends AppCompatActivity implements Movie
     // text views
     private MoviesTrailerRecyclerAdapter moviesTrailerRecyclerAdapter;
     private RecyclerView movieTrailerRecyclerView;
+    private TextView movieTrailerCountTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,9 @@ public class MovieTrailerListActivity extends AppCompatActivity implements Movie
 
         // log
         Log.i(this.getClass().getName(), "In onCreate");
+
+        // get the trailer count text view
+        this.movieTrailerCountTextView = (TextView)this.findViewById(R.id.movie_trailer_list_count_tv);
 
         // get the recycler view
         this.movieTrailerRecyclerView = (RecyclerView) this.findViewById(R.id.movie_trailer_list_rv);
@@ -158,6 +163,14 @@ public class MovieTrailerListActivity extends AppCompatActivity implements Movie
 
         // get the movie adapter and set the movie list on it
         moviesTrailerRecyclerAdapter.setMovieTrailerBeanList(movieTrailerBeanList);
+
+        // set the count text view
+        if (movieTrailerBeanList.size() > 0) {
+            this.movieTrailerCountTextView.setText(movieTrailerBeanList.size() + " movie trailer" + (movieTrailerBeanList.size() > 1 ? "s" : ""));
+
+        } else {
+            this.movieTrailerCountTextView.setText("No movie trailers found");
+        }
     }
 
     /**
