@@ -139,4 +139,16 @@ public class MovieBean implements Parcelable {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public int hashCode() {
+        return this.getId();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        MovieBean other = (MovieBean)object;
+
+        return this.id.equals(other.getId());
+    }
 }

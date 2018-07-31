@@ -25,10 +25,13 @@
     <string name="movie_list_rating_message">Best Rated Movies</string>
     <string name="movie_list_favorites_message">My Favorite Movies</string>
 
-
     <!-- menu options -->
     <string name="action_order_by_user_rating">Best Rated</string>
     <string name="action_order_by_most_popular">Most Popular</string>
     <string name="action_order_my_favorites">My Favorites</string>
+
+    <!-- movie detail favorites options -->
+    <string name="button_movie_add_favorites">Add to Favorites</string>
+    <string name="button_movie_remove_favorites">Remove from Favorites</string>
 
 </resources>
