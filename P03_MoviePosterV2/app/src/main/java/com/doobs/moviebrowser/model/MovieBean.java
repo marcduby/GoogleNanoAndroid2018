@@ -1,26 +1,48 @@
-package com.doobs.moviebrowser.bean;
+package com.doobs.moviebrowser.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
-import java.io.Serializable;
-import java.util.Date;
+import com.doobs.moviebrowser.utils.MovieBrowserConstants;
 
 /**
  * Bean class to hold the individual movie data
  *
  * Created by mduby on 7/7/18.
  */
-
+@Entity(tableName = MovieBrowserConstants.Database.TABLE_NAME_MOVIE)
 public class MovieBean implements Parcelable {
     // instance variables
+    @NonNull
+    @ColumnInfo(name = "id")
+    @PrimaryKey
     private Integer id;
-    private String name;            // also PK
+
+    @NonNull
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @ColumnInfo(name = "rating")
     private Double rating;
+
+    @ColumnInfo(name = "popularity")
     private Double popularity;
-    private String title;
+
+//    @NonNull
+//    @ColumnInfo(name = "title")
+//    private String title;
+
+    @ColumnInfo(name = "plot")
     private String plotSynopsis;
+
+    @ColumnInfo(name = "release_date")
     private String releaseDate;
+
+    @ColumnInfo(name = "image_url")
     private String imageUrl;
 
     @Override
@@ -29,7 +51,6 @@ public class MovieBean implements Parcelable {
         parcel.writeString(name);
         parcel.writeDouble(rating);
         parcel.writeDouble(popularity);
-        parcel.writeString(title);
         parcel.writeString(plotSynopsis);
         parcel.writeString(releaseDate);
         parcel.writeString(imageUrl);
@@ -49,7 +70,6 @@ public class MovieBean implements Parcelable {
             movieBean.setName(parcel.readString());
             movieBean.setRating(parcel.readDouble());
             movieBean.setPopularity(parcel.readDouble());
-            movieBean.setTitle(parcel.readString());
             movieBean.setPlotSynopsis(parcel.readString());
             movieBean.setReleaseDate(parcel.readString());
             movieBean.setImageUrl(parcel.readString());
@@ -87,14 +107,6 @@ public class MovieBean implements Parcelable {
         this.popularity = popularity;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getPlotSynopsis() {
         return plotSynopsis;
     }
@@ -126,5 +138,17 @@ public class MovieBean implements Parcelable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        MovieBean other = (MovieBean)object;
+
+        return this.id.equals(other.getId());
     }
 }

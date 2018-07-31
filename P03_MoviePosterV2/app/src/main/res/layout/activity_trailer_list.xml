@@ -9,20 +9,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text=""
-            android:id="@+id/movie_review_list_count_tv"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text=""
+        android:id="@+id/movie_trailer_list_count_tv"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/movie_review_list_rv">
+            android:id="@+id/movie_trailer_list_rv">
 
         </android.support.v7.widget.RecyclerView>
 

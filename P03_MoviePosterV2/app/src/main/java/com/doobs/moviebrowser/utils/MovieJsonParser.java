@@ -1,7 +1,8 @@
 package com.doobs.moviebrowser.utils;
 
-import com.doobs.moviebrowser.bean.MovieBean;
-import com.doobs.moviebrowser.bean.MovieReviewBean;
+import com.doobs.moviebrowser.model.MovieBean;
+import com.doobs.moviebrowser.model.MovieReviewBean;
+import com.doobs.moviebrowser.model.MovieTrailerBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +44,13 @@ public class MovieJsonParser {
         public static final String AUTHOR               = "author";
         public static final String CONTENT              = "content";
         public static final String URL                  = "url";
+    }
+
+    public static class MoviewTrailerJsonKeys {
+        public static final String YOUTUBE              = "youtube";
+        public static final String NAME                 = "name";
+        public static final String TYPE                 = "type";
+        public static final String SOURCE               = "source";
     }
 
     /**
@@ -192,7 +200,7 @@ public class MovieJsonParser {
     }
 
     /**
-     * get the movie list from a json object
+     * get the movie review list from a json object
      *
      * @param inputJsonObject
      * @return
@@ -256,5 +264,99 @@ public class MovieJsonParser {
 
         // return
         return movieReviewBean;
+    }
+
+    /**
+     * get the movie review list from a json object string
+     *
+     * @param inputJsonString
+     * @return
+     * @throws MovieException
+     */
+    public static List<MovieTrailerBean> getMovieTrailerListFromJsonString(String inputJsonString) throws MovieException {
+        // local variables
+        List<MovieTrailerBean> movieTrailerBeanList = null;
+        JSONObject jsonObject = null;
+
+        // get the json object
+        if (inputJsonString == null) {
+            throw new MovieException("Got null input json to translate to movie trailer list");
+
+        } else {
+            try {
+                jsonObject = new JSONObject(inputJsonString);
+
+            } catch (JSONException exception) {
+                throw new MovieException("Got json exception translating to movie trailer list: " + exception.getMessage());
+            }
+        }
+
+        // get the list
+        movieTrailerBeanList = getMovieTrailerListFromJson(jsonObject);
+
+        // return
+        return movieTrailerBeanList;
+    }
+
+    /**
+     * get the movie trailer list from a json object
+     *
+     * @param inputJsonObject
+     * @return
+     * @throws MovieException
+     */
+    public static List<MovieTrailerBean> getMovieTrailerListFromJson(JSONObject inputJsonObject) throws MovieException {
+        List<MovieTrailerBean> movieTrailerBeanList = new ArrayList<MovieTrailerBean>();
+        MovieTrailerBean movieTrailerBean = null;
+        JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+
+        // get the result array
+        jsonArray = inputJsonObject.optJSONArray(MoviewTrailerJsonKeys.YOUTUBE);
+
+        // if there are movies, then parse
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                jsonObject = jsonArray.optJSONObject(i);
+
+                if (jsonObject != null) {
+                    movieTrailerBean = getMovieTrailerFromJson(jsonObject);
+
+                    // add to list
+                    movieTrailerBeanList.add(movieTrailerBean);
+                }
+            }
+        }
+
+        // return
+        return movieTrailerBeanList;
+    }
+
+    /**
+     * parse the json movie trailer object
+     *
+     * @param inputJsonObject
+     * @return
+     * @throws MovieException
+     */
+    public static MovieTrailerBean getMovieTrailerFromJson(JSONObject inputJsonObject) throws MovieException {
+        // local variables
+        MovieTrailerBean movieTrailerBean = new MovieTrailerBean();
+        String tempString = null;
+
+        // get the title
+        tempString = inputJsonObject.optString(MoviewTrailerJsonKeys.NAME);
+        movieTrailerBean.setName(tempString);
+
+        // get the title
+        tempString = inputJsonObject.optString(MoviewTrailerJsonKeys.TYPE);
+        movieTrailerBean.setType(tempString);
+
+        // get the title
+        tempString = inputJsonObject.optString(MoviewTrailerJsonKeys.SOURCE);
+        movieTrailerBean.setSource(tempString);
+
+        // return
+        return movieTrailerBean;
     }
 }

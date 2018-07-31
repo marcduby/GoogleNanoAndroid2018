@@ -1,5 +1,7 @@
 package com.doobs.moviebrowser;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -12,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doobs.moviebrowser.adapter.MoviesReviewRecyclerAdapter;
+import com.doobs.moviebrowser.adapter.MoviesTrailerRecyclerAdapter;
 import com.doobs.moviebrowser.model.MovieReviewBean;
+import com.doobs.moviebrowser.model.MovieTrailerBean;
 import com.doobs.moviebrowser.utils.MovieException;
 import com.doobs.moviebrowser.utils.MovieJsonParser;
 import com.doobs.moviebrowser.utils.MovieUtils;
@@ -26,39 +30,39 @@ import java.util.List;
  * Detail activity class to display the selected movie details
  *
  */
-public class MovieReviewListActivity extends AppCompatActivity implements MoviesReviewRecyclerAdapter.MovieReviewItemClickListener {
-    // static cosntants
+public class MovieTrailerListActivity extends AppCompatActivity implements MoviesTrailerRecyclerAdapter.MovieTrailerItemClickListener {
+    // static constants
     public static final String EXTRA_MOVIE_ID = "movie_id_key";
 
     // text views
-    private MoviesReviewRecyclerAdapter moviesReviewRecyclerAdapter;
-    private RecyclerView movieReviewRecyclerView;
-    private TextView reviewCountTextView;
+    private MoviesTrailerRecyclerAdapter moviesTrailerRecyclerAdapter;
+    private RecyclerView movieTrailerRecyclerView;
+    private TextView movieTrailerCountTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_list);
+        setContentView(R.layout.activity_trailer_list);
 
         // log
         Log.i(this.getClass().getName(), "In onCreate");
 
-        // get the count text view
-        this.reviewCountTextView = (TextView)this.findViewById(R.id.movie_review_list_count_tv);
+        // get the trailer count text view
+        this.movieTrailerCountTextView = (TextView)this.findViewById(R.id.movie_trailer_list_count_tv);
 
         // get the recycler view
-        this.movieReviewRecyclerView = (RecyclerView) this.findViewById(R.id.movie_review_list_rv);
-        this.movieReviewRecyclerView.setHasFixedSize(true);
+        this.movieTrailerRecyclerView = (RecyclerView) this.findViewById(R.id.movie_trailer_list_rv);
+        this.movieTrailerRecyclerView.setHasFixedSize(true);
 
         // set the layout manager for the recycler view
         LinearLayoutManager reviewListLayoutManager = new LinearLayoutManager(this);
-        this.movieReviewRecyclerView.setLayoutManager(reviewListLayoutManager);
+        this.movieTrailerRecyclerView.setLayoutManager(reviewListLayoutManager);
 
         // create the adapter
-        this.moviesReviewRecyclerAdapter = new MoviesReviewRecyclerAdapter(this);
+        this.moviesTrailerRecyclerAdapter = new MoviesTrailerRecyclerAdapter(this);
 
         // set the adapter on the recycler view
-        this.movieReviewRecyclerView.setAdapter(this.moviesReviewRecyclerAdapter);
+        this.movieTrailerRecyclerView.setAdapter(this.moviesTrailerRecyclerAdapter);
 
         // get the movie id from the intent
         Intent intent = this.getIntent();
@@ -69,7 +73,7 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
 
         // call the
         // load the initial movie list
-        this.callMovieReviewRestApi(movieId);
+        this.callMovieTrailerRestApi(movieId);
     }
 
     /**
@@ -77,17 +81,17 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
      *
      * @param movieId
      */
-    private void callMovieReviewRestApi(int movieId) {
+    private void callMovieTrailerRestApi(int movieId) {
         // load the initial movie list
         try {
             // get the URL
-            URL movieReviewUrl = MovieUtils.getMovieReviewURL(movieId, MovieUtils.MovieService.API_KEY);
+            URL movieTrailerUrl = MovieUtils.getMovieTrailerURL(movieId, MovieUtils.MovieService.API_KEY);
 
             // log
-            Log.i(this.getClass().getName(), "Starting asyc task wirth url: : " + movieReviewUrl.toString());
+            Log.i(this.getClass().getName(), "Starting asyc task wirth url: : " + movieTrailerUrl.toString());
 
             // execute the async task
-            new MovieReviewListActivity.MovieReviewLoadTask().execute(movieReviewUrl);
+            new MovieTrailerListActivity.MovieTrailerLoadTask().execute(movieTrailerUrl);
 
         } catch (MovieException exception) {
             Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
@@ -98,16 +102,24 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
 
     @Override
     /**
-     * will open the movie review url
+     * will open the movie trailer url
      *
      */
-    public void onListItemClick(MovieReviewBean movieReviewBean) {
-        // get the movie url
-        String url = movieReviewBean.getUrl();
+    public void onListItemClick(MovieTrailerBean movieTrailerBean) {
+        // get the movie trailer source
+        String source = movieTrailerBean.getSource();
 
-        // call an explicit intent to open the web page
-        Intent reviewUrlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        startActivity(reviewUrlIntent);
+        // call an explicit intent to open the youtube app
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(MovieUtils.getYouTubeApplicationUrl(source)));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(MovieUtils.getYouTubeWebUrl(source)));
+
+        // open youtube video
+        try {
+            this.startActivity(appIntent);
+
+        } catch (ActivityNotFoundException ex) {
+            this.startActivity(webIntent);
+        }
     }
 
     /**
@@ -124,40 +136,40 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
      *
      * @param jsonInputString
      */
-    private void loadMovieReviewList(String jsonInputString) {
+    private void loadMovieTrailerList(String jsonInputString) {
         // local variables
-        List<MovieReviewBean> movieReviewBeanList = new ArrayList<MovieReviewBean>();
+        List<MovieTrailerBean> movieTrailerBeanList = new ArrayList<MovieTrailerBean>();
 
         // if json not null
         if (jsonInputString != null) {
             try {
                 // get the movie list from the json result
-                movieReviewBeanList = MovieJsonParser.getMovieReviewListFromJsonString(jsonInputString);
+                movieTrailerBeanList = MovieJsonParser.getMovieTrailerListFromJsonString(jsonInputString);
 
                 // log
-                Log.i(this.getClass().getName(), "Got movie review list of size: " + movieReviewBeanList.size());
+                Log.i(this.getClass().getName(), "Got movie trailer list of size: " + movieTrailerBeanList.size());
 
             } catch (MovieException exception) {
-                Log.e(this.getClass().getName(), "Got error loading movie reviews: " + exception.getMessage());
-                String textToShow = "Error loading movie reviews; please check network access";
+                Log.e(this.getClass().getName(), "Got error loading movie trailers: " + exception.getMessage());
+                String textToShow = "Error loading movie trailers; please check network access";
                 this.showToast(textToShow);
             }
 
         } else {
             // show toast for error in network
-            String textToShow = "Error loading movie reviews; please check network access";
+            String textToShow = "Error loading movie trailers; please check network access";
             this.showToast(textToShow);
         }
 
         // get the movie adapter and set the movie list on it
-        moviesReviewRecyclerAdapter.setMovieReviewBeanList(movieReviewBeanList);
+        moviesTrailerRecyclerAdapter.setMovieTrailerBeanList(movieTrailerBeanList);
 
         // set the count text view
-        if (movieReviewBeanList.size() > 0) {
-            this.reviewCountTextView.setText(movieReviewBeanList.size() + " movie review" + (movieReviewBeanList.size() > 1 ? "s" : ""));
+        if (movieTrailerBeanList.size() > 0) {
+            this.movieTrailerCountTextView.setText(movieTrailerBeanList.size() + " movie trailer" + (movieTrailerBeanList.size() > 1 ? "s" : ""));
 
         } else {
-            this.reviewCountTextView.setText("No movie reviews found");
+            this.movieTrailerCountTextView.setText("No movie trailers found");
         }
     }
 
@@ -165,7 +177,7 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
      * async class to make the network call to load the movie reviews
      *
      */
-    public class MovieReviewLoadTask extends AsyncTask<URL, Void, String> {
+    public class MovieTrailerLoadTask extends AsyncTask<URL, Void, String> {
 
         @Override
         /**
@@ -174,7 +186,7 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
          */
         protected String doInBackground(URL... urls) {
             // local variables
-            URL movieReviewListUrl = null;
+            URL movieTrailerListUrl = null;
             String responseString = null;
 
             try {
@@ -182,14 +194,14 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
                 MovieUtils.testNetwork();
 
                 // get the url
-                movieReviewListUrl = urls[0];
+                movieTrailerListUrl = urls[0];
 
                 // log
-                Log.i(this.getClass().getName(), "Calling REST service at url: " + movieReviewListUrl);
+                Log.i(this.getClass().getName(), "Calling REST service at url: " + movieTrailerListUrl);
 
                 // call the REST service
                 try {
-                    responseString = MovieUtils.getResponseFromHttpUrl(movieReviewListUrl);
+                    responseString = MovieUtils.getResponseFromHttpUrl(movieTrailerListUrl);
 
                 } catch (IOException exception) {
                     Log.e(this.getClass().getName(), "Got network error: " + exception.getMessage());
@@ -209,7 +221,7 @@ public class MovieReviewListActivity extends AppCompatActivity implements Movies
          *
          */
         protected void onPostExecute(String result) {
-            loadMovieReviewList(result);
+            loadMovieTrailerList(result);
         }
     }
 

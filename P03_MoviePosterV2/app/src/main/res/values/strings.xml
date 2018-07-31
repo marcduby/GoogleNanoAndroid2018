@@ -8,11 +8,17 @@
     <string name="detail_user_rating_label">User Rating:</string>
     <string name="detail_release_date_label">Release Date:</string>
     <string name="detail_review_button_label">See Reviews</string>
+    <string name="detail_trailer_button_label">See Movie Clips</string>
 
     <!-- review list activity strings -->
-    <string name="review_detail_author_label">Title</string>
+    <string name="review_detail_author_label">Title:</string>
     <string name="review_detail_content_label">Plot Synopsis:</string>
     <string name="review_detail_url_button_label">See Full Review</string>
+
+    <!-- trailer list activity strings -->
+    <string name="trailer_detail_name_label">Name:</string>
+    <string name="trailer_detail_type_label">Type:</string>
+    <string name="trailer_detail_youtube_button_label">Watch</string>
 
     <!-- Content descriptions-->
     <string name="movie_picture_content_description">Movie picture</string>
@@ -20,8 +26,18 @@
     <!-- Error messages-->
     <string name="detail_error_message">Movie data not available</string>
 
+    <!-- movie list sort descriotions -->
+    <string name="movie_list_popular_message">Most Popular Movies</string>
+    <string name="movie_list_rating_message">Best Rated Movies</string>
+    <string name="movie_list_favorites_message">My Favorite Movies</string>
+
     <!-- menu options -->
-    <string name="action_order_by_user_rating">Sort by User Rating</string>
-    <string name="action_order_by_most_popular">Sort by Most Popular</string>
+    <string name="action_order_by_user_rating">Best Rated</string>
+    <string name="action_order_by_most_popular">Most Popular</string>
+    <string name="action_order_my_favorites">My Favorites</string>
+
+    <!-- movie detail favorites options -->
+    <string name="button_movie_add_favorites">Add to Favorites</string>
+    <string name="button_movie_remove_favorites">Remove from Favorites</string>
 
 </resources>

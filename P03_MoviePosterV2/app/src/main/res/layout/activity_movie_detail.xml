@@ -36,6 +36,13 @@
             android:id="@+id/movie_detail_title_tv"
             style="@style/detailView"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_movie_add_favorites"
+            android:id="@+id/movie_detail_favorites_button"
+            android:textAllCaps="false"/>
+
         <TextView
             android:id="@+id/synopsis_label_tv"
             android:layout_width="wrap_content"
@@ -62,12 +69,27 @@
             android:id="@+id/movie_detail_user_rating_tv"
             style="@style/detailView"/>
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/moview_review_button"
-            android:textAllCaps="false"
-            android:text="@string/detail_review_button_label"/>
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/movie_review_button"
+                android:textAllCaps="false"
+                android:text="@string/detail_review_button_label"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/movie_trailer_button"
+                android:textAllCaps="false"
+                android:text="@string/detail_trailer_button_label"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/release_date_label_tv"

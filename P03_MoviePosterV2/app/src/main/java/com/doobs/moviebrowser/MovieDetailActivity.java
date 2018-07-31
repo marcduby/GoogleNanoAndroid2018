@@ -1,12 +1,11 @@
 package com.doobs.moviebrowser;
 
-import android.content.Context;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,17 +13,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doobs.moviebrowser.bean.MovieBean;
+import com.doobs.moviebrowser.model.MovieBean;
+import com.doobs.moviebrowser.model.MovieViewModel;
+import com.doobs.moviebrowser.utils.MovieBrowserConstants;
 import com.doobs.moviebrowser.utils.MovieException;
 import com.doobs.moviebrowser.utils.MovieUtils;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Detail activity class to display the selected movie details
  *
  */
 public class MovieDetailActivity extends AppCompatActivity {
-    // static cosntants
+    // static constants
     public static final String EXTRA_MOVIE = "movie_bean_key";
 
     // text views
@@ -33,14 +36,18 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView UserRatingTextView;
     private TextView releaseDateTextView;
     private ImageView movieImageView;
+    Button favoritesButton;
+    Button reviewButton;
+    Button trailerButton;
 
     // instance variables
+    private MovieViewModel movieViewModel;
 
     // 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // local variables
-        MovieBean movieBean = null;
+        final MovieBean movieBean;
 
         // calll super
         super.onCreate(savedInstanceState);
@@ -63,34 +70,50 @@ public class MovieDetailActivity extends AppCompatActivity {
         // log
         Log.i(this.getClass().getName(), "Got movie with name: " + movieBean.getName());
 
-        // populate the data
-        this.populateUI(movieBean);
+        // get the movie view model
+        this.movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
 
-    }
+        // set the observer on the Room database movie list
+        this.movieViewModel.getDatabaseMovieList().observe(this, new Observer<List<MovieBean>>() {
+            @Override
+            public void onChanged(@Nullable List<MovieBean> movieBeans) {
+                // change the favorites button if the data changed
+                if (movieViewModel.getDatabaseMovieList().getValue().contains(movieBean)) {
+                    setButtonIfMovieInDatabase(true);
 
-    /**
-     * method to chow toast if error
-     *
-     */
-    private void closeOnError() {
-        finish();
-        Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
-    }
+                } else {
+                    setButtonIfMovieInDatabase(false);
+                }
+            }
+        });
 
-    /**
-     * main method to add movie details to the detail view
-     *
-     * @param movieBean                  the movie to display
-     */
-    private void populateUI(final MovieBean movieBean) {
-        // instance vartiables
-        TextView dataView = null;
-        TextView labelView = null;
-        String dataString = null;
+        // get the buttons
+        this.favoritesButton = (Button) findViewById(R.id.movie_detail_favorites_button);
+        this.reviewButton = (Button) findViewById(R.id.movie_review_button);
+        this.trailerButton = (Button) findViewById(R.id.movie_trailer_button);
+
+        // get the favorites button and add the on click listener to it
+        this.favoritesButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (movieViewModel.getDatabaseMovieList().getValue().contains(movieBean)) {
+                    movieViewModel.delete(movieBean);
+
+                    // log
+                    Log.i(this.getClass().getName(), "Removing from DB movie: " + movieBean.getName());
+
+                } else {
+                    movieViewModel.insert(movieBean);
+
+                    // log
+                    Log.i(this.getClass().getName(), "Adding to DB movie: " + movieBean.getName());
+                }
+            }
+        });
 
         // get the review button and add the on click listener to it
-        Button reviewButton = (Button) findViewById(R.id.moview_review_button);
-        reviewButton.setOnClickListener( new View.OnClickListener() {
+        this.reviewButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -104,6 +127,66 @@ public class MovieDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // get the review button and add the on click listener to it
+        this.trailerButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // create the intent
+                Intent intent = new Intent(MovieDetailActivity.this, MovieTrailerListActivity.class);
+
+                // set the movie id as an extra
+                intent.putExtra(MovieTrailerListActivity.EXTRA_MOVIE_ID, movieBean.getId());
+
+                // launch the new activity
+                startActivity(intent);
+            }
+        });
+
+        // populate the data
+        this.populateUI(movieBean);
+    }
+
+    /**
+     * method to chow toast if error
+     *
+     */
+    private void closeOnError() {
+        finish();
+        Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * sets the movie favorites button
+     *
+     * @param isSavedInFavorites
+     */
+    private void setButtonIfMovieInDatabase(boolean isSavedInFavorites) {
+        if (isSavedInFavorites) {
+            this.favoritesButton.setText(R.string.button_movie_remove_favorites);
+
+        } else {
+            this.favoritesButton.setText(R.string.button_movie_add_favorites);
+        }
+    }
+    /**
+     * main method to add movie details to the detail view
+     *
+     * @param movieBean                  the movie to display
+     */
+    private void populateUI(final MovieBean movieBean) {
+        // instance vartiables
+        TextView dataView = null;
+        TextView labelView = null;
+        String dataString = null;
+
+        // set the favorites button message
+        boolean isMovieSavedInFavorites = false;
+        if (this.movieViewModel.getDatabaseMovieList().getValue() != null) {
+            isMovieSavedInFavorites = this.movieViewModel.getDatabaseMovieList().getValue().contains(movieBean);
+        }
+        this.setButtonIfMovieInDatabase(isMovieSavedInFavorites);
 
         // populate the image
         this.movieImageView = findViewById(R.id.movie_detail_poster_iv);

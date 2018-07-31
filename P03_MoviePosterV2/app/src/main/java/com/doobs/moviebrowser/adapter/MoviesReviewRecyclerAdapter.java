@@ -8,20 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doobs.moviebrowser.R;
-import com.doobs.moviebrowser.bean.MovieBean;
-import com.doobs.moviebrowser.bean.MovieReviewBean;
+import com.doobs.moviebrowser.model.MovieReviewBean;
 import com.doobs.moviebrowser.utils.MovieUtils;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Recycler class to load the movie data
+ * Recycler class to load the movie review data
  *
  * Created by mduby on 7/18/18.
  */
@@ -160,7 +157,7 @@ public class MoviesReviewRecyclerAdapter extends RecyclerView.Adapter<MoviesRevi
 
         @Override
         /**
-         * handle clicks on the view holder
+         * handle clicks on the view holder button
          *
          */
         public void onClick(View view) {

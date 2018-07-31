@@ -5,11 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.doobs.moviebrowser.R;
-import com.doobs.moviebrowser.bean.MovieBean;
+import com.doobs.moviebrowser.model.MovieBean;
 import com.doobs.moviebrowser.utils.MovieException;
 import com.doobs.moviebrowser.utils.MovieUtils;
 import com.squareup.picasso.Picasso;

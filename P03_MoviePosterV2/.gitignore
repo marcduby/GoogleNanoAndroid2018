@@ -7,3 +7,4 @@
 /build
 /captures
 .externalNativeBuild
+**/P02MoviePosterV1/gradle.properties
