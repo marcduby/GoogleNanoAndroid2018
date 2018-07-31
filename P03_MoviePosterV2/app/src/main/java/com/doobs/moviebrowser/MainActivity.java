@@ -75,8 +75,19 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         this.movieViewModel.getDisplayMovieList().observe(this, new Observer<List<MovieBean>>() {
             @Override
             public void onChanged(@Nullable List<MovieBean> movieBeanList) {
-                // set the data o the adapter
+                // set the data on the adapter
                 moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
+            }
+        });
+
+        // set the observer on the Room database movie list
+        this.movieViewModel.getDatabaseMovieList().observe(this, new Observer<List<MovieBean>>() {
+            @Override
+            public void onChanged(@Nullable List<MovieBean> movieBeans) {
+                // only update view model display list if the setting option is the favrites option
+                if (MovieBrowserConstants.MovieListSource.STORED_FAVORITES.equals(movieViewModel.getDisplayOptionSetting().getValue())) {
+                    movieViewModel.setDisplayMovieList(movieBeans);
+                }
             }
         });
 

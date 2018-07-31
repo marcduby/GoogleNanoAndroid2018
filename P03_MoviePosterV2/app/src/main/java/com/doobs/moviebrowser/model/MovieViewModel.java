@@ -17,7 +17,7 @@ import java.util.List;
 public class MovieViewModel extends AndroidViewModel {
     // instance variables
     private MovieRepository movieRepository;
-    private LiveData<List<MovieBean>> movieList;
+    private LiveData<List<MovieBean>> databaseMovieList;
     private MutableLiveData<List<MovieBean>> displayMovieList = new MutableLiveData<List<MovieBean>>();
     private MutableLiveData<String> displayOptionSetting = new MutableLiveData<String>();
 
@@ -29,7 +29,7 @@ public class MovieViewModel extends AndroidViewModel {
     public MovieViewModel(Application application) {
         super(application);
         this.movieRepository = new MovieRepository(application);
-        this.movieList = this.movieRepository.getMovieList();
+        this.databaseMovieList = this.movieRepository.getMovieList();
     }
 
     /**
@@ -55,8 +55,8 @@ public class MovieViewModel extends AndroidViewModel {
      *
      * @return
      */
-    public LiveData<List<MovieBean>> getMovieList() {
-        return movieList;
+    public LiveData<List<MovieBean>> getDatabaseMovieList() {
+        return databaseMovieList;
     }
 
     /**
