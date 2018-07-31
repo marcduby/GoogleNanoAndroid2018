@@ -19,6 +19,7 @@ public class MovieViewModel extends AndroidViewModel {
     private MovieRepository movieRepository;
     private LiveData<List<MovieBean>> movieList;
     private MutableLiveData<List<MovieBean>> displayMovieList = new MutableLiveData<List<MovieBean>>();
+    private MutableLiveData<String> displayOptionSetting = new MutableLiveData<String>();
 
     /**
      * default constructor
@@ -75,4 +76,23 @@ public class MovieViewModel extends AndroidViewModel {
     public void setDisplayMovieList(List<MovieBean> movieList) {
         this.displayMovieList.postValue(movieList);
     }
+
+    /**
+     * returns the dispay option setting
+     *
+     * @return
+     */
+    public MutableLiveData<String> getDisplayOptionSetting() {
+        return displayOptionSetting;
+    }
+
+    /**
+     * set the movie list display option
+     *
+     * @param option
+     */
+    public void setDisplayOptionSetting(String option) {
+        this.displayOptionSetting.postValue(option);
+    }
+
 }

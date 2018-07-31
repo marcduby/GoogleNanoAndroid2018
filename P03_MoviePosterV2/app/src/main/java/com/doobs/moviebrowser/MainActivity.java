@@ -68,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         // set the adapter on the recycler view
         this.movieRecyclerView.setAdapter(this.moviesRecyclerAdapter);
 
-        // load the initial movie list
-        this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
-
         // get the movie view model
         this.movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
 
@@ -82,6 +79,33 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
                 moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
             }
         });
+
+        // set the observer for the display option setting
+        this.movieViewModel.getDisplayOptionSetting().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String option) {
+                // load the movies
+                callMovieRestApi(option);
+
+                // set the text view
+                if (MovieBrowserConstants.MovieListSource.STORED_FAVORITES.equals(option)) {
+                    movieListOptionTextView.setText(R.string.movie_list_favorites_message);
+
+                } else if (MovieBrowserConstants.MovieListSource.BEST_RATED.equals(option)) {
+                    movieListOptionTextView.setText(R.string.movie_list_rating_message);
+
+                } else {
+                    movieListOptionTextView.setText(R.string.movie_list_popular_message);
+                }
+
+            }
+        });
+
+        // set the default movie list option
+        this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
+
+        // load the initial movie list
+//        this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
     }
 
     /**
@@ -99,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         // check if should load favorites
         if (MovieBrowserConstants.MovieListSource.STORED_FAVORITES.equals(sourceId)) {
             // set the movie option text view
-            this.movieListOptionTextView.setText(R.string.movie_list_favorites_message);
+//            this.movieListOptionTextView.setText(R.string.movie_list_favorites_message);
 
         } else {
             if (MovieBrowserConstants.MovieListSource.MOST_POPULAR.equals(sourceId)) {
@@ -121,12 +145,12 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
                 new MovieLoadTask().execute(movieUrl);
 
                 // set the movie option text view
-                if (isMostPopularSort) {
-                    this.movieListOptionTextView.setText(R.string.movie_list_popular_message);
-
-                } else {
-                    this.movieListOptionTextView.setText(R.string.movie_list_rating_message);
-                }
+//                if (isMostPopularSort) {
+//                    this.movieListOptionTextView.setText(R.string.movie_list_popular_message);
+//
+//                } else {
+//                    this.movieListOptionTextView.setText(R.string.movie_list_rating_message);
+//                }
 
             } catch (MovieException exception) {
                 Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
@@ -162,8 +186,11 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             String textToShow = "List sorted by user rating";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
-            // load the movies
-            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.BEST_RATED);
+            // set the display list option
+            this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.BEST_RATED);
+
+//            // load the movies
+//            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.BEST_RATED);
 
             // return
             return true;
@@ -173,8 +200,11 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             String textToShow = "List sorted by most popular";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
-            // load the movies
-            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
+            // set the display list option
+            this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
+
+//            // load the movies
+//            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
 
             // return
             return true;
@@ -184,8 +214,11 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             String textToShow = "Loading my favorites";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
-            // load the movies
-            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.STORED_FAVORITES);
+            // set the display list option
+            this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.STORED_FAVORITES);
+
+//            // load the movies
+//            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.STORED_FAVORITES);
 
             // return
             return true;
