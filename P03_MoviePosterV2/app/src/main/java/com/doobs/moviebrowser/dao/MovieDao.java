@@ -31,6 +31,6 @@ public interface MovieDao {
     @Query("delete from " + MovieBrowserConstants.Database.TABLE_NAME_MOVIE)
     public void deleteAll();
 
-    @Query("select * from " + MovieBrowserConstants.Database.TABLE_NAME_MOVIE)
+    @Query("select * from " + MovieBrowserConstants.Database.TABLE_NAME_MOVIE + " order by name")
     public LiveData<List<MovieBean>> getAllMovies();
 }
