@@ -1,9 +1,9 @@
 # GoogleNanoAndroid2018
 
 * Project 3 (Movies v2, reviews)
-- Used the follwoing references
-  -- the Google Architecture Components code lab: https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#0
-  -- also reference a sample project I coded to follow the code lab: 
+..* Used the follwoing references
+  ..* the Google Architecture Components code lab: https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#0
+  -- also reference a sample project I coded to follow the code lab: https://github.com/marcduby/DividendCashFlowAndroid
   -- refence this blog on using MutableLiveData: https://blog.oozou.com/calling-web-service-with-android-architecture-component-8de864800a93
 
 * Project 2 (Movies v1, browse posters)
