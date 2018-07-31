@@ -27,7 +27,8 @@
 
 
     <!-- menu options -->
-    <string name="action_order_by_user_rating">Sort by User Rating</string>
+    <string name="action_order_by_user_rating">Sort by Best Rated</string>
     <string name="action_order_by_most_popular">Sort by Most Popular</string>
+    <string name="action_order_my_favorites">My Favorite Movies</string>
 
 </resources>

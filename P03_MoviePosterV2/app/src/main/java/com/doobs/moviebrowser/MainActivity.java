@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.doobs.moviebrowser.adapter.MoviesRecyclerAdapter;
 import com.doobs.moviebrowser.model.MovieBean;
+import com.doobs.moviebrowser.utils.MovieBrowserConstants;
 import com.doobs.moviebrowser.utils.MovieException;
 import com.doobs.moviebrowser.utils.MovieJsonParser;
 import com.doobs.moviebrowser.utils.MovieUtils;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
     // instance variables
     private MoviesRecyclerAdapter moviesRecyclerAdapter;
     private RecyclerView movieRecyclerView;
-    private boolean isSortByPopular = true;
     private TextView movieListOptionTextView;
 
     // constants
@@ -64,38 +64,58 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         this.movieRecyclerView.setAdapter(this.moviesRecyclerAdapter);
 
         // load the initial movie list
-        this.callMovieRestApi(this.isSortByPopular);
+        this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
     }
 
     /**
      * calls the movie REST service and populate the adapter
      *
-     * @param isMostPopularSort
+     * @param sourceId
      */
-    private void callMovieRestApi(boolean isMostPopularSort) {
-        // load the initial movie list
-        try {
-            // get the URL
-            URL movieUrl = MovieUtils.getMovieListSortedUri(isMostPopularSort, MovieUtils.MovieService.API_KEY);
+    private void callMovieRestApi(String sourceId) {
+        // local variables
+        boolean isMostPopularSort = false;
 
-            // log
-            Log.i(this.getClass().getName(), "Starting asyc task with url: : " + movieUrl.toString());
+        // log
+        Log.i(this.getClass().getName(), "Loading movies with option: " + sourceId);
 
-            // execute the async task
-            new MovieLoadTask().execute(movieUrl);
-
+        // check if should load favorites
+        if (MovieBrowserConstants.MovieListSource.STORED_FAVORITES.equals(sourceId)) {
             // set the movie option text view
-            if (isMostPopularSort) {
-                this.movieListOptionTextView.setText(R.string.movie_list_popular_message);
+            this.movieListOptionTextView.setText(R.string.movie_list_favorites_message);
+
+        } else {
+            if (MovieBrowserConstants.MovieListSource.MOST_POPULAR.equals(sourceId)) {
+                isMostPopularSort = true;
 
             } else {
-                this.movieListOptionTextView.setText(R.string.movie_list_rating_message);
+                isMostPopularSort = false;
             }
 
-        } catch (MovieException exception) {
-            Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
-            String error = "Error loading movies; please verify network connection";
-            this.showToast(error);
+            // load the initial movie list
+            try {
+                // get the URL
+                URL movieUrl = MovieUtils.getMovieListSortedUri(isMostPopularSort, MovieUtils.MovieService.API_KEY);
+
+                // log
+                Log.i(this.getClass().getName(), "Starting asyc task with url: : " + movieUrl.toString());
+
+                // execute the async task
+                new MovieLoadTask().execute(movieUrl);
+
+                // set the movie option text view
+                if (isMostPopularSort) {
+                    this.movieListOptionTextView.setText(R.string.movie_list_popular_message);
+
+                } else {
+                    this.movieListOptionTextView.setText(R.string.movie_list_rating_message);
+                }
+
+            } catch (MovieException exception) {
+                Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
+                String error = "Error loading movies; please verify network connection";
+                this.showToast(error);
+            }
         }
     }
 
@@ -125,11 +145,8 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             String textToShow = "List sorted by user rating";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
-            // set the instance variable for sort preference
-            this.isSortByPopular = false;
-
             // load the movies
-            this.callMovieRestApi(this.isSortByPopular);
+            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.BEST_RATED);
 
             // return
             return true;
@@ -139,11 +156,19 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             String textToShow = "List sorted by most popular";
             Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
-            // set the instance variable for sort preference
-            this.isSortByPopular = true;
+            // load the movies
+            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
+
+            // return
+            return true;
+
+        } else if (itemThatWasClickedId == R.id.action_order_my_favorites) {
+            Context context = MainActivity.this;
+            String textToShow = "Loading my favorites";
+            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
 
             // load the movies
-            this.callMovieRestApi(this.isSortByPopular);
+            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.STORED_FAVORITES);
 
             // return
             return true;
