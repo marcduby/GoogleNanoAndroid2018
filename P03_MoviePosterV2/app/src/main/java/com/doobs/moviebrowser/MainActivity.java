@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             @Override
             public void onChanged(@Nullable String option) {
                 // load the movies
-                callMovieRestApi(option);
+                loadMovies(option);
 
                 // set the text view
                 if (MovieBrowserConstants.MovieListSource.STORED_FAVORITES.equals(option)) {
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
      *
      * @param sourceId
      */
-    private void callMovieRestApi(String sourceId) {
+    private void loadMovies(String sourceId) {
         // local variables
         boolean isMostPopularSort = false;
 
@@ -135,6 +135,11 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         if (MovieBrowserConstants.MovieListSource.STORED_FAVORITES.equals(sourceId)) {
             // set the movie option text view
 //            this.movieListOptionTextView.setText(R.string.movie_list_favorites_message);
+            // get the database movies from the view model
+            List<MovieBean> movieBeanList = this.movieViewModel.getDatabaseMovieList().getValue();
+
+            // set the movies on thr view model display list
+            this.movieViewModel.setDisplayMovieList(movieBeanList);
 
         } else {
             if (MovieBrowserConstants.MovieListSource.MOST_POPULAR.equals(sourceId)) {
@@ -255,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
      * @param jsonInputString
      * @param isIntialLoad
      */
-    private void loadMovieList(String jsonInputString, boolean isIntialLoad) {
+    private void loadMovieListFromJsonResult(String jsonInputString, boolean isIntialLoad) {
         // local variables
         List<MovieBean> movieBeanList = new ArrayList<MovieBean>();
 
@@ -336,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
          *
          */
         protected void onPostExecute(String result) {
-            loadMovieList(result, true);
+            loadMovieListFromJsonResult(result, true);
         }
     }
 
