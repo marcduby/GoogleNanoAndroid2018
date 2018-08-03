@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.doobs.moviebrowser.model.MovieBean;
 import com.doobs.moviebrowser.model.MovieViewModel;
-import com.doobs.moviebrowser.utils.MovieBrowserConstants;
 import com.doobs.moviebrowser.utils.MovieException;
 import com.doobs.moviebrowser.utils.MovieUtils;
 import com.squareup.picasso.Picasso;

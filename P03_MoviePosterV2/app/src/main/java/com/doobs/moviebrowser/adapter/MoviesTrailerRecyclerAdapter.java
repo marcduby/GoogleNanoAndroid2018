@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.doobs.moviebrowser.R;
-import com.doobs.moviebrowser.model.MovieReviewBean;
 import com.doobs.moviebrowser.model.MovieTrailerBean;
 import com.doobs.moviebrowser.utils.MovieUtils;
 

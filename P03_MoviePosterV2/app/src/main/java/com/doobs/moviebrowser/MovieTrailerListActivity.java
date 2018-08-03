@@ -1,7 +1,6 @@
 package com.doobs.moviebrowser;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,9 +12,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doobs.moviebrowser.adapter.MoviesReviewRecyclerAdapter;
 import com.doobs.moviebrowser.adapter.MoviesTrailerRecyclerAdapter;
-import com.doobs.moviebrowser.model.MovieReviewBean;
 import com.doobs.moviebrowser.model.MovieTrailerBean;
 import com.doobs.moviebrowser.utils.MovieException;
 import com.doobs.moviebrowser.utils.MovieJsonParser;
