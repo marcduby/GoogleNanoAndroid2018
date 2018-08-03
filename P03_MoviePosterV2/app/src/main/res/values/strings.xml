@@ -40,4 +40,8 @@
     <string name="button_movie_add_favorites">Add to Favorites</string>
     <string name="button_movie_remove_favorites">Remove from Favorites</string>
 
+    <!-- misc -->
+    <string name="no_reviews_found_message">No movie reviews found</string>
+    <string name="no_trailers_found_message">No movie trailers found</string>
+
 </resources>
