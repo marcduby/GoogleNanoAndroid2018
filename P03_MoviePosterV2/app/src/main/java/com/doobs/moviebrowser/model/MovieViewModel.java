@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.doobs.moviebrowser.repository.MovieRepository;
+import com.doobs.moviebrowser.utils.MovieBrowserConstants;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class MovieViewModel extends AndroidViewModel {
         super(application);
         this.movieRepository = new MovieRepository(application);
         this.databaseMovieList = this.movieRepository.getMovieList();
+
+        // set default display optin setting to most popular
+        this.displayOptionSetting.postValue(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
     }
 
     /**

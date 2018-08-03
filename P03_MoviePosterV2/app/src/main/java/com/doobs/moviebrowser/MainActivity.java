@@ -108,15 +108,13 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
                 } else {
                     movieListOptionTextView.setText(R.string.movie_list_popular_message);
                 }
-
             }
         });
 
         // set the default movie list option
-        this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
-
-        // load the initial movie list
-//        this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
+        // FIX - was setting to default of most popular; this setting is now defaulted in the view model
+//        this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
+        loadMovies(this.movieViewModel.getDisplayOptionSetting().getValue());
     }
 
     /**
@@ -133,8 +131,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
         // check if should load favorites
         if (MovieBrowserConstants.MovieListSource.STORED_FAVORITES.equals(sourceId)) {
-            // set the movie option text view
-//            this.movieListOptionTextView.setText(R.string.movie_list_favorites_message);
             // get the database movies from the view model
             List<MovieBean> movieBeanList = this.movieViewModel.getDatabaseMovieList().getValue();
 
@@ -159,14 +155,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
                 // execute the async task
                 new MovieLoadTask().execute(movieUrl);
-
-                // set the movie option text view
-//                if (isMostPopularSort) {
-//                    this.movieListOptionTextView.setText(R.string.movie_list_popular_message);
-//
-//                } else {
-//                    this.movieListOptionTextView.setText(R.string.movie_list_rating_message);
-//                }
 
             } catch (MovieException exception) {
                 Log.e(this.getClass().getName(), "Got error loading the movies: " + exception.getMessage());
@@ -205,9 +193,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             // set the display list option
             this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.BEST_RATED);
 
-//            // load the movies
-//            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.BEST_RATED);
-
             // return
             return true;
 
@@ -219,9 +204,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
             // set the display list option
             this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
 
-//            // load the movies
-//            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
-
             // return
             return true;
 
@@ -232,9 +214,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
             // set the display list option
             this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.STORED_FAVORITES);
-
-//            // load the movies
-//            this.callMovieRestApi(MovieBrowserConstants.MovieListSource.STORED_FAVORITES);
 
             // return
             return true;

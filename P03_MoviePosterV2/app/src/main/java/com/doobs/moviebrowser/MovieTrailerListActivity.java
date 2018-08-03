@@ -169,7 +169,7 @@ public class MovieTrailerListActivity extends AppCompatActivity implements Movie
             this.movieTrailerCountTextView.setText(movieTrailerBeanList.size() + " movie trailer" + (movieTrailerBeanList.size() > 1 ? "s" : ""));
 
         } else {
-            this.movieTrailerCountTextView.setText("No movie trailers found");
+            this.movieTrailerCountTextView.setText(R.string.no_trailers_found_message);
         }
     }
 
