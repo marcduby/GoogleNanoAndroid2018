@@ -87,7 +87,7 @@ public class MovieViewModel extends AndroidViewModel {
      * @return
      */
     public MutableLiveData<String> getDisplayOptionSetting() {
-        return displayOptionSetting;
+        return this.displayOptionSetting;
     }
 
     /**
@@ -99,4 +99,9 @@ public class MovieViewModel extends AndroidViewModel {
         this.displayOptionSetting.postValue(option);
     }
 
+    @Override
+    protected void onCleared() {
+        String almost = "done";
+        super.onCleared();
+    }
 }

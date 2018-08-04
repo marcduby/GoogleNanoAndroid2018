@@ -23,7 +23,7 @@ import java.util.List;
  * Created by mduby on 7/18/18.
  */
 
-public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAdapter.MovieViewHolder> {
+public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     // constants
     private String logClassName = this.getClass().getName();
 
@@ -59,7 +59,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         View view = layoutInflater.inflate(movieLayoutId, parent, false);
 
         // create the view holder
-        movieViewHolder = new MovieViewHolder(view);
+        movieViewHolder = new MovieViewHolder(view, this);
 
         // log
         Log.i(this.logClassName, "Create view holder");
@@ -103,6 +103,14 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         this.notifyDataSetChanged();
     }
 
+    public List<MovieBean> getMovieBeanList() {
+        return movieBeanList;
+    }
+
+    public MovieItemClickListener getMovieItemClickListener() {
+        return movieItemClickListener;
+    }
+
     /**
      * interface to handle item clicks
      *
@@ -111,67 +119,67 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         void onListItemClick(MovieBean movieBean);
     }
 
-    /**
-     * class to hold the individual movie poster items
-     *
-     */
-    public class MovieViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
-        // instance variables
-        ImageView moviePosterView = null;
-//        TextView movieNameTextView;
-
-        /**
-         * default constructor
-         *
-         * @param itemView
-         */
-        public MovieViewHolder(View itemView) {
-            super(itemView);
-
-            // get the image view
-            this.moviePosterView = (ImageView) itemView.findViewById(R.id.list_item_movie_iv);
-//            this.movieNameTextView = (TextView) itemView.findViewById(R.id.movie_name_tv);
-
-            // set the listener
-            itemView.setOnClickListener(this);
-        }
-
-        /**
-         * sets the poster image
-         *
-         * @param movieBean
-         */
-        protected void bind(MovieBean movieBean) {
-            // get the image url
-            String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl(), false);
-
-            // log
-            Log.i(this.getClass().getName(), "Inflating image for url: " + imageUrl);
-
-            // add the image to the image view
-            Picasso.get()
-                    .load(imageUrl)
-                    .into(this.moviePosterView);
-
-            // set the text
-//            this.movieNameTextView.setText(movieBean.getName());
-        }
-
-        @Override
-        /**
-         * handle clicks on the view holder
-         *
-         */
-        public void onClick(View view) {
-            // get the index clicked
-            int clickedPosition = this.getAdapterPosition();
-
-            // get the movie
-            MovieBean movieBean = movieBeanList.get(clickedPosition);
-
-            // call the movie item listener with the position
-            movieItemClickListener.onListItemClick(movieBean);
-
-        }
-    }
+//    /**
+//     * class to hold the individual movie poster items
+//     *
+//     */
+//    public class MovieViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+//        // instance variables
+//        ImageView moviePosterView = null;
+////        TextView movieNameTextView;
+//
+//        /**
+//         * default constructor
+//         *
+//         * @param itemView
+//         */
+//        public MovieViewHolder(View itemView) {
+//            super(itemView);
+//
+//            // get the image view
+//            this.moviePosterView = (ImageView) itemView.findViewById(R.id.list_item_movie_iv);
+////            this.movieNameTextView = (TextView) itemView.findViewById(R.id.movie_name_tv);
+//
+//            // set the listener
+//            itemView.setOnClickListener(this);
+//        }
+//
+//        /**
+//         * sets the poster image
+//         *
+//         * @param movieBean
+//         */
+//        protected void bind(MovieBean movieBean) {
+//            // get the image url
+//            String imageUrl = MovieUtils.getImageUrlString(movieBean.getImageUrl(), false);
+//
+//            // log
+//            Log.i(this.getClass().getName(), "Inflating image for url: " + imageUrl);
+//
+//            // add the image to the image view
+//            Picasso.get()
+//                    .load(imageUrl)
+//                    .into(this.moviePosterView);
+//
+//            // set the text
+////            this.movieNameTextView.setText(movieBean.getName());
+//        }
+//
+//        @Override
+//        /**
+//         * handle clicks on the view holder
+//         *
+//         */
+//        public void onClick(View view) {
+//            // get the index clicked
+//            int clickedPosition = this.getAdapterPosition();
+//
+//            // get the movie
+//            MovieBean movieBean = movieBeanList.get(clickedPosition);
+//
+//            // call the movie item listener with the position
+//            movieItemClickListener.onListItemClick(movieBean);
+//
+//        }
+//    }
 }
