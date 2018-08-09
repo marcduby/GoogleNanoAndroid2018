@@ -14,7 +14,7 @@ import com.doobs.moviebrowser.utils.MovieBrowserConstants;
  *
  * Created by mduby on 7/30/18.
  */
-@Database(entities = {MovieBean.class}, version = 1)
+@Database(entities = {MovieBean.class}, version = 1, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
     // static variables
     private static MovieRoomDatabase movieRoomDatabase;
