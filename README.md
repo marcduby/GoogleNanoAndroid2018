@@ -13,6 +13,8 @@
     * https://stackoverflow.com/questions/44204978/how-to-update-livedata-of-a-viewmodel-from-background-service-and-update-ui
   * For Youtube video display, used the techniqwue outlined in this stackoverflow post:
     * https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent
+  * For fixing the Rom configuration error, I used information in the following link:
+    * https://stackoverflow.com/questions/44322178/room-schema-export-directory-is-not-provided-to-the-annotation-processor-so-we
 
 
 ## Project 2 (Movies v1, browse posters) ##
