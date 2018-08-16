@@ -15,6 +15,9 @@
     * https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent
   * For fixing the Rom configuration error, I used information in the following link:
     * https://stackoverflow.com/questions/44322178/room-schema-export-directory-is-not-provided-to-the-annotation-processor-so-we
+  * For fixing my screen rotation issue resetting the list preferences, I used these links' information:
+    * https://stackoverflow.com/questions/23472415/should-i-restore-savedinstancestate-in-oncreate-or-in-onrestoreinstancestate
+    * https://stackoverflow.com/questions/28236390/recyclerview-store-restore-state-between-activities
 
 
 ## Project 2 (Movies v1, browse posters) ##

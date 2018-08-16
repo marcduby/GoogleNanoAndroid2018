@@ -132,11 +132,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
                 }
             }
         });
-
-        // set the default movie list option
-        // FIX - was setting to default of most popular; this setting is now defaulted in the view model
-//        this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
-//        loadMovies(this.movieViewModel.getDisplayOptionSetting().getValue());
     }
 
 
@@ -157,27 +152,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         String recyclerViewOption = this.movieViewModel.getDisplayOptionSetting().getValue();
         bundle.putString(this.MOVIE_PREFERENCE_KEY, recyclerViewOption);
     }
-
-//    protected void onRestoreInstanceState(Bundle bundle) {
-//        super.onRestoreInstanceState(bundle);
-//
-//        // Retrieve list state and list/item positions
-//        if(bundle != null) {
-//            // reset the movie list option
-//            if (bundle.containsKey(this.MOVIE_PREFERENCE_KEY)) {
-//                String option = bundle.getString(this.MOVIE_PREFERENCE_KEY);
-//                this.movieViewModel.setDisplayOptionSetting(option);
-//            }
-//
-//            // reset the state of the list
-//            if (bundle.containsKey(this.RECYCLER_VIEW_KEY)) {
-//                if (this.movieListLayoutManager != null) {
-//                    this.movieListLayoutManager.onRestoreInstanceState(bundle.getParcelable(this.MOVIE_PREFERENCE_KEY));
-//                }
-//            }
-//
-//        }
-//    }
 
     /**
      * calls the movie REST service and populate the adapter
@@ -330,8 +304,6 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
         // get the view model and set the new list on it
         this.movieViewModel.setDisplayMovieList(movieBeanList);
-        // get the movie adapter and set the movie list on it
-//        moviesRecyclerAdapter.setMovieBeanList(movieBeanList);
     }
 
     /**
