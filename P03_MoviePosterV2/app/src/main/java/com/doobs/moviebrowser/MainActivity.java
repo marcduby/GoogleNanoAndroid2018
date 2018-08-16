@@ -34,11 +34,16 @@ import java.util.List;
  *
  */
 public class MainActivity extends AppCompatActivity implements MoviesRecyclerAdapter.MovieItemClickListener {
+    // constants
+    private final String MOVIE_PREFERENCE_KEY = "moviePreferenecKey";
+    private final String RECYCLER_VIEW_KEY = "recyclerViewStateKey";
+
     // instance variables
     private MoviesRecyclerAdapter moviesRecyclerAdapter;
     private RecyclerView movieRecyclerView;
     private TextView movieListOptionTextView;
     private MovieViewModel movieViewModel;
+    private GridLayoutManager movieListLayoutManager;
 
     // constants
     private final int numberOfColumns = 2;
@@ -59,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         this.movieRecyclerView.setHasFixedSize(true);
 
         // set the layout manager for the recycler view
-        GridLayoutManager movieListLayoutManager = new GridLayoutManager(this, this.numberOfColumns);
-        this.movieRecyclerView.setLayoutManager(movieListLayoutManager);
+        this.movieListLayoutManager = new GridLayoutManager(this, this.numberOfColumns);
+        this.movieRecyclerView.setLayoutManager(this.movieListLayoutManager);
 
         // create the adapter
         this.moviesRecyclerAdapter = new MoviesRecyclerAdapter(this);
@@ -70,6 +75,23 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
 
         // get the movie view model
         this.movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+
+        // if there is state saved, reset it
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(this.MOVIE_PREFERENCE_KEY)) {
+                String option = savedInstanceState.getString(this.MOVIE_PREFERENCE_KEY);
+
+                // set the display option before attaching the listeners
+                this.movieViewModel.setDisplayOptionSetting(option);
+            }
+
+            // reset the state of the list
+            if (savedInstanceState.containsKey(this.RECYCLER_VIEW_KEY)) {
+                if (this.movieListLayoutManager != null) {
+                    this.movieListLayoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(this.MOVIE_PREFERENCE_KEY));
+                }
+            }
+        }
 
         // set the observer on the mutable live data movie list used for display
         this.movieViewModel.getDisplayMovieList().observe(this, new Observer<List<MovieBean>>() {
@@ -114,8 +136,48 @@ public class MainActivity extends AppCompatActivity implements MoviesRecyclerAda
         // set the default movie list option
         // FIX - was setting to default of most popular; this setting is now defaulted in the view model
 //        this.movieViewModel.setDisplayOptionSetting(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
-        loadMovies(this.movieViewModel.getDisplayOptionSetting().getValue());
+//        loadMovies(this.movieViewModel.getDisplayOptionSetting().getValue());
     }
+
+
+    /**
+     * save state for rotation
+     *
+     * @param bundle
+     */
+    protected void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+
+        // save the list state
+        if (this.movieListLayoutManager != null) {
+            bundle.putParcelable(this.RECYCLER_VIEW_KEY, this.movieListLayoutManager.onSaveInstanceState());
+        }
+
+        // save the movie list preference
+        String recyclerViewOption = this.movieViewModel.getDisplayOptionSetting().getValue();
+        bundle.putString(this.MOVIE_PREFERENCE_KEY, recyclerViewOption);
+    }
+
+//    protected void onRestoreInstanceState(Bundle bundle) {
+//        super.onRestoreInstanceState(bundle);
+//
+//        // Retrieve list state and list/item positions
+//        if(bundle != null) {
+//            // reset the movie list option
+//            if (bundle.containsKey(this.MOVIE_PREFERENCE_KEY)) {
+//                String option = bundle.getString(this.MOVIE_PREFERENCE_KEY);
+//                this.movieViewModel.setDisplayOptionSetting(option);
+//            }
+//
+//            // reset the state of the list
+//            if (bundle.containsKey(this.RECYCLER_VIEW_KEY)) {
+//                if (this.movieListLayoutManager != null) {
+//                    this.movieListLayoutManager.onRestoreInstanceState(bundle.getParcelable(this.MOVIE_PREFERENCE_KEY));
+//                }
+//            }
+//
+//        }
+//    }
 
     /**
      * calls the movie REST service and populate the adapter
