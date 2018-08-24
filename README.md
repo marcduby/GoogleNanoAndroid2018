@@ -1,6 +1,9 @@
 # GoogleNanoAndroid2018 #
 
 
+## Project 4 (Baking v1, recipes and steps, videos) ##
+* Used the following references
+
 ## Project 3 (Movies v2, reviews, database and trailers) ##
 * Used the following references
   * The Google Architecture Components code lab:
