@@ -18,6 +18,7 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder  implements View.O
     private final String TAG = this.getClass().getName();
     private RecipeRecyclerAdapter parent;
     private TextView nameTextView;
+    private RecipeBean recipeBean;
 
     /**
      * default constructor
@@ -40,17 +41,20 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder  implements View.O
     @Override
     public void onClick(View view) {
         // TODO - tell adapter listener to launch new activity
-        Toast.makeText(view.getContext(), "Clicked on recipe", Toast.LENGTH_LONG).show();
+        Toast.makeText(view.getContext(), "Clicked on recipe: " + this.recipeBean.getName(), Toast.LENGTH_LONG).show();
     }
 
     /**
      * bind the item data to the view holder
      *
-     * @param recipeBean
+     * @param bean
      */
-    protected void bind(RecipeBean recipeBean) {
+    protected void bind(RecipeBean bean) {
+        // set the recipe bean
+        this.recipeBean = bean;
+
         // get the text view and set the recipe name
-        this.nameTextView.setText(recipeBean.getName());
+        this.nameTextView.setText(this.recipeBean.getName());
 
     }
 }
