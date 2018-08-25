@@ -19,7 +19,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/recipe_list_item_name_tv"/>
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/recipeCard"
+            android:id="@+id/recipe_list_item_name_tv"
+            android:background="@drawable/recipe_card"/>
 
     </LinearLayout>
 

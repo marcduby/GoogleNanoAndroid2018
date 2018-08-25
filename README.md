@@ -3,6 +3,8 @@
 
 ## Project 4 (Baking v1, recipes and steps, videos) ##
 * Used the following references
+  * To make the recipe text view look like a card
+    * https://stackoverflow.com/questions/3496269/how-do-i-put-a-border-around-an-android-textview
 
 ## Project 3 (Movies v2, reviews, database and trailers) ##
 * Used the following references
