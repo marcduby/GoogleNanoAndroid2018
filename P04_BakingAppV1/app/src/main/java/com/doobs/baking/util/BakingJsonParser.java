@@ -18,7 +18,6 @@ import java.util.List;
  *
  * Created by mduby on 8/24/18.
  */
-
 public class BakingJsonParser {
     // instance variables
     private static final String TAG = BakingJsonParser.class.getName();

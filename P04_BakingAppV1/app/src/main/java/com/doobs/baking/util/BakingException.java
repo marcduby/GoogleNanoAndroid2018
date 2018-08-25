@@ -5,7 +5,6 @@ package com.doobs.baking.util;
  *
  * Created by mduby on 8/24/18.
  */
-
 public class BakingException extends Exception {
 
     /**

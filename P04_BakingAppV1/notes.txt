@@ -1,0 +1,8 @@
+- steps
+  - add json parser
+  - main activity recycler view
+  - recipe activity
+    - master list fragment for steps
+    - 
+
+
