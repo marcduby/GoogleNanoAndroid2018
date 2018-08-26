@@ -1,18 +1,21 @@
 package com.doobs.baking.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Bean class to hold recipe step
  *
  * Created by mduby on 8/24/18.
  */
 
-public class RecipeStepBean {
+public class RecipeStepBean implements Parcelable {
     // instance variables
     private Integer id;
     private String description;
     private String shortDescription;
     private String videoUrl;
-    private String thoumbnailUrl;
+    private String thumbnailUrl;
 
     public Integer getId() {
         return id;
@@ -46,11 +49,46 @@ public class RecipeStepBean {
         this.videoUrl = videoUrl;
     }
 
-    public String getThoumbnailUrl() {
-        return thoumbnailUrl;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public void setThoumbnailUrl(String thoumbnailUrl) {
-        this.thoumbnailUrl = thoumbnailUrl;
+    public void setThumbnailUrl(String thoumbnailUrl) {
+        this.thumbnailUrl = thoumbnailUrl;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(description);
+        parcel.writeString(shortDescription);
+        parcel.writeString(videoUrl);
+        parcel.writeString(thumbnailUrl);
+    }
+
+    public static final Parcelable.Creator<RecipeStepBean> CREATOR = new Parcelable.Creator<RecipeStepBean>() {
+        public RecipeStepBean createFromParcel(Parcel parcel) {
+            RecipeStepBean recipeStepBean = new RecipeStepBean();
+
+            // set the data
+            recipeStepBean.setId(parcel.readInt());
+            recipeStepBean.setDescription(parcel.readString());
+            recipeStepBean.setShortDescription(parcel.readString());
+            recipeStepBean.setVideoUrl(parcel.readString());
+            recipeStepBean.setThumbnailUrl(parcel.readString());
+
+            // return
+            return recipeStepBean;
+        }
+
+        public RecipeStepBean[] newArray(int size) {
+            return new RecipeStepBean[size];
+        }
+    };
+
 }

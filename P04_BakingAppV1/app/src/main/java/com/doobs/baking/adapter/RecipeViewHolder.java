@@ -1,12 +1,15 @@
 package com.doobs.baking.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doobs.baking.R;
+import com.doobs.baking.RecipeStepListActivity;
 import com.doobs.baking.bean.RecipeBean;
+import com.doobs.baking.util.BakingAppConstants;
 
 /**
  * View holder class for the recipe list
@@ -41,7 +44,11 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder  implements View.O
     @Override
     public void onClick(View view) {
         // TODO - tell adapter listener to launch new activity
-        Toast.makeText(view.getContext(), "Clicked on recipe: " + this.recipeBean.getName(), Toast.LENGTH_LONG).show();
+        Toast.makeText(view.getContext(), "Clicked on recipe: " + this.recipeBean.getName(), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(view.getContext(), RecipeStepListActivity.class);
+        intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN, recipeBean);
+        view.getContext().startActivity(intent);
     }
 
     /**

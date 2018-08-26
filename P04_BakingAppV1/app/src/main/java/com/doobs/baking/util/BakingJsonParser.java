@@ -227,7 +227,7 @@ public class BakingJsonParser {
 
         // get the thumbnail url
         tempString = jsonObject.optString(BakingAppConstants.JsonKeys.THUMBNAIL_URL);
-        recipeStepBean.setThoumbnailUrl(tempString);
+        recipeStepBean.setThumbnailUrl(tempString);
 
         // return
         return recipeStepBean;

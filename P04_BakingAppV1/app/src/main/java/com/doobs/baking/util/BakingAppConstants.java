@@ -24,4 +24,8 @@ public class BakingAppConstants {
 
     }
 
+    public static final class ActivityExtras {
+        public static final String RECIPE_BEAN          = "recipeBean";
+    }
+
 }
