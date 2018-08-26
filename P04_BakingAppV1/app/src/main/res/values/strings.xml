@@ -5,4 +5,6 @@
     <string name="recipe_details_message">Recipe Details</string>
 
     <string name="detail_error_message">Got error loading recipe</string>
+
+    <string name="recipe_test_message">Recipe Test</string>
 </resources>
