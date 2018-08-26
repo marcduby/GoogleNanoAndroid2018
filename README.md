@@ -5,6 +5,9 @@
 * Used the following references
   * To make the recipe text view look like a card
     * https://stackoverflow.com/questions/3496269/how-do-i-put-a-border-around-an-android-textview
+  * To read the json file from assets (for dev purposes only so as not to rely on the network all the time)
+    * https://stackoverflow.com/questions/9544737/read-file-from-assets
+    
 
 ## Project 3 (Movies v2, reviews, database and trailers) ##
 * Used the following references

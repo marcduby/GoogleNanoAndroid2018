@@ -31,7 +31,7 @@ public class RecipeViewModel extends AndroidViewModel {
      */
     public RecipeViewModel(Application application) {
         super(application);
-        this.bakingNetworkRepository = new BakingNetworkRepository();
+        this.bakingNetworkRepository = new BakingNetworkRepository(application);
 
         // load the recipe data
         this.recipeBeanList.postValue(this.bakingNetworkRepository.getRecipes());
@@ -59,13 +59,14 @@ public class RecipeViewModel extends AndroidViewModel {
         // load dummy data
         List<RecipeBean> recipeBeans = new ArrayList<RecipeBean>();
 
-        for (int i = 0; i < 10; i++) {
-            Log.i(TAG, "loading recipe: " + i);
-            RecipeBean recipeBean = new RecipeBean();
-            recipeBean.setId(i);
-            recipeBean.setName("Recipe " + i);
-            recipeBeans.add(recipeBean);
-        }
+//        for (int i = 0; i < 10; i++) {
+//            Log.i(TAG, "loading recipe: " + i);
+//            RecipeBean recipeBean = new RecipeBean();
+//            recipeBean.setId(i);
+//            recipeBean.setName("Recipe " + i);
+//            recipeBeans.add(recipeBean);
+//        }
+        recipeBeans = this.bakingNetworkRepository.loadTestRecipesFromFile();
 
         this.setRecipeBeanList(recipeBeans);
     }
