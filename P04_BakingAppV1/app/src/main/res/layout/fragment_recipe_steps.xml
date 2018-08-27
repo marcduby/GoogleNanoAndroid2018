@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/recipe_test_message"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
-    android:gravity="center"
-    android:textStyle="bold"
-    android:id="@+id/recipe_name_fragment_tv"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:id="@+id/recipe_name_fragment_tv"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recipe_step_list_rv">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
 

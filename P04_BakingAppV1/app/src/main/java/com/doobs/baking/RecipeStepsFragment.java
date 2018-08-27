@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.doobs.baking.adapter.RecipeRecyclerAdapter;
+import com.doobs.baking.adapter.RecipeStepRecyclerAdapter;
 import com.doobs.baking.bean.RecipeBean;
+import com.doobs.baking.model.RecipeViewModel;
 import com.doobs.baking.util.BakingAppConstants;
 
 /**
@@ -25,6 +30,9 @@ public class RecipeStepsFragment extends Fragment {
     // instance variables
     private final String TAG = this.getClass().getName();
     private RecipeBean recipeBean;
+    private RecipeStepRecyclerAdapter recipeStepRecyclerAdapter;
+    private RecyclerView recipeStepRecyclerView;
+    private LinearLayoutManager recyclerViewLayoutManager;
 
     @Nullable
     @Override
@@ -32,6 +40,20 @@ public class RecipeStepsFragment extends Fragment {
         // inflate the view
         // get the root view and inflate it
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
+
+        // get the recycler view
+        this.recipeStepRecyclerView = rootView.findViewById(R.id.recipe_step_list_rv);
+        this.recipeStepRecyclerView.setHasFixedSize(true);
+
+        // set the manager for the recycler view
+        this.recyclerViewLayoutManager = new LinearLayoutManager(rootView.getContext());
+        this.recipeStepRecyclerView.setLayoutManager(this.recyclerViewLayoutManager);
+
+        // create the adapter for the recycler view
+        this.recipeStepRecyclerAdapter = new RecipeStepRecyclerAdapter();
+
+        // set the adapter on the recycler view
+        this.recipeStepRecyclerView.setAdapter(this.recipeStepRecyclerAdapter);
 
         Intent intent = this.getActivity().getIntent();
         if (intent == null) {
@@ -51,22 +73,8 @@ public class RecipeStepsFragment extends Fragment {
         TextView textView = rootView.findViewById(R.id.recipe_name_fragment_tv);
         textView.setText(recipeBean.getName() + " dude");
 
-//        // get the recycler view
-//        this.imageGridView = (GridView)rootView.findViewById(R.id.image_list_gv);
-//
-//        // get the adapter
-//        this.masterListAdapter = new MasterListAdapter(rootView.getContext(), AndroidImageAssets.getAll());
-//
-//        // set the adapter on the recycler view
-//        this.imageGridView.setAdapter(this.masterListAdapter);
-//
-//        // set the click listener
-//        this.imageGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                imageClickListener.onImageClick(position);
-//            }
-//        });
+        // set the stpe list on the adapter
+        this.recipeStepRecyclerAdapter.setRecipeStepBeanList(recipeBean.getStepBeanList());
 
         // return the view
         return rootView;

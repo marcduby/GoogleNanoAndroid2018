@@ -90,8 +90,8 @@ public class RecipeBean implements Parcelable {
         parcel.writeString(imagePath);
 
         // parcel the collection
-        parcel.writeList(ingredientBeanList);
-        parcel.writeList(stepBeanList);
+        parcel.writeTypedList(ingredientBeanList);
+        parcel.writeTypedList(stepBeanList);
     }
 
     public static final Parcelable.Creator<RecipeBean> CREATOR = new Parcelable.Creator<RecipeBean>() {
