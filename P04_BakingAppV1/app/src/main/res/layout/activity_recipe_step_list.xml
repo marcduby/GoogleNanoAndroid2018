@@ -12,19 +12,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/recipe_details_message"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:gravity="center"
             android:textStyle="bold"
-            android:id="@+id/recipe_details_tv"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:gravity="center"
             android:id="@+id/recipe_name_tv"/>
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"

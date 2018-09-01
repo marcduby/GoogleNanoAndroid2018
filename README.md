@@ -7,6 +7,8 @@
     * https://stackoverflow.com/questions/3496269/how-do-i-put-a-border-around-an-android-textview
   * To read the json file from assets (for dev purposes only so as not to rely on the network all the time)
     * https://stackoverflow.com/questions/9544737/read-file-from-assets
+  * To figure out how to parcel out lists of Parcebale objects
+    * https://stackoverflow.com/questions/15543033/how-to-write-list-into-parcel
     
 
 ## Project 3 (Movies v2, reviews, database and trailers) ##

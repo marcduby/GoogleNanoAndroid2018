@@ -10,6 +10,10 @@ import android.widget.Toast;
 import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.util.BakingAppConstants;
 
+/**
+ * activity class to hold the recipe steps (and also the recipe details for tablet support)
+ *
+ */
 public class RecipeStepListActivity extends AppCompatActivity {
     // instance variables
     private final String TAG = this.getClass().getName();
@@ -37,7 +41,7 @@ public class RecipeStepListActivity extends AppCompatActivity {
 
         // get the text view and how the name
         TextView textView = this.findViewById(R.id.recipe_name_tv);
-        textView.setText(recipeBean.getName());
+        textView.setText("Recipe Details for: " + recipeBean.getName());
 
     }
 
