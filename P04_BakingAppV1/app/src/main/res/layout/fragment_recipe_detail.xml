@@ -11,7 +11,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:gravity="center"
-        android:textStyle="bold"
+        style="@style/labelView"
         android:id="@+id/recipe_step_detail_name_fragment_tv"/>
 
     <TextView
@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:gravity="center"
-        android:textStyle="bold"
+        android:gravity="left"
+        style="@style/detailView"
         android:id="@+id/recipe_step_detail_description_fragment_tv"/>
 
     <android.support.v7.widget.RecyclerView

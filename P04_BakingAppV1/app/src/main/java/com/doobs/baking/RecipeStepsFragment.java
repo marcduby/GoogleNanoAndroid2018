@@ -66,7 +66,7 @@ public class RecipeStepsFragment extends Fragment {
 
         // get the text view and how the name
         TextView textView = rootView.findViewById(R.id.recipe_name_fragment_tv);
-        textView.setText(recipeBean.getName());
+        textView.setText(recipeBean.getName() + " Recipe");
 
         // set the stpe list on the adapter
         this.recipeStepRecyclerAdapter.setRecipeStepBeanList(recipeBean.getStepBeanList());

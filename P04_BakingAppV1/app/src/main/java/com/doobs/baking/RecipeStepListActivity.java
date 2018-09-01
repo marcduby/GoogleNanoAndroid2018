@@ -29,7 +29,7 @@ public class RecipeStepListActivity extends AppCompatActivity {
             closeOnError();
         }
 
-        // get the intent parceable
+        // get the intent parceable; make sure it exists
         recipeBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN);
         if (recipeBean == null) {
             // EXTRA_POSITION not found in intent
@@ -37,11 +37,6 @@ public class RecipeStepListActivity extends AppCompatActivity {
             closeOnError();
             return;
         }
-
-        // get the text view and how the name
-        TextView textView = this.findViewById(R.id.recipe_name_tv);
-        textView.setText("Recipe Details for: " + recipeBean.getName());
-
     }
 
     /**
