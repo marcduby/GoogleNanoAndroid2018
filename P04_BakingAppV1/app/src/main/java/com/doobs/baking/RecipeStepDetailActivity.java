@@ -3,6 +3,7 @@ package com.doobs.baking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -41,6 +42,29 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
             return;
         }
 
+        // create the fragment and display
+        this.createStepFragment(this.recipeStepBean);
+    }
+
+    /**
+     * create the fragment
+     *
+     * @param recipeStepBean
+     */
+    public void createStepFragment(RecipeStepBean recipeStepBean) {
+        // create the fragment
+        RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
+
+        // set the recipe step object on the fragment
+        recipeStepDetailFragment.setRecipeStepBean(recipeStepBean);
+
+        // get the fragment manager
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+
+        // bind the fragment to its container layout
+        fragmentManager.beginTransaction()
+                .replace(R.id.recipe_step_detail_fragment_container, recipeStepDetailFragment)
+                .commit();
     }
 
     /**

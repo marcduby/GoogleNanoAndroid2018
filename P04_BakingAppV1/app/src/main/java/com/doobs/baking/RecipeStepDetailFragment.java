@@ -27,9 +27,14 @@ public class RecipeStepDetailFragment extends Fragment {
     // instance variables
     private final String TAG = this.getClass().getName();
     private RecipeStepBean recipeStepBean;
-//    private RecipeStepRecyclerAdapter recipeStepRecyclerAdapter;
-//    private RecyclerView recipeStepRecyclerView;
-//    private LinearLayoutManager recyclerViewLayoutManager;
+
+    /**
+     * default constructor
+     *
+     */
+    public RecipeStepDetailFragment() {
+
+    }
 
     @Nullable
     @Override
@@ -37,29 +42,6 @@ public class RecipeStepDetailFragment extends Fragment {
         // inflate the view
         // get the root view and inflate it
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
-
-//        // get the recycler view
-//        this.recipeStepRecyclerView = rootView.findViewById(R.id.recipe_step_list_rv);
-//        this.recipeStepRecyclerView.setHasFixedSize(true);
-//
-//        // set the manager for the recycler view
-//        this.recyclerViewLayoutManager = new LinearLayoutManager(rootView.getContext());
-//        this.recipeStepRecyclerView.setLayoutManager(this.recyclerViewLayoutManager);
-//
-//        // create the adapter for the recycler view
-//        this.recipeStepRecyclerAdapter = new RecipeStepRecyclerAdapter();
-//
-//        // set the adapter on the recycler view
-//        this.recipeStepRecyclerView.setAdapter(this.recipeStepRecyclerAdapter);
-
-        Intent intent = this.getActivity().getIntent();
-
-        // get the intent parceable
-        recipeStepBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN);
-        if (recipeStepBean == null) {
-            // EXTRA_POSITION not found in intent
-            Log.e(this.getClass().getName(), "Got null recipe step bean");
-        }
 
         // get the text view and how the name
         TextView nameTextView = rootView.findViewById(R.id.recipe_step_detail_name_fragment_tv);
@@ -69,12 +51,11 @@ public class RecipeStepDetailFragment extends Fragment {
         TextView descriptionTextView = rootView.findViewById(R.id.recipe_step_detail_description_fragment_tv);
         descriptionTextView.setText(recipeStepBean.getDescription());
 
-//        // set the stpe list on the adapter
-//        this.recipeStepRecyclerAdapter.setRecipeStepBeanList(recipeBean.getStepBeanList());
-//
         // return the view
         return rootView;
     }
 
-
+    public void setRecipeStepBean(RecipeStepBean recipeStepBean) {
+        this.recipeStepBean = recipeStepBean;
+    }
 }

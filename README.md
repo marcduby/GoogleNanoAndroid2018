@@ -9,7 +9,8 @@
     * https://stackoverflow.com/questions/9544737/read-file-from-assets
   * To figure out how to parcel out lists of Parcebale objects
     * https://stackoverflow.com/questions/15543033/how-to-write-list-into-parcel
-    
+  * To help figure out how to split the tablet screen 50/50 between views
+    * https://stackoverflow.com/questions/30060720/android-layout-width-of-50
 
 ## Project 3 (Movies v2, reviews, database and trailers) ##
 * Used the following references
