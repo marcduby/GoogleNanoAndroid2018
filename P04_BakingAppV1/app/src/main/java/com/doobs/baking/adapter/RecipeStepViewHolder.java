@@ -45,12 +45,17 @@ public class RecipeStepViewHolder extends RecyclerView.ViewHolder implements Vie
 
     @Override
     public void onClick(View view) {
-        // TODO - tell adapter listener to launch new activity
-        Toast.makeText(view.getContext(), "Clicked on recipe step: " + this.recipeStepBean.getShortDescription(), Toast.LENGTH_SHORT).show();
+//        // TODO - tell adapter listener to launch new activity
+//        Toast.makeText(view.getContext(), "Clicked on recipe step: " + this.recipeStepBean.getShortDescription(), Toast.LENGTH_SHORT).show();
+//
+//        Intent intent = new Intent(view.getContext(), RecipeStepDetailActivity.class);
+//        intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN, recipeStepBean);
+//        view.getContext().startActivity(intent);
 
-        Intent intent = new Intent(view.getContext(), RecipeStepDetailActivity.class);
-        intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN, recipeStepBean);
-        view.getContext().startActivity(intent);
+        // call the listener
+        if (this.parent.getRecipeStepListener() != null) {
+            this.parent.getRecipeStepListener().onRecipeStepClick(this.recipeStepBean);
+        }
     }
 
     /**

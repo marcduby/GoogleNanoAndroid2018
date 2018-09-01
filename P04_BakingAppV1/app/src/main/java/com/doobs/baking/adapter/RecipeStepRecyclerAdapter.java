@@ -23,6 +23,26 @@ public class RecipeStepRecyclerAdapter extends RecyclerView.Adapter<RecipeStepVi
     // instance variables
     private final String TAG = this.getClass().getName();
     private List<RecipeStepBean> recipeStepBeanList;
+    private RecipeStepListener recipeStepListener;
+
+    /**
+     * Listener interface to be implemented by objects that listen to list item selections
+     *
+     */
+    public interface RecipeStepListener {
+        public void onRecipeStepClick(RecipeStepBean recipeStepBean);
+    }
+
+    /**
+     * default constructor
+     *
+     * @param listener
+     */
+    public RecipeStepRecyclerAdapter(RecipeStepListener listener) {
+        super();
+
+        this.recipeStepListener = listener;
+    }
 
     /**
      * binds a vew holder to data
@@ -88,5 +108,9 @@ public class RecipeStepRecyclerAdapter extends RecyclerView.Adapter<RecipeStepVi
 
         // notify of change
         this.notifyDataSetChanged();
+    }
+
+    public RecipeStepListener getRecipeStepListener() {
+        return recipeStepListener;
     }
 }

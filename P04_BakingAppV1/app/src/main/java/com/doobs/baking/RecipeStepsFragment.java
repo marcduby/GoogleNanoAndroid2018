@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.doobs.baking.adapter.RecipeRecyclerAdapter;
 import com.doobs.baking.adapter.RecipeStepRecyclerAdapter;
 import com.doobs.baking.bean.RecipeBean;
+import com.doobs.baking.bean.RecipeStepBean;
 import com.doobs.baking.model.RecipeViewModel;
 import com.doobs.baking.util.BakingAppConstants;
 
@@ -50,7 +51,7 @@ public class RecipeStepsFragment extends Fragment {
         this.recipeStepRecyclerView.setLayoutManager(this.recyclerViewLayoutManager);
 
         // create the adapter for the recycler view
-        this.recipeStepRecyclerAdapter = new RecipeStepRecyclerAdapter();
+        this.recipeStepRecyclerAdapter = new RecipeStepRecyclerAdapter((RecipeStepRecyclerAdapter.RecipeStepListener)this.getActivity());
 
         // set the adapter on the recycler view
         this.recipeStepRecyclerView.setAdapter(this.recipeStepRecyclerAdapter);

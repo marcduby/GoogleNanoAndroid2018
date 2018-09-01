@@ -7,14 +7,16 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.doobs.baking.adapter.RecipeStepRecyclerAdapter;
 import com.doobs.baking.bean.RecipeBean;
+import com.doobs.baking.bean.RecipeStepBean;
 import com.doobs.baking.util.BakingAppConstants;
 
 /**
  * Activity class to hold the recipe steps (and also the recipe details for tablet support)
  *
  */
-public class RecipeStepListActivity extends AppCompatActivity {
+public class RecipeStepListActivity extends AppCompatActivity implements RecipeStepRecyclerAdapter.RecipeStepListener {
     // instance variables
     private final String TAG = this.getClass().getName();
     private RecipeBean recipeBean;
@@ -48,4 +50,18 @@ public class RecipeStepListActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * handles the recipe step item click
+     *
+     * @param recipeStepBean
+     */
+    @Override
+    public void onRecipeStepClick(RecipeStepBean recipeStepBean) {
+        Toast.makeText(this, "Clicked on step: " + recipeStepBean.getShortDescription(), Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, RecipeStepDetailActivity.class);
+        intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN, recipeStepBean);
+        this.startActivity(intent);
+
+    }
 }
