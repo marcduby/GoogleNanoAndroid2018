@@ -32,7 +32,7 @@ public class MovieViewModel extends AndroidViewModel {
         this.movieRepository = new MovieRepository(application);
         this.databaseMovieList = this.movieRepository.getMovieList();
 
-        // set default display optin setting to most popular
+        // set default display option setting to most popular
         this.displayOptionSetting.postValue(MovieBrowserConstants.MovieListSource.MOST_POPULAR);
     }
 

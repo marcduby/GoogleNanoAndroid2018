@@ -148,7 +148,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     /**
-     * method to chow toast if error
+     * method to show toast if error
      *
      */
     private void closeOnError() {
