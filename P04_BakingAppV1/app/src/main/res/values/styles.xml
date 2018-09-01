@@ -32,7 +32,6 @@
 
     <style name="labelViewNoMargin" parent="AppTheme">
         <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">6dp</item>
     </style>
 
     <style name="recipeCard" parent="bold">

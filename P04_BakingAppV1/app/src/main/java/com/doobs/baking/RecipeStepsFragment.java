@@ -56,22 +56,17 @@ public class RecipeStepsFragment extends Fragment {
         this.recipeStepRecyclerView.setAdapter(this.recipeStepRecyclerAdapter);
 
         Intent intent = this.getActivity().getIntent();
-        if (intent == null) {
-//            this.getActivity().closeOnError();
-        }
 
         // get the intent parceable
         recipeBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN);
         if (recipeBean == null) {
             // EXTRA_POSITION not found in intent
             Log.e(this.getClass().getName(), "Got null recipe bean");
-  //          closeOnError();
-//            return;
         }
 
         // get the text view and how the name
         TextView textView = rootView.findViewById(R.id.recipe_name_fragment_tv);
-        textView.setText(recipeBean.getName() + " dude");
+        textView.setText(recipeBean.getName());
 
         // set the stpe list on the adapter
         this.recipeStepRecyclerAdapter.setRecipeStepBeanList(recipeBean.getStepBeanList());

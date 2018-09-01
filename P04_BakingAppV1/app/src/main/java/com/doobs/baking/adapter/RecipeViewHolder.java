@@ -16,7 +16,7 @@ import com.doobs.baking.util.BakingAppConstants;
  *
  * Created by mduby on 8/25/18.
  */
-public class RecipeViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     // instance variables
     private final String TAG = this.getClass().getName();
     private RecipeRecyclerAdapter parent;

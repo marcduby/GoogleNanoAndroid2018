@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="borderColor">#000080</color>
-    <color name="backgroundColor">#CCFFFF</color>
+    <color name="ingredientBackgroundColor">#3366ff</color>
+    <color name="recipeBackgroundColor">#CCFFFF</color>
 
 </resources>

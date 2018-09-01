@@ -3,6 +3,7 @@
 
     <string name="recipe_list_message">Recipe List</string>
     <string name="recipe_details_message">Recipe Details</string>
+    <string name="ingredients_label">Ingredient List</string>
 
     <string name="detail_error_message">Got error loading recipe</string>
 
