@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.doobs.baking.R;
 import com.doobs.baking.bean.RecipeBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ import java.util.List;
 public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
     // instance variables
     private final String TAG = this.getClass().getName();
-    private List<RecipeBean> recipeBeanList;
+    private List<RecipeBean> recipeBeanList = new ArrayList<RecipeBean>();
 
     /**
      * binds a vew holder to data

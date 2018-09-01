@@ -17,6 +17,8 @@ import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.bean.RecipeStepBean;
 import com.doobs.baking.util.BakingAppConstants;
 
+import java.util.ArrayList;
+
 /**
  * Fragment class to display the recipe step and ingredient lists
  *
@@ -39,6 +41,11 @@ public class RecipeStepDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // if state was saved
+        if (savedInstanceState != null) {
+            this.recipeStepBean = savedInstanceState.getParcelable(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN);
+        }
+
         // inflate the view
         // get the root view and inflate it
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
@@ -53,6 +60,16 @@ public class RecipeStepDetailFragment extends Fragment {
 
         // return the view
         return rootView;
+    }
+
+    /**
+     * for state changes
+     *
+     * @param outState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN, this.recipeStepBean);
     }
 
     public void setRecipeStepBean(RecipeStepBean recipeStepBean) {
