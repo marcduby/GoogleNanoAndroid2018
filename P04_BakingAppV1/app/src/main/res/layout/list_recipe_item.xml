@@ -5,26 +5,13 @@
     android:gravity="center_vertical"
     android:padding="2dp">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!--<ImageView-->
-            <!--android:id="@+id/list_item_movie_iv"-->
-            <!--android:adjustViewBounds="true"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"/>-->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            style="@style/recipeCard"
-            android:id="@+id/recipe_list_item_name_tv"
-            android:background="@drawable/recipe_card"/>
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        style="@style/recipeCard"
+        android:id="@+id/recipe_list_item_name_tv"
+        android:background="@drawable/recipe_card"/>
 
 </FrameLayout>

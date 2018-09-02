@@ -1,6 +1,7 @@
 package com.doobs.baking.adapter;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -69,5 +70,16 @@ public class RecipeStepViewHolder extends RecyclerView.ViewHolder implements Vie
 
         // get the text view and set the recipe name
         this.nameTextView.setText(this.recipeStepBean.getShortDescription());
+
+        // if ingredient list, set background
+        if (bean.getType().equals(BakingAppConstants.RecipeStepType.INGREDIENT)) {
+            final int sdk = android.os.Build.VERSION.SDK_INT;
+            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                this.nameTextView.setBackgroundDrawable(ContextCompat.getDrawable(this.nameTextView.getContext(), R.drawable.recipe_card) );
+            } else {
+                this.nameTextView.setBackground(ContextCompat.getDrawable(this.nameTextView.getContext(), R.drawable.ingredient_card));
+            }
+
+        }
     }
 }

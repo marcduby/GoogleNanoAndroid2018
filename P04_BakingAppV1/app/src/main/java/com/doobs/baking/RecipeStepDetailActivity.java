@@ -42,12 +42,19 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
             return;
         }
 
-        // create the fragment and display
-        this.createStepFragment(this.recipeStepBean);
+        if (BakingAppConstants.RecipeStepType.STEP.equals(this.recipeStepBean.getType())) {
+            // display the recipe step fragment
+            // create the fragment and display
+            this.createStepFragment(this.recipeStepBean);
+
+        } else {
+            // display the ingredient list fragment
+            this.createIngredientListFragment(this.recipeStepBean);
+        }
     }
 
     /**
-     * create the fragment
+     * create the recipe step fragment
      *
      * @param recipeStepBean
      */
@@ -64,6 +71,28 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
         // bind the fragment to its container layout
         fragmentManager.beginTransaction()
                 .replace(R.id.recipe_step_detail_fragment_container, recipeStepDetailFragment)
+                .commit();
+    }
+
+    /**
+     * create the ingredient list fragment
+     *
+     * @param recipeStepBean
+     */
+    // TODO - see if these two functions can be consolidated
+    public void createIngredientListFragment(RecipeStepBean recipeStepBean) {
+        // create the fragment
+        RecipeIngredientsFragment recipeIngredientsFragment = new RecipeIngredientsFragment();
+
+        // set the recipe step on it
+        recipeIngredientsFragment.setRecipeStepBean(recipeStepBean);
+
+        // get the fragment manager
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+
+        // bind the fragment
+        fragmentManager.beginTransaction()
+                .replace(R.id.recipe_step_detail_fragment_container, recipeIngredientsFragment)
                 .commit();
     }
 

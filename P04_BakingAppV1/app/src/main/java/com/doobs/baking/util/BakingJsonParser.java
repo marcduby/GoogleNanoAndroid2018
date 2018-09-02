@@ -147,9 +147,15 @@ public class BakingJsonParser {
                 } catch (JSONException exception) {
                     throw new BakingException("Got json parsing exception: " + exception.getMessage());
                 }
-
             }
         }
+
+        // add in a first step which is the ingredient list
+        RecipeStepBean recipeStepBean = new RecipeStepBean();
+        recipeStepBean.setType(BakingAppConstants.RecipeStepType.INGREDIENT);
+        recipeStepBean.setShortDescription("Ingredient List");
+        recipeStepBean.setIngredientBeanList(recipeBean.getIngredientBeanList());
+        recipeBean.getStepBeanList().add(0, recipeStepBean);
 
         // get the servings
         tempFloat = jsonObject.optDouble(BakingAppConstants.JsonKeys.SERVINGS);

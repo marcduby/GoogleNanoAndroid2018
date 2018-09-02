@@ -3,6 +3,11 @@ package com.doobs.baking.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.doobs.baking.util.BakingAppConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Bean class to hold recipe step
  *
@@ -11,11 +16,13 @@ import android.os.Parcelable;
 
 public class RecipeStepBean implements Parcelable {
     // instance variables
-    private Integer id;
+    private Integer id = -1;
     private String description;
     private String shortDescription;
     private String videoUrl;
     private String thumbnailUrl;
+    private String type = BakingAppConstants.RecipeStepType.STEP;
+    private List<IngredientBean> ingredientBeanList = new ArrayList<IngredientBean>();
 
     public Integer getId() {
         return id;
@@ -57,6 +64,22 @@ public class RecipeStepBean implements Parcelable {
         this.thumbnailUrl = thoumbnailUrl;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<IngredientBean> getIngredientBeanList() {
+        return ingredientBeanList;
+    }
+
+    public void setIngredientBeanList(List<IngredientBean> ingredientBeanList) {
+        this.ingredientBeanList = ingredientBeanList;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -69,6 +92,10 @@ public class RecipeStepBean implements Parcelable {
         parcel.writeString(shortDescription);
         parcel.writeString(videoUrl);
         parcel.writeString(thumbnailUrl);
+        parcel.writeString(this.type);
+
+        // parcel the collection
+        parcel.writeTypedList(ingredientBeanList);
     }
 
     public static final Parcelable.Creator<RecipeStepBean> CREATOR = new Parcelable.Creator<RecipeStepBean>() {
@@ -81,6 +108,10 @@ public class RecipeStepBean implements Parcelable {
             recipeStepBean.setShortDescription(parcel.readString());
             recipeStepBean.setVideoUrl(parcel.readString());
             recipeStepBean.setThumbnailUrl(parcel.readString());
+            recipeStepBean.setType(parcel.readString());
+
+            // set the lists
+            parcel.readTypedList(recipeStepBean.getIngredientBeanList(), IngredientBean.CREATOR);
 
             // return
             return recipeStepBean;

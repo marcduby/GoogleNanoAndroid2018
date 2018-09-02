@@ -29,4 +29,8 @@ public class BakingAppConstants {
         public static final String RECIPE_STEP_BEAN     = "recipeStepBean";
     }
 
+    public static final class RecipeStepType {
+        public static final String STEP                 = "step";
+        public static final String INGREDIENT           = "ingredient";
+    }
 }

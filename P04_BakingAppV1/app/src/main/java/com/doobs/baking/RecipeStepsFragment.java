@@ -38,6 +38,21 @@ public class RecipeStepsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // if state was saved
+        if (savedInstanceState != null) {
+            this.recipeBean = savedInstanceState.getParcelable(BakingAppConstants.ActivityExtras.RECIPE_BEAN);
+
+        } else {
+            Intent intent = this.getActivity().getIntent();
+
+            // get the intent parceable
+            this.recipeBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN);
+            if (recipeBean == null) {
+                // EXTRA_POSITION not found in intent
+                Log.e(this.getClass().getName(), "Got null recipe bean");
+            }
+        }
+
         // inflate the view
         // get the root view and inflate it
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
@@ -56,15 +71,6 @@ public class RecipeStepsFragment extends Fragment {
         // set the adapter on the recycler view
         this.recipeStepRecyclerView.setAdapter(this.recipeStepRecyclerAdapter);
 
-        Intent intent = this.getActivity().getIntent();
-
-        // get the intent parceable
-        recipeBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN);
-        if (recipeBean == null) {
-            // EXTRA_POSITION not found in intent
-            Log.e(this.getClass().getName(), "Got null recipe bean");
-        }
-
         // get the text view and how the name
         TextView textView = rootView.findViewById(R.id.recipe_name_fragment_tv);
         textView.setText(recipeBean.getName() + " Recipe");
@@ -76,5 +82,14 @@ public class RecipeStepsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * for state changes
+     *
+     * @param outState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(BakingAppConstants.ActivityExtras.RECIPE_BEAN, this.recipeBean);
+    }
 
 }

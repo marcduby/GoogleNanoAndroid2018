@@ -11,6 +11,11 @@
     * https://stackoverflow.com/questions/15543033/how-to-write-list-into-parcel
   * To help figure out how to split the tablet screen 50/50 between views
     * https://stackoverflow.com/questions/30060720/android-layout-width-of-50
+  * Help with fragments overwriting each other
+    * https://stackoverflow.com/questions/18309815/fragments-displayed-over-each-other
+  * Help with setting colors in list items
+    * https://stackoverflow.com/questions/12523005/how-set-background-drawable-programmatically-in-android
+    
 
 ## Project 3 (Movies v2, reviews, database and trailers) ##
 * Used the following references
