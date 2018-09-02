@@ -69,8 +69,16 @@ public class RecipeStepListActivity extends AppCompatActivity implements RecipeS
             this.startActivity(intent);
 
         } else {
-            // in table layout, so build fragment
-            this.createStepFragment(recipeStepBean);
+            // in tablet layout, so build fragment
+
+            if (BakingAppConstants.RecipeStepType.STEP.equals(recipeStepBean.getType())) {
+                // build a recipe step fragment
+                this.createStepFragment(recipeStepBean);
+
+            } else {
+                // build an ingredients list fragment
+                this.createIngredientListFragment(recipeStepBean);
+            }
         }
     }
 
@@ -101,4 +109,34 @@ public class RecipeStepListActivity extends AppCompatActivity implements RecipeS
                 .add(R.id.recipe_step_detail_fragment_container, recipeStepDetailFragment)
                 .commit();
     }
+
+    /**
+     * create the ingredient list fragment
+     *
+     * @param recipeStepBean
+     */
+    // TODO - see if these two functions can be consolidated
+    public void createIngredientListFragment(RecipeStepBean recipeStepBean) {
+        // create the fragment
+        RecipeIngredientsFragment recipeIngredientsFragment = new RecipeIngredientsFragment();
+
+        // set the recipe step on it
+        recipeIngredientsFragment.setRecipeStepBean(recipeStepBean);
+
+        // get the fragment manager
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+
+        // remove old fragments
+        for (Fragment fragment : fragmentManager.getFragments()) {
+            if (fragment != null && !fragment.equals(recipeIngredientsFragment) && fragment.isAdded()) {
+                fragmentManager.beginTransaction().remove(fragment).commit();
+            }
+        }
+
+        // bind the fragment
+        fragmentManager.beginTransaction()
+                .replace(R.id.recipe_step_detail_fragment_container, recipeIngredientsFragment)
+                .commit();
+    }
+
 }

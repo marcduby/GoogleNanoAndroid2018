@@ -35,6 +35,11 @@ public class RecipeIngredientsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // if state was saved
+        if (savedInstanceState != null) {
+            this.recipeStepBean = savedInstanceState.getParcelable(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN);
+        }
+
         // inflate the view
         // get the root view and inflate it
         View rootView = inflater.inflate(R.layout.fragment_recipe_ingredients, container, false);
@@ -53,20 +58,30 @@ public class RecipeIngredientsFragment extends Fragment {
         // set the adapter on the recycler view
         this.recipeIngredientRecyclerView.setAdapter(this.recipeIngredientRecyclerAdapter);
 
-        Intent intent = this.getActivity().getIntent();
-
-        // get the intent parceable
-        this.recipeStepBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN);
-        if (this.recipeStepBean == null) {
-            // EXTRA_POSITION not found in intent
-            Log.e(this.getClass().getName(), "Got null recipe ingredient bean");
-        }
+//        Intent intent = this.getActivity().getIntent();
+//
+//        // get the intent parceable
+//        this.recipeStepBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN);
+//        if (this.recipeStepBean == null) {
+//            // EXTRA_POSITION not found in intent
+//            Log.e(this.getClass().getName(), "Got null recipe ingredient bean");
+//        }
 
         // TODO - set the ingredients on the adapter
         this.recipeIngredientRecyclerAdapter.setRecipeStepBeanList(recipeStepBean.getIngredientBeanList());
 
         // return the view
         return rootView;
+    }
+
+    /**
+     * for state changes
+     *
+     * @param outState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN, this.recipeStepBean);
     }
 
     public void setRecipeStepBean(RecipeStepBean recipeStepBean) {
