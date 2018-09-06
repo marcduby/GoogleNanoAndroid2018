@@ -2,7 +2,6 @@ package com.doobs.baking;
 
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
@@ -11,10 +10,8 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
@@ -23,21 +20,23 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  * Created by mduby on 9/6/18.
  */
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class MainActivityIntestTest {
     // instance rule
+
     @Rule
-    public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
+    public IntentsTestRule<MainActivity> mainActivityIntentsTestRule = new IntentsTestRule<MainActivity>(MainActivity.class);
 
     /**
-     * test the transition from the main activity to the recipe step list activity
+     * test that an intent is fired when the main activity recycler view item is clicked
      *
      */
     @Test
-    public void clickRecyclerSelection_CheckNewFragment() {
+    public void clickRecyclerSelection_CheckIntent() {
         // perform action
         onView(withId(R.id.recipe_list_rv)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        // make sure new recipe step list view is called
-        onView(withId(R.id.recipe_step_list_fragment)).check(matches(isDisplayed()));
+        // make sure the selected recipe intent is sent
+        intended(toPackage("com.doobs.baking"));
     }
+
 }
