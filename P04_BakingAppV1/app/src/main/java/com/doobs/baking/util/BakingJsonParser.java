@@ -65,8 +65,8 @@ public class BakingJsonParser {
      * @throws BakingException
      */
     public static List<RecipeBean> parseRecipeListFromJsonArray(JSONArray inputJsonArray) throws BakingException {
-        List<RecipeBean> movieBeanList = new ArrayList<RecipeBean>();
-        RecipeBean movieBean = null;
+        List<RecipeBean> recipeBeanList = new ArrayList<RecipeBean>();
+        RecipeBean recipeBean = null;
         JSONObject jsonObject = null;
 
         // if there are movies, then parse
@@ -74,17 +74,24 @@ public class BakingJsonParser {
             for (int i = 0; i < inputJsonArray.length(); i++) {
                 jsonObject = inputJsonArray.optJSONObject(i);
 
+                // parse the array element
                 if (jsonObject != null) {
-                    movieBean = getRecipeFromJson(jsonObject);
+                    // if issue with this recipe, skip
+                    try {
+                        recipeBean = getRecipeFromJson(jsonObject);
 
-                    // add to list
-                    movieBeanList.add(movieBean);
+                        // add to list
+                        recipeBeanList.add(recipeBean);
+
+                    } catch (BakingException exception) {
+                        Log.e(TAG, "got error loading recipe: " + exception.getMessage());
+                    }
                 }
             }
         }
 
         // return
-        return movieBeanList;
+        return recipeBeanList;
     }
 
     /**

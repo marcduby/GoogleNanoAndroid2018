@@ -20,7 +20,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  * Created by mduby on 9/6/18.
  */
 @RunWith(AndroidJUnit4.class)
-public class MainActivityIntestTest {
+public class MainActivityIntentTest {
     // instance rule
 
     @Rule
