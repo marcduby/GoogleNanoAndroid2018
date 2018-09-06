@@ -21,10 +21,16 @@ import com.doobs.baking.util.BakingAppConstants;
 public class RecipeStepDetailActivity extends AppCompatActivity {
     // instance variables
     private final String TAG = this.getClass().getName();
-    private RecipeStepBean recipeStepBean;
+    private RecipeBean recipeBean;
+    private int recipeStepPosition = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // instance variables
+        RecipeStepBean recipeStepBean = null;
+        int position = 0;
+
+        // build the layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_step_detail);
 
@@ -33,23 +39,39 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
             closeOnError();
         }
 
-        // get the intent parceable
-        recipeStepBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN);
-        if (recipeStepBean == null) {
+
+        // get the recipe step at the position
+        this.recipeBean = intent.getParcelableExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN);
+        if (this.recipeBean == null) {
             // EXTRA_POSITION not found in intent
             Log.e(this.getClass().getName(), "Got null recipe step bean");
             closeOnError();
             return;
         }
 
-        if (BakingAppConstants.RecipeStepType.STEP.equals(this.recipeStepBean.getType())) {
+        // get the intent parceable
+        if (!intent.getExtras().containsKey(BakingAppConstants.ActivityExtras.RECIPE_STEP_POSITION)) {
+            // EXTRA_POSITION not found in intent
+            Log.e(this.getClass().getName(), "Got null recipe step bean position");
+            closeOnError();
+            return;
+
+        } else {
+            this.recipeStepPosition = intent.getIntExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_POSITION, 0);
+        }
+
+        // get the recipe step bean
+        recipeStepBean = this.recipeBean.getStepBeanList().get(this.recipeStepPosition);
+
+        // display the recipe step information
+        if (BakingAppConstants.RecipeStepType.STEP.equals(recipeStepBean.getType())) {
             // display the recipe step fragment
             // create the fragment and display
-            this.createStepFragment(this.recipeStepBean);
+            this.createStepFragment(recipeStepBean);
 
         } else {
             // display the ingredient list fragment
-            this.createIngredientListFragment(this.recipeStepBean);
+            this.createIngredientListFragment(recipeStepBean);
         }
     }
 
