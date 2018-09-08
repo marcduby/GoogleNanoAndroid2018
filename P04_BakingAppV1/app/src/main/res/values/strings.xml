@@ -8,4 +8,7 @@
     <string name="detail_error_message">Got error loading recipe</string>
 
     <string name="recipe_test_message">Recipe Test</string>
+
+    <string name="previous_step_button_label">Previous Step</string>
+    <string name="next_step_button_label">Next Step</string>
 </resources>

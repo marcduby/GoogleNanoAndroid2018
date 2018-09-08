@@ -15,6 +15,8 @@
     * https://stackoverflow.com/questions/18309815/fragments-displayed-over-each-other
   * Help with setting colors in list items
     * https://stackoverflow.com/questions/12523005/how-set-background-drawable-programmatically-in-android
+  * For help figuring out how to properly layout the Previous/Next buttons for the ingredients list
+    * https://stackoverflow.com/questions/37424624/pushed-off-by-the-recycler-view-button-and-notifyitemremoved
     
 
 ## Project 3 (Movies v2, reviews, database and trailers) ##

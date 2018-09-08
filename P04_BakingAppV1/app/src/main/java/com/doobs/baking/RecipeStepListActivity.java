@@ -65,7 +65,9 @@ public class RecipeStepListActivity extends AppCompatActivity implements RecipeS
         if (this.findViewById(R.id.activity_recipe_step_layout_600dp) == null) {
             // in mobile mode, so start new activity
             Intent intent = new Intent(this, RecipeStepDetailActivity.class);
-            intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN, recipeStepBean);
+            intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN, this.recipeBean);
+            intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_STEP_POSITION, this.recipeBean.getStepBeanList().indexOf(recipeStepBean));
+
             this.startActivity(intent);
 
         } else {
