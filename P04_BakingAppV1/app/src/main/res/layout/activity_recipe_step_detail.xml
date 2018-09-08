@@ -31,6 +31,7 @@
             android:layout_height="match_parent"
             android:padding="10dp"
             android:textAllCaps="false"
+            android:id="@+id/ingredient_list_previous_step_button"
             android:text="@string/previous_step_button_label"/>
 
         <Button
@@ -38,6 +39,7 @@
             android:layout_height="match_parent"
             android:padding="10dp"
             android:textAllCaps="false"
+            android:id="@+id/ingredient_list_next_step_button"
             android:text="@string/next_step_button_label"/>
 
     </LinearLayout>
