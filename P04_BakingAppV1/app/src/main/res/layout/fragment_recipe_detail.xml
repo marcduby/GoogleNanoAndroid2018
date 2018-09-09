@@ -42,42 +42,57 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="256dp" />
 
-    <Button
-        android:id="@+id/buttonA"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonC"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/buttonB"
-        app:layout_constraintTop_toTopOf="@+id/horizontalHalf" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="@style/labelView"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalHalf"
+        android:id="@+id/recipe_step_detail_name_fragment_tv"/>
 
-    <Button
-        android:id="@+id/buttonC"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/buttonD"
-        app:layout_constraintTop_toBottomOf="@+id/buttonA" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_step_detail_name_fragment_tv"
+        android:id="@+id/recipe_step_detail_description_fragment_tv"/>
 
-    <Button
-        android:id="@+id/buttonB"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonD"
-        app:layout_constraintLeft_toRightOf="@+id/buttonA"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/horizontalHalf" />
 
-    <Button
-        android:id="@+id/buttonD"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/buttonC"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonB" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonA"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/buttonC"-->
+        <!--app:layout_constraintHorizontal_chainStyle="spread_inside"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toLeftOf="@+id/buttonB"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/horizontalHalf" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/buttonC"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toLeftOf="@+id/buttonD"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/buttonA" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/buttonB"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/buttonD"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/buttonA"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/horizontalHalf" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/buttonD"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/buttonC"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/buttonB" />-->
 
 
     <!--TODO (1): Replace the Composer ImageView with a SimpleExoPlayerView that occupies the top half of your screen.-->

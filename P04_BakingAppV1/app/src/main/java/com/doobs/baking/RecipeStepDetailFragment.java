@@ -69,18 +69,23 @@ public class RecipeStepDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
         // get the text view and how the name
-//        TextView nameTextView = rootView.findViewById(R.id.recipe_step_detail_name_fragment_tv);
-//        nameTextView.setText(recipeStepBean.getShortDescription());
-//
-//        // get the text view and how the description
-//        TextView descriptionTextView = rootView.findViewById(R.id.recipe_step_detail_description_fragment_tv);
-//        descriptionTextView.setText(recipeStepBean.getDescription());
+        TextView nameTextView = rootView.findViewById(R.id.recipe_step_detail_name_fragment_tv);
+        nameTextView.setText(recipeStepBean.getShortDescription());
+
+        // get the text view and how the description
+        TextView descriptionTextView = rootView.findViewById(R.id.recipe_step_detail_description_fragment_tv);
+
+        // skip setting description if ssame as short description
+        if ((recipeStepBean.getShortDescription() != null) && (recipeStepBean.getDescription() != null) &&
+                !recipeStepBean.getShortDescription().equalsIgnoreCase(recipeStepBean.getDescription())) {
+            descriptionTextView.setText(recipeStepBean.getDescription());
+        }
 
         // create the exo player
         this.simpleExoPlayerView = (SimpleExoPlayerView)rootView.findViewById(R.id.exoplayer_view);
 
         // set the default art work
-        this.simpleExoPlayerView.setDefaultArtwork(BitmapFactory.decodeResource(this.getResources(), R.drawable.question_mark));
+//        this.simpleExoPlayerView.setDefaultArtwork(BitmapFactory.decodeResource(this.getResources(), R.drawable.question_mark));
 
         // create the uri from the recipe url string
         if (recipeStepBean.getVideoUrl() != null) {
@@ -91,10 +96,10 @@ public class RecipeStepDetailFragment extends Fragment {
                 // initialize the player
                 this.initializePlayer(rootView.getContext(), reciperUri);
 
-                Toast.makeText(rootView.getContext(), "started video: " + recipeStepBean.getVideoUrl(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(rootView.getContext(), "started video: " + recipeStepBean.getVideoUrl(), Toast.LENGTH_LONG).show();
 
             } else {
-                Toast.makeText(rootView.getContext(), "no video for video: " + recipeStepBean.getVideoUrl(), Toast.LENGTH_LONG).show();
+                Toast.makeText(rootView.getContext(), "No video for this recipe step", Toast.LENGTH_SHORT).show();
             }
         }
 
