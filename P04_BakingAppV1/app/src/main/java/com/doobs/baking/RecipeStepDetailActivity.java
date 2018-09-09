@@ -100,8 +100,10 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
             }
         });
 
-        // display the recipe step information
-        this.displayRecipeStep();
+        if (savedInstanceState ==  null) {
+            // display the recipe step information
+            this.displayRecipeStep();
+        }
     }
 
     /**

@@ -25,9 +25,12 @@ public class BakingAppConstants {
     }
 
     public static final class ActivityExtras {
-        public static final String RECIPE_BEAN          = "recipeBean";
-        public static final String RECIPE_STEP_BEAN     = "recipeStepBean";
-        public static final String RECIPE_STEP_POSITION = "recipeStepListPosition";
+        public static final String RECIPE_BEAN              = "recipeBean";
+        public static final String RECIPE_STEP_BEAN         = "recipeStepBean";
+        public static final String RECIPE_STEP_POSITION     = "recipeStepListPosition";
+
+        public static final String MEDIA_PLAYER_POSITION    = "mediaPlayerPosition";
+        public static final String MEDIA_PLAYER_STATE       = "mediaPlayerState";
     }
 
     public static final class RecipeStepType {

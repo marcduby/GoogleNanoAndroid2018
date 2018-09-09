@@ -2,6 +2,7 @@ package com.doobs.baking;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class RecipeStepDetailFragment extends Fragment {
     private RecipeStepBean recipeStepBean;
     private SimpleExoPlayer simpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
+    private long exoplayerPosition = -1;
 
     /**
      * default constructor
@@ -59,33 +61,43 @@ public class RecipeStepDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // local variables
+        View rootView = null;
+
         // if state was saved
         if (savedInstanceState != null) {
             this.recipeStepBean = savedInstanceState.getParcelable(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN);
+
+            // set the exoplayer position
+            long temp = savedInstanceState.getLong(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_POSITION);
+            this.exoplayerPosition = savedInstanceState.getLong(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_POSITION);
         }
 
         // inflate the view
-        // get the root view and inflate it
-        View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // get the root view and inflate it
+            rootView = inflater.inflate(R.layout.fragment_recipe_detail_landscape, container, false);
 
-        // get the text view and how the name
-        TextView nameTextView = rootView.findViewById(R.id.recipe_step_detail_name_fragment_tv);
-        nameTextView.setText(recipeStepBean.getShortDescription());
+        } else {
+            // get the root view and inflate it
+            rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
-        // get the text view and how the description
-        TextView descriptionTextView = rootView.findViewById(R.id.recipe_step_detail_description_fragment_tv);
+            // get the text view and how the name
+            TextView nameTextView = rootView.findViewById(R.id.recipe_step_detail_name_fragment_tv);
+            nameTextView.setText(recipeStepBean.getShortDescription());
 
-        // skip setting description if ssame as short description
-        if ((recipeStepBean.getShortDescription() != null) && (recipeStepBean.getDescription() != null) &&
-                !recipeStepBean.getShortDescription().equalsIgnoreCase(recipeStepBean.getDescription())) {
-            descriptionTextView.setText(recipeStepBean.getDescription());
+            // get the text view and how the description
+            TextView descriptionTextView = rootView.findViewById(R.id.recipe_step_detail_description_fragment_tv);
+
+            // skip setting description if ssame as short description
+            if ((recipeStepBean.getShortDescription() != null) && (recipeStepBean.getDescription() != null) &&
+                    !recipeStepBean.getShortDescription().equalsIgnoreCase(recipeStepBean.getDescription())) {
+                descriptionTextView.setText(recipeStepBean.getDescription());
+            }
         }
 
         // create the exo player
         this.simpleExoPlayerView = (SimpleExoPlayerView)rootView.findViewById(R.id.exoplayer_view);
-
-        // set the default art work
-//        this.simpleExoPlayerView.setDefaultArtwork(BitmapFactory.decodeResource(this.getResources(), R.drawable.question_mark));
 
         // create the uri from the recipe url string
         if (recipeStepBean.getVideoUrl() != null) {
@@ -94,11 +106,13 @@ public class RecipeStepDetailFragment extends Fragment {
 
                 // set the uri on the media player
                 // initialize the player
-                this.initializePlayer(rootView.getContext(), reciperUri);
+                this.initializePlayer(rootView.getContext(), reciperUri, savedInstanceState);
 
 //                Toast.makeText(rootView.getContext(), "started video: " + recipeStepBean.getVideoUrl(), Toast.LENGTH_LONG).show();
 
             } else {
+                // if thumbnail, display the image
+
                 Toast.makeText(rootView.getContext(), "No video for this recipe step", Toast.LENGTH_SHORT).show();
             }
         }
@@ -113,7 +127,7 @@ public class RecipeStepDetailFragment extends Fragment {
      * @param context
      * @param mediaUri
      */
-    private void initializePlayer(Context context, Uri mediaUri) {
+    private void initializePlayer(Context context, Uri mediaUri, Bundle savedInstanceState) {
         if (this.simpleExoPlayer == null) {
             // create the exoplayer
             TrackSelector trackSelector = new DefaultTrackSelector();
@@ -127,7 +141,14 @@ public class RecipeStepDetailFragment extends Fragment {
                     new DefaultExtractorsFactory(), null, null);
 
             this.simpleExoPlayer.prepare(mediaSource);
-            this.simpleExoPlayer.setPlayWhenReady(true);
+
+            if (this.exoplayerPosition != -1) {
+                this.simpleExoPlayer.seekTo(this.exoplayerPosition);
+                this.simpleExoPlayer.setPlayWhenReady(savedInstanceState.getBoolean(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_STATE));
+
+            } else {
+                this.simpleExoPlayer.setPlayWhenReady(true);
+            }
         }
     }
 
@@ -152,6 +173,30 @@ public class RecipeStepDetailFragment extends Fragment {
         this.releasePlayer();;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // release the media player
+        this.releasePlayer();;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // release the media player
+        this.releasePlayer();;
+    }
+
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//
+//        // release the media player
+//        this.releasePlayer();;
+//    }
+
     /**
      * for state changes
      *
@@ -159,7 +204,17 @@ public class RecipeStepDetailFragment extends Fragment {
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
         outState.putParcelable(BakingAppConstants.ActivityExtras.RECIPE_STEP_BEAN, this.recipeStepBean);
+
+        // save the exoplayer state
+        if (this.simpleExoPlayer != null) {
+            long currentPosition = this.simpleExoPlayer.getCurrentPosition();
+            boolean readyToPlay = this.simpleExoPlayer.getPlayWhenReady();
+            outState.putLong(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_POSITION, currentPosition);
+            outState.putBoolean(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_STATE, readyToPlay);
+        }
     }
 
     public void setRecipeStepBean(RecipeStepBean recipeStepBean) {
