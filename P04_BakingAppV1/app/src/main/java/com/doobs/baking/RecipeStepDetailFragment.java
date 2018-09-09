@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,7 +93,7 @@ public class RecipeStepDetailFragment extends Fragment {
             // skip setting description if ssame as short description
             if ((recipeStepBean.getShortDescription() != null) && (recipeStepBean.getDescription() != null) &&
                     !recipeStepBean.getShortDescription().equalsIgnoreCase(recipeStepBean.getDescription())) {
-                descriptionTextView.setText(recipeStepBean.getDescription());
+                descriptionTextView.setText(Html.fromHtml(recipeStepBean.getDescription()));
             }
         }
 
