@@ -17,6 +17,10 @@
     * https://stackoverflow.com/questions/12523005/how-set-background-drawable-programmatically-in-android
   * For help figuring out how to properly layout the Previous/Next buttons for the ingredients list
     * https://stackoverflow.com/questions/37424624/pushed-off-by-the-recycler-view-button-and-notifyitemremoved
+  * For help figuring out why my recipe step detail fragment was loaded twice on rotation
+    * https://stackoverflow.com/questions/16265482/android-fragment-created-twice-on-orientation-change
+  * To check orientation of phone from an Activity
+    * https://stackoverflow.com/questions/2795833/check-orientation-on-android-phone
     
 
 ## Project 3 (Movies v2, reviews, database and trailers) ##

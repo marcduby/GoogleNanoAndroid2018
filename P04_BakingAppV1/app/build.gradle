@@ -26,6 +26,7 @@ dependencies {
 
     // adding recycler view
     compile 'com.android.support:recyclerview-v7:27.1.1'
+    compile 'com.google.android.exoplayer:exoplayer:r2.2.0'
 
     // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
