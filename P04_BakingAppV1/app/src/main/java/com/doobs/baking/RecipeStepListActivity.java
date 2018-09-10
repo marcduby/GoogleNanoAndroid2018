@@ -1,12 +1,11 @@
 package com.doobs.baking;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doobs.baking.adapter.RecipeStepRecyclerAdapter;
@@ -59,7 +58,8 @@ public class RecipeStepListActivity extends AppCompatActivity implements RecipeS
      */
     @Override
     public void onRecipeStepClick(RecipeStepBean recipeStepBean) {
-        Toast.makeText(this, "Clicked on step: " + recipeStepBean.getShortDescription(), Toast.LENGTH_LONG).show();
+        // debug message
+//        Toast.makeText(this, "Clicked on step: " + recipeStepBean.getShortDescription(), Toast.LENGTH_LONG).show();
 
         // check to see if we are in tablet mode
         if (this.findViewById(R.id.activity_recipe_step_layout_600dp) == null) {

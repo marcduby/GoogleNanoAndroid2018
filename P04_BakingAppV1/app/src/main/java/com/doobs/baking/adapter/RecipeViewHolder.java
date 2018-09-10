@@ -44,7 +44,8 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
     @Override
     public void onClick(View view) {
         // TODO - tell adapter listener to launch new activity
-        Toast.makeText(view.getContext(), "Clicked on recipe: " + this.recipeBean.getName(), Toast.LENGTH_SHORT).show();
+        // debug message
+//        Toast.makeText(view.getContext(), "Clicked on recipe: " + this.recipeBean.getName(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(view.getContext(), RecipeStepListActivity.class);
         intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN, recipeBean);
