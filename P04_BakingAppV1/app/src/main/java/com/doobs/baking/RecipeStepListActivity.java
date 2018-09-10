@@ -58,7 +58,8 @@ public class RecipeStepListActivity extends AppCompatActivity implements RecipeS
      */
     @Override
     public void onRecipeStepClick(RecipeStepBean recipeStepBean) {
-        Toast.makeText(this, "Clicked on step: " + recipeStepBean.getShortDescription(), Toast.LENGTH_LONG).show();
+        // debug message
+//        Toast.makeText(this, "Clicked on step: " + recipeStepBean.getShortDescription(), Toast.LENGTH_LONG).show();
 
         // check to see if we are in tablet mode
         if (this.findViewById(R.id.activity_recipe_step_layout_600dp) == null) {
