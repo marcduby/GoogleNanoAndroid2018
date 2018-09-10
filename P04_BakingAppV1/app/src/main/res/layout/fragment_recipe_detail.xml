@@ -17,30 +17,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="top"
     >
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/exoplayer_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalHalf"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
         <!--app:layout_constraintRight_toRightOf="parent"-->
         <!--app:layout_constraintBottom_toTopOf="@+id/horizontalHalf"-->
         <!--app:layout_constraintLeft_toLeftOf="parent"/>-->
 
-    <!--<android.support.constraint.Guideline-->
-        <!--android:id="@+id/horizontalHalf"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--app:layout_constraintGuide_percent="0.5"-->
- <!--/>-->
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontalHalf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+     />
 
     <TextView
         android:layout_width="match_parent"
@@ -48,9 +51,7 @@
         android:gravity="center"
         style="@style/labelView"
         android:id="@+id/recipe_step_detail_name_fragment_tv"
-        app:layout_constraintEnd_toEndOf="@+id/exoplayer_view"
-        app:layout_constraintStart_toStartOf="@+id/exoplayer_view"
-        app:layout_constraintTop_toBottomOf="@+id/exoplayer_view"/>
+        app:layout_constraintTop_toBottomOf="@+id/horizontalHalf"/>
         <!--app:layout_constraintTop_toBottomOf="@+id/horizontalHalf"-->
         <!--/>-->
 
@@ -58,7 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recipe_step_detail_description_fragment_tv"
-        app:layout_constraintStart_toStartOf="@+id/recipe_step_detail_name_fragment_tv"
         app:layout_constraintTop_toBottomOf="@+id/recipe_step_detail_name_fragment_tv"
         />
         <!--app:layout_constraintTop_toBottomOf="@+id/recipe_step_detail_name_fragment_tv"-->
