@@ -1,25 +1,18 @@
 package com.doobs.baking;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doobs.baking.adapter.RecipeStepRecyclerAdapter;
-import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.bean.RecipeStepBean;
 import com.doobs.baking.util.BakingAppConstants;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -34,8 +27,6 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-
-import java.util.ArrayList;
 
 /**
  * Fragment class to display the recipe step and ingredient lists

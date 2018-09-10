@@ -10,15 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 
-import com.doobs.baking.adapter.RecipeRecyclerAdapter;
 import com.doobs.baking.adapter.RecipeStepRecyclerAdapter;
 import com.doobs.baking.bean.RecipeBean;
-import com.doobs.baking.bean.RecipeStepBean;
-import com.doobs.baking.model.RecipeViewModel;
 import com.doobs.baking.util.BakingAppConstants;
 
 /**

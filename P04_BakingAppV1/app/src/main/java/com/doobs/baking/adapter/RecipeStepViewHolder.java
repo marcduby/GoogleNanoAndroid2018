@@ -1,18 +1,11 @@
 package com.doobs.baking.adapter;
 
-import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.doobs.baking.R;
-import com.doobs.baking.RecipeStepDetailActivity;
-import com.doobs.baking.RecipeStepListActivity;
-import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.bean.RecipeStepBean;
-import com.doobs.baking.util.BakingAppConstants;
 
 /**
  * View holder class for the recipe step list

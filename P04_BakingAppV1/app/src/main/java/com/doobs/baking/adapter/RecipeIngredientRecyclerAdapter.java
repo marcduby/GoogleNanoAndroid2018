@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.doobs.baking.R;
 import com.doobs.baking.bean.IngredientBean;
-import com.doobs.baking.bean.RecipeStepBean;
 
 import java.util.ArrayList;
 import java.util.List;

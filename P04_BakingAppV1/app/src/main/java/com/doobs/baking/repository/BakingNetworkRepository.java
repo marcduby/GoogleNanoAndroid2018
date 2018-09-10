@@ -1,7 +1,6 @@
 package com.doobs.baking.repository;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.doobs.baking.bean.RecipeBean;
-import com.doobs.baking.bean.RecipeStepBean;
 import com.doobs.baking.util.BakingAppConstants;
 import com.doobs.baking.util.BakingException;
 import com.doobs.baking.util.BakingJsonParser;

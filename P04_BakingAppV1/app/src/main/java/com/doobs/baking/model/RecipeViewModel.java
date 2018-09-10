@@ -4,16 +4,10 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.os.AsyncTask;
-import android.util.Log;
 
 import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.repository.BakingNetworkRepository;
-import com.doobs.baking.util.BakingException;
-import com.doobs.baking.util.BakingNetworkUtils;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.doobs.baking.R;
-import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.bean.RecipeStepBean;
 
 import java.util.List;
