@@ -21,7 +21,7 @@
     * https://stackoverflow.com/questions/16265482/android-fragment-created-twice-on-orientation-change
   * To check orientation of phone from an Activity
     * https://stackoverflow.com/questions/2795833/check-orientation-on-android-phone
-    
+  * To figure out the ExoPlayer layout, I went off the Udacity Music Quiz layout example
 
 ## Project 3 (Movies v2, reviews, database and trailers) ##
 * Used the following references
