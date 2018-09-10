@@ -74,10 +74,15 @@ public class RecipeStepDetailFragment extends Fragment {
             // get the root view and inflate it
             rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
-            // get the text view and how the name
+        }
+
+        // get the text view and how the name
+        if (rootView.findViewById(R.id.recipe_step_detail_name_fragment_tv) != null) {
             TextView nameTextView = rootView.findViewById(R.id.recipe_step_detail_name_fragment_tv);
             nameTextView.setText(recipeStepBean.getShortDescription());
+        }
 
+        if (rootView.findViewById(R.id.recipe_step_detail_description_fragment_tv) != null) {
             // get the text view and how the description
             TextView descriptionTextView = rootView.findViewById(R.id.recipe_step_detail_description_fragment_tv);
 
