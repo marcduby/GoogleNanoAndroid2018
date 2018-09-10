@@ -1,12 +1,24 @@
 package com.doobs.baking.util;
 
+import com.doobs.baking.BuildConfig;
+
 /**
  * Constants class to hold baking application condtants
  *
  * Created by mduby on 8/24/18.
  */
 public class BakingAppConstants {
+    /**
+     * holds recipe html urls
+     */
+    public static final class WebUrls {
+        public static final String RECIPEDB_URL = BuildConfig.RECIPEDB_URL;
+    }
 
+    /**
+     * holds the json key constants
+     *
+     */
     public static final class JsonKeys {
         public static final String ID                   = "id";
         public static final String NAME                 = "name";
@@ -24,6 +36,9 @@ public class BakingAppConstants {
 
     }
 
+    /**
+     * holds the keys for the activity extras
+     */
     public static final class ActivityExtras {
         public static final String RECIPE_BEAN              = "recipeBean";
         public static final String RECIPE_STEP_BEAN         = "recipeStepBean";
@@ -33,6 +48,9 @@ public class BakingAppConstants {
         public static final String MEDIA_PLAYER_STATE       = "mediaPlayerState";
     }
 
+    /**
+     * holds the constants for the recipe step types
+     */
     public static final class RecipeStepType {
         public static final String STEP                 = "step";
         public static final String INGREDIENT           = "ingredient";

@@ -4,11 +4,16 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.repository.BakingNetworkRepository;
+import com.doobs.baking.util.BakingException;
+import com.doobs.baking.util.BakingNetworkUtils;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +39,8 @@ public class RecipeViewModel extends AndroidViewModel {
         this.bakingNetworkRepository = new BakingNetworkRepository(application);
 
         // load the recipe data
-        this.recipeBeanList.postValue(this.bakingNetworkRepository.getRecipes());
+        this.recipeBeanList = this.bakingNetworkRepository.getRecipeList();
+//        this.recipeBeanList.postValue(this.bakingNetworkRepository.getRecipes());
     }
 
     /**
@@ -66,9 +72,20 @@ public class RecipeViewModel extends AndroidViewModel {
 //            recipeBean.setName("Recipe " + i);
 //            recipeBeans.add(recipeBean);
 //        }
-        recipeBeans = this.bakingNetworkRepository.loadTestRecipesFromFile();
 
-        this.setRecipeBeanList(recipeBeans);
+        // use this for testing without network
+//        recipeBeans = this.bakingNetworkRepository.loadTestRecipesFromFile();
+//        this.bakingNetworkRepository.loadTestRecipesFromFile();
+
+        // use this for loading with network
+//        recipeBeans = this.bakingNetworkRepository.loadTestRecipesFromFile();
+        this.bakingNetworkRepository.loadTestRecipesFromNetwork();
+
+        //        this.setRecipeBeanList(recipeBeans);
+    }
+
+    public void loadRecipeDataFromNetwork() {
+
     }
 
     /**

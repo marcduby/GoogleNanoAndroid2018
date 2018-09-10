@@ -72,14 +72,16 @@ public class RecipeStepViewHolder extends RecyclerView.ViewHolder implements Vie
         this.nameTextView.setText(this.recipeStepBean.getShortDescription());
 
         // if ingredient list, set background
-        if (bean.getType().equals(BakingAppConstants.RecipeStepType.INGREDIENT)) {
-            final int sdk = android.os.Build.VERSION.SDK_INT;
-            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                this.nameTextView.setBackgroundDrawable(ContextCompat.getDrawable(this.nameTextView.getContext(), R.drawable.recipe_card) );
-            } else {
-                this.nameTextView.setBackground(ContextCompat.getDrawable(this.nameTextView.getContext(), R.drawable.ingredient_card));
-            }
-
-        }
+        // TODO - skip for now because if view holder recycled, color not necessarily recycled
+//        if (bean.getType().equals(BakingAppConstants.RecipeStepType.INGREDIENT)) {
+//            final int sdk = android.os.Build.VERSION.SDK_INT;
+//            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+//                this.nameTextView.setBackgroundDrawable(ContextCompat.getDrawable(this.nameTextView.getContext(), R.drawable.recipe_card) );
+//
+//            } else {
+//                this.nameTextView.setBackground(ContextCompat.getDrawable(this.nameTextView.getContext(), R.drawable.ingredient_card));
+//            }
+//
+//        }
     }
 }
