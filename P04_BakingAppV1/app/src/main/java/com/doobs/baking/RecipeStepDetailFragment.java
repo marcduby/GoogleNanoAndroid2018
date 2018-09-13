@@ -162,12 +162,23 @@ public class RecipeStepDetailFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//
+//        // release the media player
+//        this.releasePlayer();;
+//    }
 
-        // release the media player
-        this.releasePlayer();;
+    /**
+     * REVIEW01 - added due to issues with pre 23 onStop not always calls
+     */
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            // release player
+            this.releasePlayer();
+        }
     }
 
     @Override
@@ -175,20 +186,16 @@ public class RecipeStepDetailFragment extends Fragment {
         super.onStop();
 
         // release the media player
-        this.releasePlayer();;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        // release the media player
-        this.releasePlayer();;
+        // REVIEW01 - test works in conjunction with onPause() issues for jdk <= 23
+        if (Util.SDK_INT > 23) {
+            this.releasePlayer();;
+        }
     }
 
 //    @Override
-//    public void onPause() {
-//        super.onPause();
+    // REVIEW01 - recommended to only release in onPause() and onStop()
+//    public void onDestroy() {
+//        super.onDestroy();
 //
 //        // release the media player
 //        this.releasePlayer();;
