@@ -41,10 +41,10 @@ public class RecipeStepDetailFragment extends Fragment {
     private SimpleExoPlayer simpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
     private long exoplayerPosition = -1;
+    private boolean exoplayerPlayWhenReady = true;
 
     /**
      * default constructor
-     *
      */
     public RecipeStepDetailFragment() {
 
@@ -63,6 +63,7 @@ public class RecipeStepDetailFragment extends Fragment {
             // set the exoplayer position
             long temp = savedInstanceState.getLong(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_POSITION);
             this.exoplayerPosition = savedInstanceState.getLong(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_POSITION);
+            this.exoplayerPlayWhenReady = savedInstanceState.getBoolean(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_STATE);
         }
 
         // inflate the view
@@ -94,28 +95,32 @@ public class RecipeStepDetailFragment extends Fragment {
         }
 
         // create the exo player
-        this.simpleExoPlayerView = (SimpleExoPlayerView)rootView.findViewById(R.id.exoplayer_view);
+        this.simpleExoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.exoplayer_view);
 
-        // create the uri from the recipe url string
+        // initialize the player
+        this.initializePlayerFromBean(rootView.getContext());
+
+        // return the view
+        return rootView;
+    }
+
+    private void initializePlayerFromBean(Context context) {
         if (recipeStepBean.getVideoUrl() != null) {
             if (recipeStepBean.getVideoUrl().length() > 0) {
                 Uri reciperUri = Uri.parse(recipeStepBean.getVideoUrl());
 
                 // set the uri on the media player
                 // initialize the player
-                this.initializePlayer(rootView.getContext(), reciperUri, savedInstanceState);
+                this.initializePlayer(this.getContext(), reciperUri);
 
 //                Toast.makeText(rootView.getContext(), "started video: " + recipeStepBean.getVideoUrl(), Toast.LENGTH_LONG).show();
 
             } else {
                 // if thumbnail, display the image
 
-                Toast.makeText(rootView.getContext(), "No video for this recipe step", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getContext(), "No video for this recipe step", Toast.LENGTH_SHORT).show();
             }
         }
-
-        // return the view
-        return rootView;
     }
 
     /**
@@ -124,7 +129,7 @@ public class RecipeStepDetailFragment extends Fragment {
      * @param context
      * @param mediaUri
      */
-    private void initializePlayer(Context context, Uri mediaUri, Bundle savedInstanceState) {
+    private void initializePlayer(Context context, Uri mediaUri) {
         if (this.simpleExoPlayer == null) {
             // create the exoplayer
             TrackSelector trackSelector = new DefaultTrackSelector();
@@ -138,14 +143,14 @@ public class RecipeStepDetailFragment extends Fragment {
                     new DefaultExtractorsFactory(), null, null);
 
             this.simpleExoPlayer.prepare(mediaSource);
+        }
 
-            if (this.exoplayerPosition != -1) {
-                this.simpleExoPlayer.seekTo(this.exoplayerPosition);
-                this.simpleExoPlayer.setPlayWhenReady(savedInstanceState.getBoolean(BakingAppConstants.ActivityExtras.MEDIA_PLAYER_STATE));
+        if (this.exoplayerPosition != -1) {
+            this.simpleExoPlayer.seekTo(this.exoplayerPosition);
+            this.simpleExoPlayer.setPlayWhenReady(this.exoplayerPlayWhenReady);
 
-            } else {
-                this.simpleExoPlayer.setPlayWhenReady(true);
-            }
+        } else {
+            this.simpleExoPlayer.setPlayWhenReady(true);
         }
     }
 
@@ -169,6 +174,24 @@ public class RecipeStepDetailFragment extends Fragment {
 //        // release the media player
 //        this.releasePlayer();;
 //    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            // initialize player; null check is done in the initialize method
+            this.initializePlayerFromBean(this.getContext());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Util.SDK_INT <= 23) {
+            // initialize player; null check is done in the initialize method
+            this.initializePlayerFromBean(this.getContext());
+        }
+    }
 
     /**
      * REVIEW01 - added due to issues with pre 23 onStop not always calls
