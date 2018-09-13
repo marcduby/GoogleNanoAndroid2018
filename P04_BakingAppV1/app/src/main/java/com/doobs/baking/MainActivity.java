@@ -15,12 +15,21 @@ import com.doobs.baking.model.RecipeViewModel;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
     // instance variables
+    // log tag
     private final String TAG = this.getClass().getName();
+
+    // views
+    @BindView(R.id.recipe_list_rv)
+    protected RecyclerView recipeRecyclerView;
+
+    // variables
     private RecipeViewModel recipeViewModel;
     private RecipeRecyclerAdapter recipeRecyclerAdapter;
-    private RecyclerView recipeRecyclerView;
     private LinearLayoutManager recyclerViewLinearLayoutManager;
     private GridLayoutManager recyclerViewGridLayoutManager;
     private final Integer tablet_number_columns = 3;
@@ -30,8 +39,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // set Butterknife bindings
+        ButterKnife.bind(this);
+
         // get the recycler view
-        this.recipeRecyclerView = this.findViewById(R.id.recipe_list_rv);
+//        this.recipeRecyclerView = this.findViewById(R.id.recipe_list_rv);
         this.recipeRecyclerView.setHasFixedSize(true);
 
         // set the manager for the recycler view

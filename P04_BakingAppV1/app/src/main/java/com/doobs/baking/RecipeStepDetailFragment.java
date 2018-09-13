@@ -179,11 +179,15 @@ public class RecipeStepDetailFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT > 23) {
+            // REVIEW01 - test works in conjunction with onResume() issues for jdk <= 23
             // initialize player; null check is done in the initialize method
             this.initializePlayerFromBean(this.getContext());
         }
     }
 
+    /**
+     * REVIEW01 - added due to issues with pre 23 onStart not always called
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -196,6 +200,7 @@ public class RecipeStepDetailFragment extends Fragment {
     /**
      * REVIEW01 - added due to issues with pre 23 onStop not always calls
      */
+    @Override
     public void onPause() {
         super.onPause();
         if (Util.SDK_INT <= 23) {

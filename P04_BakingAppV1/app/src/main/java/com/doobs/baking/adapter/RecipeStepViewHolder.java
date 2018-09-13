@@ -7,6 +7,9 @@ import android.widget.TextView;
 import com.doobs.baking.R;
 import com.doobs.baking.bean.RecipeStepBean;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * View holder class for the recipe step list
  *
@@ -16,8 +19,11 @@ public class RecipeStepViewHolder extends RecyclerView.ViewHolder implements Vie
     // instance variables
     private final String TAG = this.getClass().getName();
     private RecipeStepRecyclerAdapter parent;
-    private TextView nameTextView;
     private RecipeStepBean recipeStepBean;
+
+    // instance views
+    @BindView(R.id.recipe_list_item_name_tv)
+    protected TextView nameTextView;
 
     /**
      * default constructor
@@ -28,9 +34,12 @@ public class RecipeStepViewHolder extends RecyclerView.ViewHolder implements Vie
     public RecipeStepViewHolder(View view, RecipeStepRecyclerAdapter adapter) {
         super(view);
 
+        // bind Butterknife views
+        ButterKnife.bind(this, view);
+
         // set the instance variables
         this.parent = adapter;
-        this.nameTextView = view.findViewById(R.id.recipe_list_item_name_tv);
+//        this.nameTextView = view.findViewById(R.id.recipe_list_item_name_tv);
 
         // set the listener
         view.setOnClickListener(this);

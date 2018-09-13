@@ -11,6 +11,9 @@ import com.doobs.baking.RecipeStepListActivity;
 import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.util.BakingAppConstants;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * View holder class for the recipe list
  *
@@ -20,8 +23,11 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
     // instance variables
     private final String TAG = this.getClass().getName();
     private RecipeRecyclerAdapter parent;
-    private TextView nameTextView;
     private RecipeBean recipeBean;
+
+    // instance views
+    @BindView(R.id.recipe_list_item_name_tv)
+    protected TextView nameTextView;
 
     /**
      * default constructor
@@ -32,9 +38,12 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
     public RecipeViewHolder(View view, RecipeRecyclerAdapter adapter) {
         super(view);
 
+        // bind Butterknife
+        ButterKnife.bind(this, view);
+
         // set the instance variables
         this.parent = adapter;
-        this.nameTextView = view.findViewById(R.id.recipe_list_item_name_tv);
+//        this.nameTextView = view.findViewById(R.id.recipe_list_item_name_tv);
 
         // set the listener
         view.setOnClickListener(this);
