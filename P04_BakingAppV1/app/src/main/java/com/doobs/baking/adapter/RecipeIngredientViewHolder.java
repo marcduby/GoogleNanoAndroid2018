@@ -7,6 +7,9 @@ import android.widget.TextView;
 import com.doobs.baking.R;
 import com.doobs.baking.bean.IngredientBean;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * View holder class for the recipe ingredient list items
  *
@@ -16,9 +19,13 @@ public class RecipeIngredientViewHolder extends RecyclerView.ViewHolder {
     // instance variables
     private final String TAG = this.getClass().getName();
     private RecipeIngredientRecyclerAdapter parent;
-    private TextView nameTextView;
-    private TextView measurementTextView;
     private IngredientBean recipeIngredientBean;
+
+    // instance views
+    @BindView(R.id.recipe_ingredient_item_name_tv)
+    protected TextView nameTextView;
+    @BindView(R.id.recipe_ingredient_item_measurement_tv)
+    protected TextView measurementTextView;
 
     /**
      * default constructor
@@ -29,10 +36,13 @@ public class RecipeIngredientViewHolder extends RecyclerView.ViewHolder {
     public RecipeIngredientViewHolder(View view, RecipeIngredientRecyclerAdapter adapter) {
         super(view);
 
+        // bind Butterknife views
+        ButterKnife.bind(this, view);
+
         // set the instance variables
         this.parent = adapter;
-        this.nameTextView = view.findViewById(R.id.recipe_ingredient_item_name_tv);
-        this.measurementTextView = view.findViewById(R.id.recipe_ingredient_item_measurement_tv);
+//        this.nameTextView = view.findViewById(R.id.recipe_ingredient_item_name_tv);
+//        this.measurementTextView = view.findViewById(R.id.recipe_ingredient_item_measurement_tv);
     }
 
     /**

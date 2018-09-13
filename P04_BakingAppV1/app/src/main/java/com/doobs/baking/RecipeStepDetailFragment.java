@@ -74,7 +74,6 @@ public class RecipeStepDetailFragment extends Fragment {
         } else {
             // get the root view and inflate it
             rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
-
         }
 
         // get the text view and how the name

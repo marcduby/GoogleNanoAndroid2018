@@ -14,6 +14,8 @@ import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.bean.RecipeStepBean;
 import com.doobs.baking.util.BakingAppConstants;
 
+import butterknife.BindView;
+
 /**
  * Activity class to dsiplay the recipe step details and video
  *
@@ -25,6 +27,8 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getName();
     private RecipeBean recipeBean;
     private int recipeStepPosition = 0;
+
+    // instance views
     private Button previousStepButton;
     private Button nextStepButton;
 
