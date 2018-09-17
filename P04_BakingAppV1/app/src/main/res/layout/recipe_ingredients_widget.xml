@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09C"
+    android:id="@+id/baking_widget_layout"
     android:padding="@dimen/widget_margin">
 
     <TextView
@@ -10,12 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         android:background="#09C"
         android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
+        android:text="@string/baking_app_widget_title"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="14sp"
         android:textStyle="bold|italic" />
 
 </RelativeLayout>
