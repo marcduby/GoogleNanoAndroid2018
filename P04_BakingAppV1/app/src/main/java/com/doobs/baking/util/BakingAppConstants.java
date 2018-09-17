@@ -16,6 +16,14 @@ public class BakingAppConstants {
     }
 
     /**
+     * final string for the service actions
+     *
+     */
+    public static final class ServiceActions {
+        public static final String UPDATE_INGREDIENTS = "com.doobs.baking.widget.update_ingredients";
+    }
+
+    /**
      * holds the json key constants
      *
      */

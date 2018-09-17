@@ -10,6 +10,7 @@ import com.doobs.baking.R;
 import com.doobs.baking.RecipeStepListActivity;
 import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.util.BakingAppConstants;
+import com.doobs.baking.widget.BakingWidgetUpdateService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +57,13 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.On
         // debug message
 //        Toast.makeText(view.getContext(), "Clicked on recipe: " + this.recipeBean.getName(), Toast.LENGTH_SHORT).show();
 
+        // send a service intent
+        Intent serviceIntent = new Intent(view.getContext(), BakingWidgetUpdateService.class);
+        serviceIntent.setAction(BakingAppConstants.ServiceActions.UPDATE_INGREDIENTS);
+        serviceIntent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN, recipeBean);
+        view.getContext().startService(serviceIntent);
+
+        // open the recipe detail activity
         Intent intent = new Intent(view.getContext(), RecipeStepListActivity.class);
         intent.putExtra(BakingAppConstants.ActivityExtras.RECIPE_BEAN, recipeBean);
         view.getContext().startActivity(intent);
