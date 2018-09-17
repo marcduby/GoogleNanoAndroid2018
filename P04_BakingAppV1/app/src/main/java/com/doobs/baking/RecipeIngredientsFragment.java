@@ -13,6 +13,10 @@ import com.doobs.baking.adapter.RecipeIngredientRecyclerAdapter;
 import com.doobs.baking.bean.RecipeStepBean;
 import com.doobs.baking.util.BakingAppConstants;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Fragment class to display the recipe step and ingredient lists
  *
@@ -24,8 +28,12 @@ public class RecipeIngredientsFragment extends Fragment {
     private final String TAG = this.getClass().getName();
     private RecipeStepBean recipeStepBean;
     private RecipeIngredientRecyclerAdapter recipeIngredientRecyclerAdapter;
-    private RecyclerView recipeIngredientRecyclerView;
     private LinearLayoutManager recyclerViewLayoutManager;
+    private Unbinder unbinder;
+
+    // instance views
+    @BindView(R.id.recipe_ingredients_list_rv)
+    protected RecyclerView recipeIngredientRecyclerView;
 
     @Nullable
     @Override
@@ -39,8 +47,11 @@ public class RecipeIngredientsFragment extends Fragment {
         // get the root view and inflate it
         View rootView = inflater.inflate(R.layout.fragment_recipe_ingredients, container, false);
 
+        // bind Butterknife views
+        this.unbinder = ButterKnife.bind(this, rootView);
+
         // get the recycler view
-        this.recipeIngredientRecyclerView = rootView.findViewById(R.id.recipe_ingredients_list_rv);
+//        this.recipeIngredientRecyclerView = rootView.findViewById(R.id.recipe_ingredients_list_rv);
         this.recipeIngredientRecyclerView.setHasFixedSize(true);
 
         // set the manager for the recycler view
@@ -81,5 +92,13 @@ public class RecipeIngredientsFragment extends Fragment {
 
     public void setRecipeStepBean(RecipeStepBean recipeStepBean) {
         this.recipeStepBean = recipeStepBean;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        // unbind Butterknife
+        this.unbinder.unbind();
     }
 }
