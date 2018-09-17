@@ -11,4 +11,6 @@
 
     <string name="previous_step_button_label">Previous Step</string>
     <string name="next_step_button_label">Next Step</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
