@@ -16,6 +16,14 @@ public class BakingAppConstants {
     }
 
     /**
+     * final string for the service actions
+     *
+     */
+    public static final class ServiceActions {
+        public static final String UPDATE_INGREDIENTS = "com.doobs.baking.widget.update_ingredients";
+    }
+
+    /**
      * holds the json key constants
      *
      */
@@ -46,6 +54,8 @@ public class BakingAppConstants {
 
         public static final String MEDIA_PLAYER_POSITION    = "mediaPlayerPosition";
         public static final String MEDIA_PLAYER_STATE       = "mediaPlayerState";
+
+        public static final String INGREDIENTS_ARRAY        = "ingredientsArray";
     }
 
     /**

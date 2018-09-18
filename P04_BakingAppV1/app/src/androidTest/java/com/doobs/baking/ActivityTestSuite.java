@@ -1,7 +1,5 @@
 package com.doobs.baking;
 
-import com.doobs.baking.MainActivity;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

@@ -18,8 +18,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipeStepListActivity"></activity>
-        <activity android:name=".RecipeStepDetailActivity"></activity>
+        <activity android:name=".RecipeStepListActivity" />
+        <activity android:name=".RecipeStepDetailActivity" />
+
+        <service
+            android:name=".widget.BakingWidgetUpdateService"/>
+
+        <service
+            android:name=".widget.IngredientListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+
+        <receiver android:name=".widget.RecipeIngredientsWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_ingredients_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

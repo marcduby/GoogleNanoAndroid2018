@@ -11,4 +11,8 @@
 
     <string name="previous_step_button_label">Previous Step</string>
     <string name="next_step_button_label">Next Step</string>
+
+    <string name="appwidget_text">BAKING</string>
+    <string name="baking_app_widget_title">Baking Ingredients</string>
+    <string name="add_widget">Add widget</string>
 </resources>
