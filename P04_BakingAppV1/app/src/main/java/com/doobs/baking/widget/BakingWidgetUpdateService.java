@@ -61,7 +61,8 @@ public class BakingWidgetUpdateService extends IntentService {
                     int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeIngredientsWidgetProvider.class));
 
                     // update the widgets list view
-                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredient_widget_list_view);
+                    // TODO - skip list/grid view for now due to listener events not triggering factory
+//                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredient_widget_list_view);
 
                     // log
                     Log.i(TAG, "sent widget data changed event");

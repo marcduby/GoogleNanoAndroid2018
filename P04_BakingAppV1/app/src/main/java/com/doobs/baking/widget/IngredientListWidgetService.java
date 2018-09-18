@@ -35,6 +35,12 @@ class IngredientsListRemoteViewsFactory implements RemoteViewsService.RemoteView
         this.context = con;
         this.ingredientArray = stringArray;
 
+        // test
+//        this.ingredientArray = new String[40];
+//        for (int i = 0; i < 40; i++) {
+//            this.ingredientArray[i] = "ddude " + i;
+//        }
+
         // log
         Log.i(TAG, "Got array of size: " + (stringArray == null ? 0 : stringArray.length) + " of value: " + stringArray);
     }

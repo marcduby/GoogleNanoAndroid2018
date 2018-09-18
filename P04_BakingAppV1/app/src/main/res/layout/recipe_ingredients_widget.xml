@@ -7,7 +7,7 @@
     android:padding="@dimen/widget_margin">
 
     <TextView
-        android:id="@+id/appwidget_text"
+        android:id="@+id/ingredient_widget_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
@@ -19,12 +19,22 @@
         android:gravity="center"
         android:textStyle="bold|italic" />
 
-    <GridView
-        android:id="@+id/ingredient_widget_list_view"
+    <!--<GridView-->
+        <!--android:id="@+id/ingredient_widget_list_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:numColumns="1"-->
+        <!--/>-->
+
+    <TextView
+        android:id="@+id/ingredient_widget_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="1"
+        android:layout_margin="4dp"
+        android:background="#09C"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:gravity="left"
         />
-
 
 </LinearLayout>

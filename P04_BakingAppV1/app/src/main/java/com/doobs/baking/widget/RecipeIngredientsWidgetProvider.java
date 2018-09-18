@@ -36,15 +36,26 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_ingredients_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetTitle);
+        views.setTextViewText(R.id.ingredient_widget_title, widgetTitle);
+
+        // Construct the ingredient list
+        if (ingredientArray != null) {
+            StringBuffer stringBuffer = new StringBuffer();
+            for (int i = 0; i < ingredientArray.length; i++) {
+                stringBuffer.append(ingredientArray[i]);
+                stringBuffer.append("\n");
+            }
+            views.setTextViewText(R.id.ingredient_widget_text, stringBuffer.toString());
+        }
 
         // log
         Log.i(TAG, "Got ingredients array of size: " + (ingredientArray == null ? 0 : ingredientArray.length));
 
         // create the widget list view intent
-        Intent intent = new Intent(context, IngredientListWidgetService.class);
-        intent.putExtra(BakingAppConstants.ActivityExtras.INGREDIENTS_ARRAY, ingredientArray);
-        views.setRemoteAdapter(R.id.ingredient_widget_list_view, intent);
+        // TODO - skip for now; can't get the listener events to trigger reload of the fectory
+//        Intent intent = new Intent(context, IngredientListWidgetService.class);
+//        intent.putExtra(BakingAppConstants.ActivityExtras.INGREDIENTS_ARRAY, ingredientArray);
+//        views.setRemoteAdapter(R.id.ingredient_widget_list_view, intent);
 //        PendingIntent adapterPendingIntent = PendingIntent.getService(context, 0, intent, 0);
 //        views.setPendingIntentTemplate(R.id.ingredient_widget_list_view, adapterPendingIntent);
 
@@ -90,7 +101,8 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
         }
 
         // send the data changeed event
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredient_widget_list_view);
+        // TODO - skip list/grid view for now due to listener events not triggering factory
+//        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredient_widget_list_view);
 
         // log
         Log.i(TAG, "Sent widget change event from provider");
