@@ -22,8 +22,12 @@
         <activity android:name=".RecipeStepDetailActivity" />
 
         <service
-            android:name=".widget.BakingWidgetUpdateService"
+            android:name=".widget.BakingWidgetUpdateService"/>
+
+        <service
+            android:name=".widget.IngredientListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
 
         <receiver android:name=".widget.RecipeIngredientsWidgetProvider">
             <intent-filter>

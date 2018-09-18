@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.doobs.baking.R;
 import com.doobs.baking.bean.IngredientBean;
 import com.doobs.baking.bean.RecipeBean;
 import com.doobs.baking.util.BakingAppConstants;
@@ -58,6 +59,12 @@ public class BakingWidgetUpdateService extends IntentService {
                     // get the widgets
                     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
                     int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeIngredientsWidgetProvider.class));
+
+                    // update the widgets list view
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredient_widget_list_view);
+
+                    // log
+                    Log.i(TAG, "sent widget data changed event");
 
                     // call the provider update
                     RecipeIngredientsWidgetProvider.updateIngredientWidgets(this, appWidgetManager, appWidgetIds, recipeName, ingredientArray);

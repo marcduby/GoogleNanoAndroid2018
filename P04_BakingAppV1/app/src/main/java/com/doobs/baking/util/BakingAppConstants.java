@@ -54,6 +54,8 @@ public class BakingAppConstants {
 
         public static final String MEDIA_PLAYER_POSITION    = "mediaPlayerPosition";
         public static final String MEDIA_PLAYER_STATE       = "mediaPlayerState";
+
+        public static final String INGREDIENTS_ARRAY        = "ingredientsArray";
     }
 
     /**

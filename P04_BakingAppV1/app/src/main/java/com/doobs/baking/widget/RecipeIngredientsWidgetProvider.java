@@ -10,6 +10,7 @@ import android.widget.RemoteViews;
 
 import com.doobs.baking.MainActivity;
 import com.doobs.baking.R;
+import com.doobs.baking.util.BakingAppConstants;
 
 /**
  * Implementation of App Widget functionality.
@@ -35,12 +36,29 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_ingredients_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetTitle + "dude");
+        views.setTextViewText(R.id.appwidget_text, widgetTitle);
+
+        // log
+        Log.i(TAG, "Got ingredients array of size: " + (ingredientArray == null ? 0 : ingredientArray.length));
+
+        // create the widget list view intent
+        Intent intent = new Intent(context, IngredientListWidgetService.class);
+        intent.putExtra(BakingAppConstants.ActivityExtras.INGREDIENTS_ARRAY, ingredientArray);
+        views.setRemoteAdapter(R.id.ingredient_widget_list_view, intent);
+//        PendingIntent adapterPendingIntent = PendingIntent.getService(context, 0, intent, 0);
+//        views.setPendingIntentTemplate(R.id.ingredient_widget_list_view, adapterPendingIntent);
+
+        // log
+        Log.i(TAG, "Added widget list adapter for widget: " + appWidgetId);
 
         // create the intent for the click response
         Intent bakingIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, bakingIntent, 0);
+//        views.setPendingIntentTemplate(R.id.ingredient_widget_list_view, pendingIntent);
         views.setOnClickPendingIntent(R.id.baking_widget_layout, pendingIntent);
+
+        // log
+        Log.i(TAG, "Added main activity onClick for widget: " + appWidgetId);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -70,6 +88,12 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
             // update the widgets
             updateAppWidget(context, appWidgetManager, appWidgetId, recipeName, ingredientArray);
         }
+
+        // send the data changeed event
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredient_widget_list_view);
+
+        // log
+        Log.i(TAG, "Sent widget change event from provider");
     }
 }
 

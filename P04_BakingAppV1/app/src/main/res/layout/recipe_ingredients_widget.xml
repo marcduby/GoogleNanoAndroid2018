@@ -1,22 +1,30 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#09C"
     android:id="@+id/baking_widget_layout"
     android:padding="@dimen/widget_margin">
 
     <TextView
         android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_margin="4dp"
         android:background="#09C"
         android:contentDescription="@string/appwidget_text"
         android:text="@string/baking_app_widget_title"
         android:textColor="#ffffff"
         android:textSize="14sp"
+        android:gravity="center"
         android:textStyle="bold|italic" />
 
-</RelativeLayout>
+    <GridView
+        android:id="@+id/ingredient_widget_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="1"
+        />
+
+
+</LinearLayout>
