@@ -1,0 +1,13 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+task execute(type: JavaExec) {
+    main = "com.doobs.bestjokes.ScienceJokes"
+    classpath = sourceSets.main.runtimeClasspath
+}
