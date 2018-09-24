@@ -25,7 +25,6 @@ public class ScienceJokes {
     public String getAtomJoke() {
         // local variables
         List<String> stringList = new ArrayList<String>();
-        StringBuffer stringBuffer = new StringBuffer();
 
         // build joke
         stringList.add("Two atoms are walking down the street, when one trips and falls");
@@ -33,6 +32,32 @@ public class ScienceJokes {
         stringList.add("The second atom responds: 'I think I lost an electron'");
         stringList.add("The first atom asks: 'Are you sure?'");
         stringList.add("The second atom replies: 'Yes, I am positive.'");
+
+        // return
+        return this.getCrDelimitedString(stringList);
+    }
+
+    public String getPirateJoke() {
+        // local variables
+        List<String> stringList = new ArrayList<String>();
+
+        // build joke
+        stringList.add("What did the pirate say about the new movie?");
+        stringList.add("He said it was rated Arrrrr");
+
+        // return
+        return this.getCrDelimitedString(stringList);
+    }
+
+    /**
+     * adds CR to string list
+     *
+     * @param stringList
+     * @return
+     */
+    public String getCrDelimitedString(List<String> stringList) {
+        // local variables
+        StringBuffer stringBuffer = new StringBuffer();
 
         // add in CRs
         for (String string : stringList) {

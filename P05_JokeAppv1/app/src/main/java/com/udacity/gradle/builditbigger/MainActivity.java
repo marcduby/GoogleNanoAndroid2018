@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.doobs.bestjokes.ScienceJokes;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +41,17 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * handles the joke button click; returns a joke in a toast
+     *
+     * @param view
+     */
     public void tellJoke(View view) {
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        // P-05a: adding joke from library
+        ScienceJokes scienceJokes = new ScienceJokes();
+
+//        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, scienceJokes.getPirateJoke(), Toast.LENGTH_LONG).show();
     }
 
 
