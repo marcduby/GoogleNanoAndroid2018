@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.doobs.androidjokes.JokeActivity;
+import com.doobs.androidjokes.utils.JokeLibraryConstants;
 import com.doobs.bestjokes.ScienceJokes;
 
 
@@ -50,8 +53,16 @@ public class MainActivity extends AppCompatActivity {
         // P-05a: adding joke from library
         ScienceJokes scienceJokes = new ScienceJokes();
 
+        // get the text
+        String jokeText = scienceJokes.getPirateJoke();
+
 //        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, scienceJokes.getPirateJoke(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, jokeText, Toast.LENGTH_LONG).show();
+
+        // P-05b: send joke to android library
+        Intent jokeIntent = new Intent(this, JokeActivity.class);
+        jokeIntent.putExtra(JokeLibraryConstants.ExtraKeys.JOKE_KEY, jokeText);
+        this.startActivity(jokeIntent);
     }
 
 

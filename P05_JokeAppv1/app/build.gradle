@@ -37,6 +37,9 @@ dependencies {
     // add the java joke library dependency
     compile project(':bestJokes')
 
+    // add the android joke library dependency
+    compile project(':androidJokes')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     implementation 'com.android.support:appcompat-v7:26.1.0'

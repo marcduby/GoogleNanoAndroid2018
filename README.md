@@ -1,5 +1,9 @@
 # GoogleNanoAndroid2018 #
 
+## Project 5 (Jokes v1, GCP endpoint) ##
+* Used the following references
+  * How to download the Gradle 3.0.1 wrapper for Android
+    * https://stackoverflow.com/questions/48523795/could-not-find-com-android-tools-buildgradle3-0-1
 
 ## Project 4 (Baking v1, recipes and steps, videos) ##
 * Used the following references
