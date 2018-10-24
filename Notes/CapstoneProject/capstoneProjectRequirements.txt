@@ -1,0 +1,55 @@
+
+
+
+- specs
+  - basic
+    - third party libabry
+    - validate user and server input
+    - support for accessibility
+    - all string in strings.xml
+    - app widget
+  - googe play
+    - 2 or more google services
+    - each service in build.gradle
+    - if location, use device
+    - admob
+    - analytics
+    - maps
+    - identity
+  - material design
+    - appcompat
+    - app bar and associated toolbars
+    - simple transitions btween activities
+  - build
+    - clean repository
+    - app deploys using installRelease from gradle task
+    - app has singing config
+    - all depnedencies managed by gradle
+  - presistence
+    - room/firebae
+    - pull data from REST
+    -
+    
+- ideas
+  -
+  
+  
+  
+  
+- major reqs
+    - third party libabry
+      - butterknife for viw management
+  - googe play
+    - 2 or more google services
+      - location
+      - maps
+      - firebase (stretch) for sharing viewings
+  - material design
+  - build
+  - presistence
+    - room/firebae
+      - room and architecture components
+    - pull data from REST
+      - find bird lookup service
+    
+  
