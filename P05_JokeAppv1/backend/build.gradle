@@ -27,6 +27,9 @@ appengine.tools.cloudSdkHome="/Users/mduby/Apps/Tools/google-cloud-sdk"
 
 
 dependencies {
+    // add the android joke library dependency
+    compile project(':bestJokes')
+
     implementation 'com.google.endpoints:endpoints-framework:2.0.9'
     implementation 'javax.inject:javax.inject:1'
 
