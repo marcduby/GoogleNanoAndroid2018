@@ -25,6 +25,7 @@ targetCompatibility = JavaVersion.VERSION_1_7
 
 appengine.tools.cloudSdkHome="/Users/mduby/Apps/Tools/google-cloud-sdk"
 
+// appengineDeploy.doFirst {gcloud config set project 'test'}
 
 dependencies {
     // add the android joke library dependency
