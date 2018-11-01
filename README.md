@@ -4,6 +4,8 @@
 * Used the following references
   * How to download the Gradle 3.0.1 wrapper for Android
     * https://stackoverflow.com/questions/48523795/could-not-find-com-android-tools-buildgradle3-0-1
+  * To help with configuring my GCP library location
+    * https://stackoverflow.com/questions/49307284/the-google-cloud-sdk-could-not-be-found-in-the-customary-locations-and-no-path
 
 ## Project 4 (Baking v1, recipes and steps, videos) ##
 * Used the following references
