@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
 //        this.startActivity(jokeIntent);
 
         // P-05c: start the new GCP joke geting task
-        new JokeGettingEndpointsAsyncTask().execute(new Pair<Context, String>(this, "joke"));
+        this.openNewActivityWithJoke("hahahahahhahahah");
+//        new JokeGettingEndpointsAsyncTask().execute(new Pair<Context, String>(this, "joke"));
     }
 
     /**
@@ -129,8 +131,9 @@ public class MainActivity extends AppCompatActivity {
             try {
                 return myApiService.sayHi(name).execute().getData();
 
-            } catch (IOException e) {
-                return e.getMessage();
+            } catch (IOException exception) {
+                Log.e(this.getClass().getName(), "Got network error: " + exception.getMessage());
+                return null;
             }
         }
 

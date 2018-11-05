@@ -8,6 +8,8 @@
     * https://stackoverflow.com/questions/49307284/the-google-cloud-sdk-could-not-be-found-in-the-customary-locations-and-no-path
   * To help how to run flavors ijn Android Studio
     * https://stackoverflow.com/questions/45746049/how-to-run-different-product-flavors-in-android-studio
+  * Used the following reference for the intent testing
+    * https://developer.android.com/training/testing/espresso/intents#java
 
 ## Project 4 (Baking v1, recipes and steps, videos) ##
 * Used the following references

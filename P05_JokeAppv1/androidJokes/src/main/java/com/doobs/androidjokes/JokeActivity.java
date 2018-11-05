@@ -32,7 +32,7 @@ public class JokeActivity extends AppCompatActivity {
         } else {
             Intent intent = this.getIntent();
 
-            if (intent != null) {
+            if ((intent != null) && (intent.hasExtra(JokeLibraryConstants.ExtraKeys.JOKE_KEY))) {
                 this.jokeString = intent.getStringExtra(JokeLibraryConstants.ExtraKeys.JOKE_KEY);
             }
         }
