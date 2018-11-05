@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * inner class to fetch a joke from the GCP endpoint
+     * Inner class to fetch a joke from the GCP endpoint
      *
      */
     class JokeGettingEndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
