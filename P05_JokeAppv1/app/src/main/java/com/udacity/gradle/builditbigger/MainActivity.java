@@ -67,17 +67,8 @@ public class MainActivity extends AppCompatActivity {
         // get the text
         String jokeText = scienceJokes.getPirateJoke();
 
-//        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this, jokeText, Toast.LENGTH_LONG).show();
-//
-//        // P-05b: send joke to android library
-//        Intent jokeIntent = new Intent(this, JokeActivity.class);
-//        jokeIntent.putExtra(JokeLibraryConstants.ExtraKeys.JOKE_KEY, jokeText);
-//        this.startActivity(jokeIntent);
-
         // P-05c: start the new GCP joke geting task
-        this.openNewActivityWithJoke("hahahahahhahahah");
-//        new JokeGettingEndpointsAsyncTask().execute(new Pair<Context, String>(this, "joke"));
+        new JokeGettingEndpointsAsyncTask().execute(new Pair<Context, String>(this, "joke"));
     }
 
     /**
