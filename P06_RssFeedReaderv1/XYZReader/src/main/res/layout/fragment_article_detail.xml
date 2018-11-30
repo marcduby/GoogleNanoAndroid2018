@@ -80,6 +80,7 @@
                         android:textColor="#8fff" />
                 </LinearLayout>
 
+                <!-- main article body -->
                 <TextView
                     android:id="@+id/article_body"
                     style="?android:attr/textAppearanceMedium"
