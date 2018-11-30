@@ -25,7 +25,12 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="applicationStyle" parent="Theme.Bacon.Detail">
+    <style name="Theme.ApplicationNew" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/doobsPrimary</item>
+    </style>
+
+
+    <style name="applicationStyle" parent="Theme.ApplicationNew">
         <item name="android:background">@color/doobsPrimary</item>
     </style>
 
