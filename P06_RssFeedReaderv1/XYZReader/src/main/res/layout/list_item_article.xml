@@ -20,6 +20,7 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:elevation="@dimen/new_card_elevation"
             android:scaleType="centerCrop"
             android:background="@color/photo_placeholder" />
 

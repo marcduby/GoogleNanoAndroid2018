@@ -25,4 +25,15 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Theme.ApplicationNew" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorPrimaryDark">@color/blue_700</item>
+        <item name="colorAccent">@color/yellow_200</item>
+    </style>
+
+
+    <style name="applicationStyle" parent="Theme.ApplicationNew">
+        <item name="android:background">@color/doobsPrimary</item>
+    </style>
+
 </resources>
