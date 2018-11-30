@@ -1,5 +1,20 @@
 # GoogleNanoAndroid2018 #
 
+## Project 6 (Material Design) ##
+* Used the following references
+  * For the design support library
+    * https://guides.codepath.com/android/Design-Support-Library
+  * For help using Coodinator Layout
+    * https://guides.codepath.com/android/handling-scrolls-with-coordinatorlayout
+    * https://www.androidauthority.com/using-coordinatorlayout-android-apps-703720/
+  * For full bleed images and what they are
+    * https://www.lasvegascolor.com/full-bleed-layouts/
+  * Cardview image fit
+    * https://stackoverflow.com/questions/27394300/make-imageview-fit-width-of-cardview
+  * For elevation standards
+    * https://material.io/design/environment/elevation.html#elevation-shadows-elevation-android
+  
+
 ## Project 5 (Jokes v1, GCP endpoint) ##
 * Used the following references
   * How to download the Gradle 3.0.1 wrapper for Android
