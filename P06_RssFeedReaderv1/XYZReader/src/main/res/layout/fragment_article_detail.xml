@@ -17,7 +17,7 @@
                 android:id="@+id/photo_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/photo_placeholder">
+                android:background="@color/doobsPrimary">
                 <!--suppress AndroidLintContentDescription -->
                 <ImageView
                     android:id="@+id/photo"
@@ -80,11 +80,11 @@
                     style="?android:attr/textAppearanceMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/detail_inner_horiz_margin"
-                    android:layout_marginRight="@dimen/detail_inner_horiz_margin"
+                    android:layout_marginLeft="@dimen/new_text_side_padding"
+                    android:layout_marginRight="@dimen/new_text_side_padding"
                     android:paddingBottom="@dimen/detail_body_bottom_margin"
-                    android:textColor="@color/ltgray"
-                    android:textColorLink="@color/theme_accent"
+                    android:textColor="@color/doobsPrimaryDark"
+                    android:textColorLink="@color/doobsPrimary"
                     android:textSize="@dimen/detail_body_text_size"
                     android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
 
