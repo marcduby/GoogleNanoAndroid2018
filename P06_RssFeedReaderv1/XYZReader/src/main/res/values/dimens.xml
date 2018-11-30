@@ -20,5 +20,6 @@
     <dimen name="new_fab_elevation_pressed">12dp</dimen>
 
     <dimen name="new_text_side_padding">32dp</dimen>
+    <dimen name="new_detail_body_text_size">16sp</dimen>
 
 </resources>
