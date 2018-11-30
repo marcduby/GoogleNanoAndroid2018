@@ -31,6 +31,7 @@
     <!-- new colors -->
     <color name="doobsPrimary">#00ccff</color>
     <color name="doobsPrimaryDark">#0066ff</color>
+    <color name="doobsPrimaryLotDarker">#000066</color>
     <color name="doobsAccent">#ffcc00</color>
 
 </resources>

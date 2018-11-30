@@ -57,11 +57,11 @@ public class ArticleListActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
+        // get the toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
+        // gets the layout (kinda odd layout)
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -73,7 +73,7 @@ public class ArticleListActivity extends ActionBarActivity implements
     }
 
     private void refresh() {
-        startService(new Intent(this, UpdaterService.class));
+            startService(new Intent(this, UpdaterService.class));
     }
 
     @Override
@@ -146,17 +146,22 @@ public class ArticleListActivity extends ActionBarActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                    startActivity(new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
                 }
             });
             return vh;
         }
 
+        /**
+         * parses the date
+         *
+         * @return
+         */
         private Date parsePublishedDate() {
             try {
                 String date = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
                 return dateFormat.parse(date);
+
             } catch (ParseException ex) {
                 Log.e(TAG, ex.getMessage());
                 Log.i(TAG, "passing today's date");
