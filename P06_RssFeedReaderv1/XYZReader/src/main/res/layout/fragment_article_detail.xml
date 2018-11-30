@@ -17,18 +17,14 @@
             <FrameLayout
                 android:id="@+id/photo_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="@color/ltgray">
+                android:layout_height="wrap_content">
                 <!--suppress AndroidLintContentDescription -->
 
                 <ImageView
                     android:id="@+id/photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="center"
-                    android:layout_margin="16dp"
-                     />
+                    android:scaleType="centerCrop"/>
 
                 <View
                     android:layout_width="match_parent"
