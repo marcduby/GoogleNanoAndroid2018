@@ -20,6 +20,7 @@
     <dimen name="new_fab_elevation">6dp</dimen>
     <dimen name="new_fab_elevation_pressed">12dp</dimen>
     <dimen name="new_app_bar_elevation">4dp</dimen>
+    <dimen name="new_card_elevation">8dp</dimen>
 
     <!-- padding -->
     <dimen name="new_text_side_padding">32dp</dimen>
