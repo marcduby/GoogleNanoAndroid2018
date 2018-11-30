@@ -218,22 +218,35 @@ public class ArticleDetailFragment extends Fragment implements
 
             // man, this is way confusing
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
-                bylineView.setText(Html.fromHtml("<font color='#ffffff'>" +
+//                bylineView.setText(Html.fromHtml("<font color='#ffffff'>" +
+//                        DateUtils.getRelativeTimeSpanString(
+//                                publishedDate.getTime(),
+//                                System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
+//                                DateUtils.FORMAT_ABBREV_ALL).toString()
+//                                + " by "
+//                                + mCursor.getString(ArticleLoader.Query.AUTHOR)
+//                                + "</font>"));
+
+                bylineView.setText(
                         DateUtils.getRelativeTimeSpanString(
                                 publishedDate.getTime(),
                                 System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
                                 DateUtils.FORMAT_ABBREV_ALL).toString()
-                                + " by "
-                                + mCursor.getString(ArticleLoader.Query.AUTHOR)
-                                + "</font>"));
+                        + " by "
+                        + mCursor.getString(ArticleLoader.Query.AUTHOR)
+                        );
 
             } else {
                 // If date is before 1902, just show the string
-                bylineView.setText(Html.fromHtml(
-                        " by <font color='#ffffff'>" + outputFormat.format(publishedDate) +
-                        mCursor.getString(ArticleLoader.Query.AUTHOR)
-                                + "</font>"));
+//                bylineView.setText(Html.fromHtml(
+//                        " by <font color='#ffffff'>" + outputFormat.format(publishedDate) +
+//                        mCursor.getString(ArticleLoader.Query.AUTHOR)
+//                                + "</font>"));
 
+                bylineView.setText(
+                        outputFormat.format(publishedDate) +
+                                mCursor.getString(ArticleLoader.Query.AUTHOR)
+                                );
             }
 
             // body text
