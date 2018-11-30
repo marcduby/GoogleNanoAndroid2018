@@ -17,7 +17,8 @@
             <FrameLayout
                 android:id="@+id/photo_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/new_app_bar_elevation">
                 <!--suppress AndroidLintContentDescription -->
 
                 <ImageView
