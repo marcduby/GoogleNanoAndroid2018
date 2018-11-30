@@ -37,4 +37,9 @@
     <color name="doobsPrimaryLotDarker">#000066</color>
     <color name="doobsAccent">#ffcc00</color>
 
+    <!-- theme colors -->
+    <color name="blue_500">#00ccff</color>
+    <color name="blue_700">#0066ff</color>
+    <color name="yellow_200">#ffcc00</color>
+
 </resources>
