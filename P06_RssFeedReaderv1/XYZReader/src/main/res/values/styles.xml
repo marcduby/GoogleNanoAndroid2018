@@ -25,4 +25,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="applicationStyle" parent="Theme.Bacon.Detail">
+        <item name="android:background">@color/doobsPrimary</item>
+    </style>
+
 </resources>
