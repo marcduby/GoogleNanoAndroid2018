@@ -8,4 +8,12 @@
     <dimen name="fab_press_translation_z">6dp</dimen>
     <dimen name="fab_margin">24dp</dimen>
 
+
+    <!-- old values -->
+    <dimen name="old_toolbar_height">112dp</dimen>
+
+
+    <!-- new update values -->
+    <dimen name="new_toolbar_height">56dp</dimen>
+
 </resources>
