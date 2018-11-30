@@ -16,4 +16,7 @@
     <!-- new update values -->
     <dimen name="new_toolbar_height">56dp</dimen>
 
+    <dimen name="new_fab_elevation">6dp</dimen>
+    <dimen name="new_fab_elevation_pressed">12dp</dimen>
+
 </resources>
