@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/new_toolbar_height"
         android:theme="@style/Theme.ApplicationNew"
+
         android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
@@ -18,6 +19,7 @@
             android:layout_marginRight="@dimen/list_toolbar_side_margin"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
+            android:elevation="@dimen/new_app_bar_elevation"
             android:layout_gravity="bottom">
 
             <ImageView
